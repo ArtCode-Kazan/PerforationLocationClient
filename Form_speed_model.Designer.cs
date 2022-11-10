@@ -38,7 +38,9 @@
             this.h_top = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.h_bottom = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // button_cancel
@@ -105,7 +107,7 @@
             this.h_bottom,
             this.vp});
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.dataGridView1.Location = new System.Drawing.Point(61, 166);
+            this.dataGridView1.Location = new System.Drawing.Point(25, 166);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(303, 280);
@@ -126,11 +128,20 @@
             this.vp.HeaderText = "Vp";
             this.vp.Name = "vp";
             // 
+            // chartControl1
+            // 
+            this.chartControl1.Location = new System.Drawing.Point(402, 178);
+            this.chartControl1.Name = "chartControl1";
+            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
+            this.chartControl1.Size = new System.Drawing.Size(300, 200);
+            this.chartControl1.TabIndex = 14;
+            // 
             // Form_speed_model
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 561);
+            this.Controls.Add(this.chartControl1);
             this.Controls.Add(this.button_cancel);
             this.Controls.Add(this.button_ok);
             this.Controls.Add(this.button_open_file);
@@ -141,6 +152,7 @@
             this.Name = "Form_speed_model";
             this.Text = "seisapp";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,5 +170,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn h_top;
         private System.Windows.Forms.DataGridViewTextBoxColumn h_bottom;
         private System.Windows.Forms.DataGridViewTextBoxColumn vp;
+        private DevExpress.XtraCharts.ChartControl chartControl1;
     }
 }

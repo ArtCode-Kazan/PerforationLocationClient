@@ -92,6 +92,52 @@ namespace seisapp
 
         private void button_ok_Click(object sender, EventArgs e)
         {
+            using (var connection = new SqliteConnection("Data Source=" + Database.path))
+            {
+                connection.Open();
+
+                SqliteCommand command_del = new SqliteCommand("DELETE  FROM velocity", connection);
+                command_del.ExecuteNonQuery();
+
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection;
+                string h_top = "0";
+                string h_bottom = "0";
+                string vp = "0";
+
+                dataGridView1.AllowUserToAddRows = false;
+                foreach (DataGridViewRow r in dataGridView1.Rows)
+                {
+
+                    if (r.Cells["h_top"].Value != null)
+                    {
+                        h_top = r.Cells["h_top"].Value.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");
+                    }
+                    if (r.Cells["h_bottom"].Value != null)
+                    {
+                        h_bottom = r.Cells["h_bottom"].Value.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");
+                    }
+                    if (r.Cells["vp"].Value != null)
+                    {
+                        vp = r.Cells["vp"].Value.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");
+                    }
+
+                    command.CommandText = "INSERT INTO velocity (h_top, h_bottom, vp) VALUES (" + h_top + ", " + h_bottom + "," + vp + ")";
+                    command.ExecuteNonQuery();
+                }
+            }
             Close();
         }
 
