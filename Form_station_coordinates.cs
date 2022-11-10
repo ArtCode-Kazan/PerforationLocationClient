@@ -76,9 +76,9 @@ namespace seisapp
                 if (Int32.TryParse(items[0], out int result) == true)
                 {
                     int number = int.Parse(items[0]);
-                    float x = float.Parse(items[1]);
-                    float y = float.Parse(items[2]);
-                    float altitude = float.Parse(items[3]);
+                    double x = double.Parse(items[1]);
+                    double y = double.Parse(items[2]);
+                    double altitude = double.Parse(items[3]);
                     dataGridView1.Rows.Add(number, x, y, altitude);
                 }
                 else

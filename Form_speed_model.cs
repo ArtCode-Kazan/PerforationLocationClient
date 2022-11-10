@@ -8,14 +8,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Data.Sqlite;
 
 namespace seisapp
 {
     public partial class Form_speed_model : Form
     {
         public Form_speed_model()
-        {
+        {            
             InitializeComponent();
+            this.ControlBox = false;
+            dataGridView1.AllowUserToAddRows = true;
+            string sqlExpression = "SELECT * FROM velocity";
+            using (var connection_out = new SqliteConnection("Data Source=" + Database.path))
+            {
+                connection_out.Open();
+                SqliteCommand command = new SqliteCommand(sqlExpression, connection_out);
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows) // если есть данные
+                    {
+                        while (reader.Read())   // построчно считываем данные
+                        {
+                            var h_top = reader.GetValue(0);
+                            var h_bottom = reader.GetValue(1);
+                            var altitude = reader.GetValue(2);                            
+                            dataGridView1.Rows.Add(h_top, h_bottom, altitude);
+                        }
+                    }
+                }
+            }
         }
 
         private void button_open_file_Click(object sender, EventArgs e)
