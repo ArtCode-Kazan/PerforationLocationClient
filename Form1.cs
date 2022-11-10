@@ -69,6 +69,11 @@ namespace seisapp
             }
         }
 
+        private void speedModelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form speed_model_form = new Form_speed_model();
+            speed_model_form.ShowDialog();
+        }
     }
     static class Database
     {

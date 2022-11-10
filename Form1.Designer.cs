@@ -129,7 +129,7 @@
             // peakTracesToolStripMenuItem
             // 
             this.peakTracesToolStripMenuItem.Name = "peakTracesToolStripMenuItem";
-            this.peakTracesToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.peakTracesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.peakTracesToolStripMenuItem.Text = "Peak traces";
             // 
             // optionsToolStripMenuItem
@@ -144,13 +144,14 @@
             // speedModelToolStripMenuItem
             // 
             this.speedModelToolStripMenuItem.Name = "speedModelToolStripMenuItem";
-            this.speedModelToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.speedModelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.speedModelToolStripMenuItem.Text = "Speed model";
+            this.speedModelToolStripMenuItem.Click += new System.EventHandler(this.speedModelToolStripMenuItem_Click);
             // 
             // correctionsToolStripMenuItem
             // 
             this.correctionsToolStripMenuItem.Name = "correctionsToolStripMenuItem";
-            this.correctionsToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.correctionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.correctionsToolStripMenuItem.Text = "Corrections";
             // 
             // Form1
