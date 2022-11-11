@@ -31,10 +31,9 @@ namespace seisapp
                     {
                         while (reader.Read())   // построчно считываем данные
                         {
-                            var h_top = reader.GetValue(0);
-                            var h_bottom = reader.GetValue(1);
+                            var h_top = reader.GetValue(0);                            
                             var vp = reader.GetValue(2);
-                            dataGridView1.Rows.Add(h_top, h_bottom, vp);
+                            dataGridView1.Rows.Add(h_top, vp);
                         }
                     }
                 }
@@ -55,6 +54,7 @@ namespace seisapp
             }
             dataGridView1.AllowUserToAddRows = true;
         }
+
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             MessageBox.Show("123");
@@ -128,18 +128,9 @@ namespace seisapp
                 dataGridView1.AllowUserToAddRows = false;
                 foreach (DataGridViewRow r in dataGridView1.Rows)
                 {
-
                     if (r.Cells["h_top"].Value != null)
                     {
                         h_top = r.Cells["h_top"].Value.ToString();
-                    }
-                    else
-                    {
-                        MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");
-                    }
-                    if (r.Cells["h_bottom"].Value != null)
-                    {
-                        h_bottom = r.Cells["h_bottom"].Value.ToString();
                     }
                     else
                     {

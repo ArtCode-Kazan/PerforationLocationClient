@@ -73,5 +73,24 @@ namespace seisapp
             Form speed_model_form = new Form_connection();
             speed_model_form.ShowDialog();
         }
+
+        private void seismicRecordsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form seismic_records_form = new Form_seismic_records();
+            seismic_records_form.ShowDialog();
+        }
+
+        private void clearDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Database.clear_table(Database.VELOCITY_TABLENAME);
+            Database.clear_table(Database.SETTINGS_TABLENAME);
+            Database.clear_table(Database.STATION_COORDINATES_TABLENAME);
+        }
+
+        private void correctionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form corrections_form = new Form_corrections();
+            corrections_form.ShowDialog();
+        }
     }
 }

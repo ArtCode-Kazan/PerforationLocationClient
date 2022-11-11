@@ -38,10 +38,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.h_top = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.h_bottom = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
+            this.h_top = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
@@ -110,7 +109,6 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.h_top,
-            this.h_bottom,
             this.vp});
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ControlDarkDark;
             this.dataGridView1.Location = new System.Drawing.Point(25, 166);
@@ -119,21 +117,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(303, 280);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // h_top
-            // 
-            this.h_top.HeaderText = "h_top";
-            this.h_top.Name = "h_top";
-            // 
-            // h_bottom
-            // 
-            this.h_bottom.HeaderText = "h_bottom";
-            this.h_bottom.Name = "h_bottom";
-            // 
-            // vp
-            // 
-            this.vp.HeaderText = "Vp";
-            this.vp.Name = "vp";
             // 
             // chartControl1
             // 
@@ -152,6 +135,16 @@
         series1};
             this.chartControl1.Size = new System.Drawing.Size(303, 301);
             this.chartControl1.TabIndex = 14;
+            // 
+            // h_top
+            // 
+            this.h_top.HeaderText = "h_top";
+            this.h_top.Name = "h_top";
+            // 
+            // vp
+            // 
+            this.vp.HeaderText = "Vp";
+            this.vp.Name = "vp";
             // 
             // Form_speed_model
             // 
@@ -187,9 +180,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn h_top;
-        private System.Windows.Forms.DataGridViewTextBoxColumn h_bottom;
-        private System.Windows.Forms.DataGridViewTextBoxColumn vp;
         private DevExpress.XtraCharts.ChartControl chartControl1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn h_top;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vp;
     }
 }

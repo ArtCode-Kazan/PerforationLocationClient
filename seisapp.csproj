@@ -177,6 +177,18 @@
     <Compile Include="Form_connection.Designer.cs">
       <DependentUpon>Form_connection.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_corrections.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_corrections.Designer.cs">
+      <DependentUpon>Form_corrections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_seismic_records.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_seismic_records.Designer.cs">
+      <DependentUpon>Form_seismic_records.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_speed_model.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -196,6 +208,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_connection.resx">
       <DependentUpon>Form_connection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_corrections.resx">
+      <DependentUpon>Form_corrections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_seismic_records.resx">
+      <DependentUpon>Form_seismic_records.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_speed_model.resx">
       <DependentUpon>Form_speed_model.cs</DependentUpon>

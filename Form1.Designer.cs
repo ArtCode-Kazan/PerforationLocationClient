@@ -112,12 +112,14 @@
             this.seismicRecordsToolStripMenuItem.Name = "seismicRecordsToolStripMenuItem";
             this.seismicRecordsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.seismicRecordsToolStripMenuItem.Text = "Seismic records";
+            this.seismicRecordsToolStripMenuItem.Click += new System.EventHandler(this.seismicRecordsToolStripMenuItem_Click);
             // 
             // clearDataToolStripMenuItem
             // 
             this.clearDataToolStripMenuItem.Name = "clearDataToolStripMenuItem";
             this.clearDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearDataToolStripMenuItem.Text = "Clear data";
+            this.clearDataToolStripMenuItem.Click += new System.EventHandler(this.clearDataToolStripMenuItem_Click);
             // 
             // proccessingToolStripMenuItem
             // 
@@ -146,7 +148,7 @@
             // speedModelToolStripMenuItem
             // 
             this.speedModelToolStripMenuItem.Name = "speedModelToolStripMenuItem";
-            this.speedModelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.speedModelToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.speedModelToolStripMenuItem.Text = "Speed model";
             this.speedModelToolStripMenuItem.Click += new System.EventHandler(this.speedModelToolStripMenuItem_Click);
             // 
@@ -155,11 +157,12 @@
             this.correctionsToolStripMenuItem.Name = "correctionsToolStripMenuItem";
             this.correctionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.correctionsToolStripMenuItem.Text = "Corrections";
+            this.correctionsToolStripMenuItem.Click += new System.EventHandler(this.correctionsToolStripMenuItem_Click);
             // 
             // connectionToolStripMenuItem
             // 
             this.connectionToolStripMenuItem.Name = "connectionToolStripMenuItem";
-            this.connectionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.connectionToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.connectionToolStripMenuItem.Text = "Connection";
             this.connectionToolStripMenuItem.Click += new System.EventHandler(this.connectionToolStripMenuItem_Click);
             // 
