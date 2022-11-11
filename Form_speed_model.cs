@@ -55,8 +55,9 @@ namespace seisapp
             }
             dataGridView1.AllowUserToAddRows = true;
         }
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventHandler e)
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            MessageBox.Show("123");
             update_graph();
         }
         private void button_open_file_Click(object sender, EventArgs e)

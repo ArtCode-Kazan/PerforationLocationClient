@@ -49,6 +49,14 @@ namespace seisapp
                     command.CommandText = "CREATE TABLE velocity(h_top DOUBLE NOT NULL, h_bottom DOUBLE NOT NULL, vp DOUBLE NOT NULL)";
                     command.ExecuteNonQuery();
                 }
+                using (var connection = new SqliteConnection("Data Source=" + Database.path))
+                {
+                    connection.Open();
+                    SqliteCommand command = new SqliteCommand();
+                    command.Connection = connection;
+                    command.CommandText = "CREATE TABLE settings(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";
+                    command.ExecuteNonQuery();
+                }
             }                    
         }
 
@@ -82,9 +90,11 @@ namespace seisapp
             Form speed_model_form = new Form_speed_model();
             speed_model_form.ShowDialog();
         }
-    }
-    static class Database
-    {
-        public static string path = "";
+
+        private void connectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form speed_model_form = new Form_connection();
+            speed_model_form.ShowDialog();
+        }
     }
 }

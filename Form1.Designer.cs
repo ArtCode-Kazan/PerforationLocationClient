@@ -42,6 +42,7 @@
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speedModelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.correctionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -102,20 +103,20 @@
             // stationCoordinatesToolStripMenuItem
             // 
             this.stationCoordinatesToolStripMenuItem.Name = "stationCoordinatesToolStripMenuItem";
-            this.stationCoordinatesToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.stationCoordinatesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.stationCoordinatesToolStripMenuItem.Text = "Station coordinates";
             this.stationCoordinatesToolStripMenuItem.Click += new System.EventHandler(this.stationCoordinatesToolStripMenuItem_Click);
             // 
             // seismicRecordsToolStripMenuItem
             // 
             this.seismicRecordsToolStripMenuItem.Name = "seismicRecordsToolStripMenuItem";
-            this.seismicRecordsToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.seismicRecordsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.seismicRecordsToolStripMenuItem.Text = "Seismic records";
             // 
             // clearDataToolStripMenuItem
             // 
             this.clearDataToolStripMenuItem.Name = "clearDataToolStripMenuItem";
-            this.clearDataToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.clearDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearDataToolStripMenuItem.Text = "Clear data";
             // 
             // proccessingToolStripMenuItem
@@ -136,10 +137,11 @@
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.speedModelToolStripMenuItem,
-            this.correctionsToolStripMenuItem});
+            this.correctionsToolStripMenuItem,
+            this.connectionToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.optionsToolStripMenuItem.Text = "Options";
+            this.optionsToolStripMenuItem.Text = "Settings";
             // 
             // speedModelToolStripMenuItem
             // 
@@ -153,6 +155,13 @@
             this.correctionsToolStripMenuItem.Name = "correctionsToolStripMenuItem";
             this.correctionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.correctionsToolStripMenuItem.Text = "Corrections";
+            // 
+            // connectionToolStripMenuItem
+            // 
+            this.connectionToolStripMenuItem.Name = "connectionToolStripMenuItem";
+            this.connectionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.connectionToolStripMenuItem.Text = "Connection";
+            this.connectionToolStripMenuItem.Click += new System.EventHandler(this.connectionToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -186,6 +195,7 @@
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem speedModelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem correctionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem connectionToolStripMenuItem;
     }
 }
 

@@ -138,12 +138,11 @@
             // chartControl1
             // 
             xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram1.AxisY.Reverse = true;
             xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
             xyDiagram1.Rotated = true;
             this.chartControl1.Diagram = xyDiagram1;
             this.chartControl1.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
-            this.chartControl1.Location = new System.Drawing.Point(356, 145);
+            this.chartControl1.Location = new System.Drawing.Point(357, 144);
             this.chartControl1.Name = "chartControl1";
             series1.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;
             series1.Name = "xy_collection";
