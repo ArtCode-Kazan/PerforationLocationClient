@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.XtraCharts;
 using Microsoft.Data.Sqlite;
 
 namespace seisapp
@@ -15,8 +16,8 @@ namespace seisapp
     public partial class Form_speed_model : Form
     {
         public Form_speed_model()
-        {            
-            InitializeComponent();
+        {
+            InitializeComponent();            
             this.ControlBox = false;
             dataGridView1.AllowUserToAddRows = true;
             string sqlExpression = "SELECT * FROM velocity";
@@ -32,14 +33,32 @@ namespace seisapp
                         {
                             var h_top = reader.GetValue(0);
                             var h_bottom = reader.GetValue(1);
-                            var altitude = reader.GetValue(2);                            
-                            dataGridView1.Rows.Add(h_top, h_bottom, altitude);
+                            var vp = reader.GetValue(2);
+                            dataGridView1.Rows.Add(h_top, h_bottom, vp);
                         }
                     }
                 }
             }
+            update_graph();
         }
 
+        public void update_graph()
+        {
+            Series xy_collection = chartControl1.Series["xy_collection"];
+            xy_collection.Points.Clear();
+            dataGridView1.AllowUserToAddRows = false;
+            foreach (DataGridViewRow r in dataGridView1.Rows)
+            {
+                var h_top = r.Cells["h_top"].Value;
+                var vp = r.Cells["vp"].Value;
+                xy_collection.Points.AddPoint(Convert.ToInt32(h_top), Convert.ToInt32(vp));
+            }
+            dataGridView1.AllowUserToAddRows = true;
+        }
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventHandler e)
+        {
+            update_graph();
+        }
         private void button_open_file_Click(object sender, EventArgs e)
         {
             //open file
@@ -144,6 +163,11 @@ namespace seisapp
         private void button_cancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
