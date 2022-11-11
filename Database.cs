@@ -39,6 +39,10 @@ namespace seisapp
                 command.Connection = connection;
                 command.CommandText = TABLE_SETTINGS_CREATING_COMMAND;
                 command.ExecuteNonQuery();
+                command.CommandText = TABLE_STATION_CREATING_COMMAND;
+                command.ExecuteNonQuery();
+                command.CommandText = TABLE_VELOCITY_CREATING_COMMAND;
+                command.ExecuteNonQuery();
             }
         }        
         static private void add_row_in_table_velocity(double h_top, double h_bottom, double vp)
