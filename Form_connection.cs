@@ -22,14 +22,7 @@ namespace seisapp
         {
             string ip = textBox1.Text;
             int port = int.Parse(textBox2.Text);
-            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
-            {
-                connection.Open();
-                SqliteCommand command = new SqliteCommand();
-                command.Connection = connection;              
-                command.CommandText = "INSERT INTO settings (ip, port) VALUES ('" + ip + "', " + port + ")";
-                command.ExecuteNonQuery();
-            }
+            Database.refresh_row_in_table_settings(ip, port);
             Close();
         }
 

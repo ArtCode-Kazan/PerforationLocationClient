@@ -33,30 +33,9 @@ namespace seisapp
             if (save_file.ShowDialog() == DialogResult.OK)
             {
                 Database.PATH = save_file.FileName + ".db";
-                using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
-                {
-                    connection.Open();
-                    SqliteCommand command = new SqliteCommand();
-                    command.Connection = connection;
-                    command.CommandText = "CREATE TABLE Users(_number INTEGER NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
-                    command.ExecuteNonQuery();
-                }
-                using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
-                {
-                    connection.Open();
-                    SqliteCommand command = new SqliteCommand();
-                    command.Connection = connection;
-                    command.CommandText = "CREATE TABLE velocity(h_top DOUBLE NOT NULL, h_bottom DOUBLE NOT NULL, vp DOUBLE NOT NULL)";
-                    command.ExecuteNonQuery();
-                }
-                using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
-                {
-                    connection.Open();
-                    SqliteCommand command = new SqliteCommand();
-                    command.Connection = connection;
-                    command.CommandText = "CREATE TABLE settings(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";
-                    command.ExecuteNonQuery();
-                }
+                Database.create_table_station_coordinates();
+                Database.create_table_velocity();
+                Database.create_table_settings();
             }                    
         }
 

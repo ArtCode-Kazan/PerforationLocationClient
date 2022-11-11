@@ -89,13 +89,10 @@ namespace seisapp
 
         private void button_ok_Click(object sender, EventArgs e)
         {
+            Database.clear_table(Database.STATION_COORDINATES);
             using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
-                connection.Open();
-
-                SqliteCommand command_del = new SqliteCommand("DELETE  FROM Users", connection);
-                command_del.ExecuteNonQuery();
-
+                connection.Open();                
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
                 string number = "0";
@@ -112,33 +109,25 @@ namespace seisapp
                         number = r.Cells["number"].Value.ToString();
                     }
                     else
-                    {
-                        MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");
-                    }
+                    {MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");}
                     if (r.Cells["x"].Value != null)
                     {
                         x = r.Cells["x"].Value.ToString();
                     }
                     else
-                    {
-                        MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");
-                    }
+                    {MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");}
                     if (r.Cells["y"].Value != null)
                     {
                         y = r.Cells["y"].Value.ToString();
                     }
                     else
-                    {
-                        MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");
-                    }
+                    {MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");}
                     if (r.Cells["altitude"].Value != null)
                     {
                         altitude = r.Cells["altitude"].Value.ToString();
                     }
                     else
-                    {
-                        MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");
-                    }
+                    {MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");}
 
                     command.CommandText = "INSERT INTO Users (_number, x, y, altitude) VALUES (" + number + ", " + x + "," + y + "," + altitude + ")";
                     command.ExecuteNonQuery();
@@ -146,6 +135,11 @@ namespace seisapp
 
             }
             Close();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

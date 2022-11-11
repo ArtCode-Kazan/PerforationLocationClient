@@ -14,7 +14,8 @@ namespace seisapp
         public static string VELOCITY = "velocity";
         public static string STATION_COORDINATES = "station_coordinates";
 
-        public void create_table(string name) 
+
+        static public void create_table(string name) 
         {
             using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
@@ -25,7 +26,7 @@ namespace seisapp
                 command.ExecuteNonQuery();                
             }
         }
-        public void create_table_station_coordinates()
+        static public void create_table_station_coordinates()
         {
             using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
@@ -36,7 +37,7 @@ namespace seisapp
                 command.ExecuteNonQuery();                
             }
         }
-        public void create_table_velocity()
+        static public void create_table_velocity()
         {
             using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
@@ -47,7 +48,7 @@ namespace seisapp
                 command.ExecuteNonQuery();
             }
         }
-        public void create_table_settings()
+        static public void create_table_settings()
         {
             using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
@@ -58,7 +59,7 @@ namespace seisapp
                 command.ExecuteNonQuery();
             }
         }
-        private void add_row_in_table_settings(string ip, int port)
+        static private void add_row_in_table_settings(string ip, int port)
         {
             string sport = Convert.ToString(port);
             using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
@@ -70,7 +71,7 @@ namespace seisapp
                 command.ExecuteNonQuery();
             }
         }
-        private void add_row_in_table_velocity(double h_top, double h_bottom, double vp)
+        static private void add_row_in_table_velocity(double h_top, double h_bottom, double vp)
         {
             string sh_top = Convert.ToString(h_top);
             string sh_bottom = Convert.ToString(h_bottom);
@@ -85,7 +86,7 @@ namespace seisapp
                 command.ExecuteNonQuery();
             }
         }
-        private void add_row_in_table_station_coordinates(int number, double x, double y, double altitude)
+        static private void add_row_in_table_station_coordinates(int number, double x, double y, double altitude)
         {
             string snumber = Convert.ToString(number);            
             string sx = Convert.ToString(x);
@@ -101,13 +102,13 @@ namespace seisapp
                 command.ExecuteNonQuery();
             }
         }
-        public void refresh_row_in_table_settings(string ip, int port)
+        static public void refresh_row_in_table_settings(string ip, int port)
         {
 
             clear_table(SETTINGS);
             add_row_in_table_settings(ip, port);
         }
-        public void add_column(string table_name, string column_name, string column_parameters)
+        static public void add_column(string table_name, string column_name, string column_parameters)
         {
             using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
@@ -118,7 +119,7 @@ namespace seisapp
                 command.ExecuteNonQuery();
             }
         }
-        public void clear_table(string table_name)
+        static public void clear_table(string table_name)
         {
             using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
