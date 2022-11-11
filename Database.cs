@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace seisapp
 {
@@ -14,9 +15,9 @@ namespace seisapp
         public const string VELOCITY_TABLENAME = "velocity";
         public const string STATION_COORDINATES_TABLENAME = "station_coordinates";
 
-        public const string TABLE_CREATING_COMMAND = "CREATE TABLE " + STATION_COORDINATES_TABLENAME + "(number INTEGER NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)\n" +
-            "CREATE TABLE " + VELOCITY_TABLENAME + "(h_top DOUBLE NOT NULL, h_bottom DOUBLE NOT NULL, vp DOUBLE NOT NULL)\n" +
-            "CREATE TABLE " + SETTINGS_TABLENAME + "(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";
+        public const string TABLE_STATION_CREATING_COMMAND = "CREATE TABLE " + STATION_COORDINATES_TABLENAME + "(number INTEGER NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
+        public const string TABLE_VELOCITY_CREATING_COMMAND = "CREATE TABLE " + VELOCITY_TABLENAME + "(h_top DOUBLE NOT NULL, h_bottom DOUBLE NOT NULL, vp DOUBLE NOT NULL)";
+        public const string TABLE_SETTINGS_CREATING_COMMAND = "CREATE TABLE " + SETTINGS_TABLENAME + "(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";
 
         static public void create_table(string name) 
         {
@@ -36,22 +37,10 @@ namespace seisapp
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = TABLE_CREATING_COMMAND;
+                command.CommandText = TABLE_SETTINGS_CREATING_COMMAND;
                 command.ExecuteNonQuery();
             }
-        }
-        static private void add_row_in_table_settings(string ip, int port)
-        {
-            string sport = Convert.ToString(port);
-            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
-            {
-                connection.Open();
-                SqliteCommand command = new SqliteCommand();
-                command.Connection = connection;
-                command.CommandText = "INSERT INTO " + SETTINGS_TABLENAME + " (ip, port) VALUES ('" + ip + "', " + sport + ")";
-                command.ExecuteNonQuery();
-            }
-        }
+        }        
         static private void add_row_in_table_velocity(double h_top, double h_bottom, double vp)
         {
             string sh_top = Convert.ToString(h_top);
@@ -79,19 +68,26 @@ namespace seisapp
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "SELECT COUNT(*) FROM " + STATION_COORDINATES_TABLENAME;
-                if ((Int32)command.ExecuteScalar() != 0)
-                {
-                    clear_table(SETTINGS_TABLENAME);
-                }                
                 command.CommandText = "INSERT INTO " + STATION_COORDINATES_TABLENAME + " (number, x, y, altitude) VALUES (" + snumber + ", " + sx + ", " + sy + ", " + saltitude + ")";
                 command.ExecuteNonQuery();
             }
         }
         static public void refresh_row_in_table_settings(string ip, int port)
-        {            
-            clear_table(SETTINGS_TABLENAME);
-            add_row_in_table_settings(ip, port);
+        {
+            string sport = Convert.ToString(port);
+            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
+            {                
+                connection.Open();
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection;
+                command.CommandText = "SELECT COUNT(*) FROM " + SETTINGS_TABLENAME;                
+                if (Convert.ToInt32(command.ExecuteScalar()) != 0)
+                {
+                    clear_table(SETTINGS_TABLENAME);
+                }
+                command.CommandText = "INSERT INTO " + SETTINGS_TABLENAME + " (ip, port) VALUES ('" + ip + "', " + sport + ")";
+                command.ExecuteNonQuery();
+            }
         }
         static public void add_column(string table_name, string column_name, string column_parameters)
         {
