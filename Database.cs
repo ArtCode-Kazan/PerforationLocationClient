@@ -9,14 +9,14 @@ namespace seisapp
 {
     internal class Database
     {
-        public static string path = "";
+        public static string PATH = "";
         public static string SETTINGS = "settings";
         public static string VELOCITY = "velocity";
         public static string STATION_COORDINATES = "station_coordinates";
 
         public void create_table(string name) 
         {
-            using (var connection = new SqliteConnection("Data Source=" + Database.path))
+            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
@@ -25,20 +25,20 @@ namespace seisapp
                 command.ExecuteNonQuery();                
             }
         }
-        public void create_table_users()
+        public void create_table_station_coordinates()
         {
-            using (var connection = new SqliteConnection("Data Source=" + Database.path))
+            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "CREATE TABLE Users(_number INTEGER NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
+                command.CommandText = "CREATE TABLE " + STATION_COORDINATES + "(number INTEGER NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
                 command.ExecuteNonQuery();                
             }
         }
         public void create_table_velocity()
         {
-            using (var connection = new SqliteConnection("Data Source=" + Database.path))
+            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
@@ -49,7 +49,7 @@ namespace seisapp
         }
         public void create_table_settings()
         {
-            using (var connection = new SqliteConnection("Data Source=" + Database.path))
+            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
@@ -61,7 +61,7 @@ namespace seisapp
         private void add_row_in_table_settings(string ip, int port)
         {
             string sport = Convert.ToString(port);
-            using (var connection = new SqliteConnection("Data Source=" + Database.path))
+            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
@@ -76,12 +76,28 @@ namespace seisapp
             string sh_bottom = Convert.ToString(h_bottom);
             string svp = Convert.ToString(vp);
 
-            using (var connection = new SqliteConnection("Data Source=" + Database.path))
+            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO " + VELOCITY + " (h_top, h_bottom, vp) VALUES (" + sh_top + ", " + sh_bottom + "," + svp + ")";
+                command.CommandText = "INSERT INTO " + VELOCITY + " (h_top, h_bottom, vp) VALUES (" + sh_top + ", " + sh_bottom + ", " + svp + ")";
+                command.ExecuteNonQuery();
+            }
+        }
+        private void add_row_in_table_station_coordinates(int number, double x, double y, double altitude)
+        {
+            string snumber = Convert.ToString(number);            
+            string sx = Convert.ToString(x);
+            string sy = Convert.ToString(y);
+            string saltitude = Convert.ToString(altitude);
+
+            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection;
+                command.CommandText = "INSERT INTO " + STATION_COORDINATES + " (number, x, y, altitude) VALUES (" + snumber + ", " + sx + ", " + sy + ", " + saltitude + ")";
                 command.ExecuteNonQuery();
             }
         }
@@ -93,7 +109,7 @@ namespace seisapp
         }
         public void add_column(string table_name, string column_name, string column_parameters)
         {
-            using (var connection = new SqliteConnection("Data Source=" + Database.path))
+            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
@@ -104,7 +120,7 @@ namespace seisapp
         }
         public void clear_table(string table_name)
         {
-            using (var connection = new SqliteConnection("Data Source=" + Database.path))
+            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
                 connection.Open();
                 SqliteCommand command_del = new SqliteCommand("DELETE  FROM " + table_name, connection);

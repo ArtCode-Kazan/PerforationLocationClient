@@ -20,7 +20,7 @@ namespace seisapp
             this.ControlBox = false;
             dataGridView1.AllowUserToAddRows = true;
             string sqlExpression = "SELECT * FROM Users";
-            using (var connection_out = new SqliteConnection("Data Source=" + Database.path))
+            using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
             {
                 connection_out.Open();
                 SqliteCommand command = new SqliteCommand(sqlExpression, connection_out);
@@ -89,7 +89,7 @@ namespace seisapp
 
         private void button_ok_Click(object sender, EventArgs e)
         {
-            using (var connection = new SqliteConnection("Data Source=" + Database.path))
+            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
                 connection.Open();
 

@@ -32,8 +32,8 @@ namespace seisapp
 
             if (save_file.ShowDialog() == DialogResult.OK)
             {
-                Database.path = save_file.FileName + ".db";
-                using (var connection = new SqliteConnection("Data Source=" + Database.path))
+                Database.PATH = save_file.FileName + ".db";
+                using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
                 {
                     connection.Open();
                     SqliteCommand command = new SqliteCommand();
@@ -41,7 +41,7 @@ namespace seisapp
                     command.CommandText = "CREATE TABLE Users(_number INTEGER NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
                     command.ExecuteNonQuery();
                 }
-                using (var connection = new SqliteConnection("Data Source=" + Database.path))
+                using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
                 {
                     connection.Open();
                     SqliteCommand command = new SqliteCommand();
@@ -49,7 +49,7 @@ namespace seisapp
                     command.CommandText = "CREATE TABLE velocity(h_top DOUBLE NOT NULL, h_bottom DOUBLE NOT NULL, vp DOUBLE NOT NULL)";
                     command.ExecuteNonQuery();
                 }
-                using (var connection = new SqliteConnection("Data Source=" + Database.path))
+                using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
                 {
                     connection.Open();
                     SqliteCommand command = new SqliteCommand();
@@ -68,13 +68,13 @@ namespace seisapp
 
             if (save_file.ShowDialog() == DialogResult.OK)
             {
-                Database.path = save_file.FileName;
+                Database.PATH = save_file.FileName;
             }
         }
 
         private void stationCoordinatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Database.path == "")
+            if (Database.PATH == "")
             {
                 MessageBox.Show("Choose file");
             }
