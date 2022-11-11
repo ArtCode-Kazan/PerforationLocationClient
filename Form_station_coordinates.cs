@@ -89,7 +89,7 @@ namespace seisapp
 
         private void button_ok_Click(object sender, EventArgs e)
         {
-            Database.clear_table(Database.STATION_COORDINATES);
+            Database.clear_table(Database.STATION_COORDINATES_TABLENAME);
             using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
                 connection.Open();                

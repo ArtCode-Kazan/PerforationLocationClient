@@ -33,9 +33,7 @@ namespace seisapp
             if (save_file.ShowDialog() == DialogResult.OK)
             {
                 Database.PATH = save_file.FileName + ".db";
-                Database.create_table_station_coordinates();
-                Database.create_table_velocity();
-                Database.create_table_settings();
+                Database.create_table();
             }                    
         }
 

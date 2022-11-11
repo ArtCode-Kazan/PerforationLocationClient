@@ -10,10 +10,13 @@ namespace seisapp
     internal class Database
     {
         public static string PATH = "";
-        public static string SETTINGS = "settings";
-        public static string VELOCITY = "velocity";
-        public static string STATION_COORDINATES = "station_coordinates";
+        public const string SETTINGS_TABLENAME = "settings";
+        public const string VELOCITY_TABLENAME = "velocity";
+        public const string STATION_COORDINATES_TABLENAME = "station_coordinates";
 
+        public const string TABLE_CREATING_COMMAND = "CREATE TABLE " + STATION_COORDINATES_TABLENAME + "(number INTEGER NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)\n" +
+            "CREATE TABLE " + VELOCITY_TABLENAME + "(h_top DOUBLE NOT NULL, h_bottom DOUBLE NOT NULL, vp DOUBLE NOT NULL)\n" +
+            "CREATE TABLE " + SETTINGS_TABLENAME + "(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";
 
         static public void create_table(string name) 
         {
@@ -26,36 +29,14 @@ namespace seisapp
                 command.ExecuteNonQuery();                
             }
         }
-        static public void create_table_station_coordinates()
+        static public void create_table()
         {
             using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "CREATE TABLE " + STATION_COORDINATES + "(number INTEGER NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
-                command.ExecuteNonQuery();                
-            }
-        }
-        static public void create_table_velocity()
-        {
-            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
-            {
-                connection.Open();
-                SqliteCommand command = new SqliteCommand();
-                command.Connection = connection;
-                command.CommandText = "CREATE TABLE " + VELOCITY + "(h_top DOUBLE NOT NULL, h_bottom DOUBLE NOT NULL, vp DOUBLE NOT NULL)";
-                command.ExecuteNonQuery();
-            }
-        }
-        static public void create_table_settings()
-        {
-            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
-            {
-                connection.Open();
-                SqliteCommand command = new SqliteCommand();
-                command.Connection = connection;
-                command.CommandText = "CREATE TABLE " + SETTINGS + "(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";
+                command.CommandText = TABLE_CREATING_COMMAND;
                 command.ExecuteNonQuery();
             }
         }
@@ -67,7 +48,7 @@ namespace seisapp
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO " + SETTINGS + " (ip, port) VALUES ('" + ip + "', " + sport + ")";
+                command.CommandText = "INSERT INTO " + SETTINGS_TABLENAME + " (ip, port) VALUES ('" + ip + "', " + sport + ")";
                 command.ExecuteNonQuery();
             }
         }
@@ -82,7 +63,7 @@ namespace seisapp
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO " + VELOCITY + " (h_top, h_bottom, vp) VALUES (" + sh_top + ", " + sh_bottom + ", " + svp + ")";
+                command.CommandText = "INSERT INTO " + VELOCITY_TABLENAME + " (h_top, h_bottom, vp) VALUES (" + sh_top + ", " + sh_bottom + ", " + svp + ")";
                 command.ExecuteNonQuery();
             }
         }
@@ -98,14 +79,18 @@ namespace seisapp
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO " + STATION_COORDINATES + " (number, x, y, altitude) VALUES (" + snumber + ", " + sx + ", " + sy + ", " + saltitude + ")";
+                command.CommandText = "SELECT COUNT(*) FROM " + STATION_COORDINATES_TABLENAME;
+                if ((Int32)command.ExecuteScalar() != 0)
+                {
+                    clear_table(SETTINGS_TABLENAME);
+                }                
+                command.CommandText = "INSERT INTO " + STATION_COORDINATES_TABLENAME + " (number, x, y, altitude) VALUES (" + snumber + ", " + sx + ", " + sy + ", " + saltitude + ")";
                 command.ExecuteNonQuery();
             }
         }
         static public void refresh_row_in_table_settings(string ip, int port)
-        {
-
-            clear_table(SETTINGS);
+        {            
+            clear_table(SETTINGS_TABLENAME);
             add_row_in_table_settings(ip, port);
         }
         static public void add_column(string table_name, string column_name, string column_parameters)
