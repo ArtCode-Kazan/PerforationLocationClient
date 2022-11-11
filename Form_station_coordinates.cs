@@ -19,7 +19,7 @@ namespace seisapp
             InitializeComponent();
             this.ControlBox = false;
             dataGridView1.AllowUserToAddRows = true;
-            string sqlExpression = "SELECT * FROM Users";
+            string sqlExpression = "SELECT * FROM " + Database.STATION_COORDINATES_TABLENAME;
             using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
             {
                 connection_out.Open();
@@ -129,7 +129,7 @@ namespace seisapp
                     else
                     {MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");}
 
-                    command.CommandText = "INSERT INTO Users (_number, x, y, altitude) VALUES (" + number + ", " + x + "," + y + "," + altitude + ")";
+                    command.CommandText = "INSERT INTO " + Database.STATION_COORDINATES_TABLENAME +  " (number, x, y, altitude) VALUES (" + number + ", " + x + "," + y + "," + altitude + ")";
                     command.ExecuteNonQuery();
                 }
 
