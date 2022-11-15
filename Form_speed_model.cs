@@ -95,12 +95,10 @@ namespace seisapp
 
         private void button_ok_Click(object sender, EventArgs e)
         {
+            Database.create_table(Database.VELOCITY_TABLENAME);
             using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
-                connection.Open();
-
-                SqliteCommand command_del = new SqliteCommand("DELETE  FROM velocity", connection);
-                command_del.ExecuteNonQuery();
+                connection.Open();                
 
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
