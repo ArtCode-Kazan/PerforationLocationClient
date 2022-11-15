@@ -77,8 +77,7 @@ namespace seisapp
             }
         }
         static public void refresh_row_in_table_settings(string ip, int port)
-        {
-            string sport = Convert.ToString(port);
+        {            
             using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {                
                 connection.Open();
@@ -89,8 +88,28 @@ namespace seisapp
                 {
                     clear_table(SETTINGS_TABLENAME);
                 }
-                command.CommandText = "INSERT INTO " + SETTINGS_TABLENAME + " (ip, port) VALUES ('" + ip + "', " + sport + ")";
+                command.CommandText = "INSERT INTO " + SETTINGS_TABLENAME + " (ip, port) VALUES ('" + ip + "', " + Convert.ToString(port) + ")";
                 command.ExecuteNonQuery();
+            }
+        }
+        static public void get_from_velocity(string ip, int port)
+        {
+            string sqlExpression = "SELECT * FROM velocity";
+            using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
+            {
+                connection_out.Open();
+                SqliteCommand command = new SqliteCommand(sqlExpression, connection_out);
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows) // если есть данные
+                    {
+                        while (reader.Read())   // построчно считываем данные
+                        {
+                            var h_top = reader.GetValue(0);
+                            var vp = reader.GetValue(2);
+                        }
+                    }
+                }
             }
         }
         static public void add_column(string table_name, string column_name, string column_parameters)
