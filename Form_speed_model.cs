@@ -88,15 +88,8 @@ namespace seisapp
             while ((line = reader.ReadLine()) != null)
             {
                 string[] items = line.Split('\t');
-                if (Int32.TryParse(items[0], out int result) == true)
-                {
-                    array_txt[count, 0] = double.Parse(items[0]);
-                    array_txt[count, 1] = double.Parse(items[1]);
-                }
-                else
-                {
-
-                }
+                Double.TryParse(items[0], out array_txt[count, 0]);
+                Double.TryParse(items[1], out array_txt[count, 1]);               
                 count++;
             }
 
