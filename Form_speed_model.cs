@@ -18,27 +18,17 @@ namespace seisapp
         public Form_speed_model()
         {
             InitializeComponent();
-            Database.get_amount_rows_velocity();
             this.ControlBox = false;
             dataGridView1.AllowUserToAddRows = true;
-            string sqlExpression = "SELECT * FROM velocity";
-            using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
+            
+            double[,] db_array = new double[Database.get_amount_rows_velocity(), 3];
+            db_array = Database.get_velocity();
+
+            for (int i = 0; i < db_array.GetLength(0); i++)
             {
-                connection_out.Open();
-                SqliteCommand command = new SqliteCommand(sqlExpression, connection_out);
-                using (SqliteDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.HasRows) // если есть данные
-                    {
-                        while (reader.Read())   // построчно считываем данные
-                        {
-                            var h_top = reader.GetValue(0);                            
-                            var vp = reader.GetValue(2);
-                            dataGridView1.Rows.Add(h_top, vp);
-                        }
-                    }
-                }
+                dataGridView1.Rows.Add(db_array[i, 0], db_array[i, 2]);
             }
+            
             update_graph();
         }
 

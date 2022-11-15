@@ -93,10 +93,13 @@ namespace seisapp
                 command.ExecuteNonQuery();
             }
         }
-        static public void get_from_velocity()
-        {            
+        static public double[,] get_velocity()
+        {
+            double[,] array = new double[get_amount_rows_velocity(), 3];
+
             using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
             {
+                int i = 0;
                 connection_out.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection_out;
@@ -107,12 +110,18 @@ namespace seisapp
                     {
                         while (reader.Read())   // построчно считываем данные
                         {
-                            var h_top = reader.GetValue(0);
-                            var vp = reader.GetValue(2);
+                            var h_top = Convert.ToDouble(reader.GetValue(0));
+                            var h_bottom = Convert.ToDouble(reader.GetValue(1));
+                            var vp = Convert.ToDouble(reader.GetValue(2));
+                            array[i, 0] = h_top;
+                            array[i, 1] = h_bottom;
+                            array[i, 2] = vp;
+                            i++;
                         }
                     }
                 }
             }
+            return array;
         }
         static public int get_amount_rows_velocity()
         {
