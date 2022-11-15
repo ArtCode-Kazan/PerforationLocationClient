@@ -46,7 +46,7 @@ namespace seisapp
                 command.ExecuteNonQuery();
             }
         }        
-        static private void add_row_in_table_velocity(double h_top, double h_bottom, double vp)
+        static public void add_row_in_table_velocity(double h_top, double h_bottom, double vp)
         {
             string sh_top = Convert.ToString(h_top);
             string sh_bottom = Convert.ToString(h_bottom);
