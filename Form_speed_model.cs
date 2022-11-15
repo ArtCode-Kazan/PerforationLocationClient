@@ -56,8 +56,7 @@ namespace seisapp
         }
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            MessageBox.Show("123");
+        {            
             update_graph();
         }
         private void button_open_file_Click(object sender, EventArgs e)
@@ -157,9 +156,6 @@ namespace seisapp
             Close();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
-        }
     }
 }

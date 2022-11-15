@@ -63,8 +63,15 @@ namespace seisapp
 
         private void speedModelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form speed_model_form = new Form_speed_model();
-            speed_model_form.ShowDialog();
+            if (Database.PATH == "")
+            {
+                MessageBox.Show("Choose file");
+            }
+            else
+            {
+                Form speed_model_form = new Form_speed_model();
+                speed_model_form.ShowDialog();
+            }
         }
 
         private void connectionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -75,21 +82,42 @@ namespace seisapp
 
         private void seismicRecordsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form seismic_records_form = new Form_seismic_records();
-            seismic_records_form.ShowDialog();
+            if (Database.PATH == "")
+            {
+                MessageBox.Show("Choose file");
+            }
+            else
+            {
+                Form seismic_records_form = new Form_seismic_records();
+                seismic_records_form.ShowDialog();
+            }
         }
 
         private void clearDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Database.clear_table(Database.VELOCITY_TABLENAME);
-            Database.clear_table(Database.SETTINGS_TABLENAME);
-            Database.clear_table(Database.STATION_COORDINATES_TABLENAME);
+            if (Database.PATH == "")
+            {
+                MessageBox.Show("Choose file");
+            }
+            else
+            {
+                Database.clear_table(Database.VELOCITY_TABLENAME);
+                Database.clear_table(Database.SETTINGS_TABLENAME);
+                Database.clear_table(Database.STATION_COORDINATES_TABLENAME);
+            }
         }
 
         private void correctionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form corrections_form = new Form_corrections();
-            corrections_form.ShowDialog();
+            if (Database.PATH == "")
+            {
+                MessageBox.Show("Choose file");
+            }
+            else
+            {
+                Form corrections_form = new Form_corrections();
+                corrections_form.ShowDialog();
+            }
         }
     }
 }
