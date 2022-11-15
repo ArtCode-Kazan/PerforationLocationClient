@@ -17,7 +17,8 @@ namespace seisapp
     {
         public Form_speed_model()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            Database.get_amount_rows_velocity();
             this.ControlBox = false;
             dataGridView1.AllowUserToAddRows = true;
             string sqlExpression = "SELECT * FROM velocity";

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -92,13 +93,14 @@ namespace seisapp
                 command.ExecuteNonQuery();
             }
         }
-        static public void get_from_velocity(string ip, int port)
-        {
-            string sqlExpression = "SELECT * FROM velocity";
+        static public void get_from_velocity()
+        {            
             using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
             {
                 connection_out.Open();
-                SqliteCommand command = new SqliteCommand(sqlExpression, connection_out);
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection_out;
+                command.CommandText = "SELECT * FROM velocity";
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows) // если есть данные
@@ -110,6 +112,28 @@ namespace seisapp
                         }
                     }
                 }
+            }
+        }
+        static public int get_amount_rows_velocity()
+        {
+            using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
+            {                
+                connection_out.Open();
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection_out;
+                command.CommandText = "SELECT COUNT(*) FROM " + Database.VELOCITY_TABLENAME;                                                            
+                return Convert.ToInt32(command.ExecuteScalar());
+            }
+        }
+        static public int get_amount_rows_station_coordinates()
+        {
+            using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
+            {
+                connection_out.Open();
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection_out;
+                command.CommandText = "SELECT COUNT(*) FROM " + Database.STATION_COORDINATES_TABLENAME;
+                return Convert.ToInt32(command.ExecuteScalar());
             }
         }
         static public void add_column(string table_name, string column_name, string column_parameters)
