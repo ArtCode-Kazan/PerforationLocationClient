@@ -142,7 +142,6 @@ namespace seisapp
                 }                
                 Database.add_row_in_table_velocity(h_top, h_bottom, vp);
             }
-
             Close();
         }
 

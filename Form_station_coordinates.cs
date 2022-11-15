@@ -132,14 +132,12 @@ namespace seisapp
                     command.CommandText = "INSERT INTO " + Database.STATION_COORDINATES_TABLENAME +  " (number, x, y, altitude) VALUES (" + number + ", " + x + "," + y + "," + altitude + ")";
                     command.ExecuteNonQuery();
                 }
-
             }
             Close();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
     }
 }
