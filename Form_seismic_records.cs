@@ -18,6 +18,8 @@ namespace seisapp
         public Form_seismic_records()
         {
             InitializeComponent();
+
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -27,6 +29,15 @@ namespace seisapp
 
         private void button1_Click(object sender, EventArgs e)
         {
+            dataGridView1.AllowUserToAddRows = false;
+            foreach (DataGridViewRow r in dataGridView1.Rows)
+            {                
+                int number = Convert.ToInt32(r.Cells["number"].Value);
+                string file = Convert.ToString(r.Cells["file"].Value);
+                string path = Convert.ToString(r.Cells["path"].Value);
+                Database.add_row_in_table_seismic_records(number, file, path);
+            }
+            dataGridView1.AllowUserToAddRows = true;
             Close();
         }
 
