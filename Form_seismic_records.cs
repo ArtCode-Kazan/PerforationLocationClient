@@ -13,6 +13,8 @@ namespace seisapp
 {
     public partial class Form_seismic_records : Form
     {
+        static string[] station_numbers;
+
         public Form_seismic_records()
         {
             InitializeComponent();
@@ -34,7 +36,7 @@ namespace seisapp
             FolderBrowserDialog choofdlog = new FolderBrowserDialog(); 
 
             string path_to_file = "";
-            string number = "";
+            int number = 0;
 
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -53,7 +55,7 @@ namespace seisapp
 
             double[,] array = Database.get_stations();
 
-            string[] station_numbers = new string[array.GetLength(0)];
+            station_numbers = new string[array.GetLength(0)];
 
             for (int i = 0; i < station_numbers.Length; i++)
             {
@@ -63,22 +65,42 @@ namespace seisapp
             for (int i = 0; i < all_files.Length; i++)
             {
                 FileInfo file = new FileInfo(all_files[i]);
-                if (station_numbers.Contains(file.Name.Substring(0, file.Name.IndexOf('_'))))
+                string current_number = file.Name.Substring(0, file.Name.IndexOf('_'));
+                if (Int32.TryParse(current_number, out number))
                 {
-                    number = file.Name.Substring(0, file.Name.IndexOf('_'));
+                    if (station_numbers.Contains(current_number))
+                    {
+                    }
+                    else
+                    {
+                        number = 0;
+                    }
+                    dataGridView1.Rows.Add(number, file.Name, file.DirectoryName);
+                }
+                else 
+                {
+                    dataGridView1.Rows.Add("", file.Name, file.DirectoryName);
+                }                
+            }
+            dataGridView1.Sort(dataGridView1.Columns["number"], ListSortDirection.Ascending);
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridView1.AllowUserToAddRows = false;
+            foreach (DataGridViewRow r in dataGridView1.Rows)
+            {
+                var number = r.Cells["number"].Value;
+                if (station_numbers.Contains(number))
+                {
+                    
                 }
                 else
                 {
                     MessageBox.Show("Номера" + file.Name.Substring(0, file.Name.IndexOf('_')) + "нет в таблице");
                 }
-                dataGridView1.Rows.Add(number, file.Name, file.DirectoryName);
             }
-            dataGridView1.Sort(dataGridView1.Columns["number"], ListSortDirection.Ascending);
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            dataGridView1.AllowUserToAddRows = true;
         }
     }
 }
