@@ -21,6 +21,7 @@ namespace seisapp
             dataGridView1.AllowUserToAddRows = true;
 
             double[,] array = new double[Database.get_amount_rows_station_coordinates(), 4];
+            array = Database.get_stations();
             for (int i = 0; i < array.GetLength(0); i++)
             {
                 int number = Convert.ToInt32(array[i, 0]);
