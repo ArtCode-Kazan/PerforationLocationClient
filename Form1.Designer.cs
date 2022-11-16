@@ -50,12 +50,19 @@
             this.textBox_date_start = new System.Windows.Forms.TextBox();
             this.textBox_date_stop = new System.Windows.Forms.TextBox();
             this.label_component = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox_component = new System.Windows.Forms.ComboBox();
             this.label_date = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_furier_filter = new System.Windows.Forms.PictureBox();
+            this.label_furier_filter = new System.Windows.Forms.Label();
+            this.spinEdit_min_frequency = new DevExpress.XtraEditors.SpinEdit();
+            this.spinEdit_max_frequency = new DevExpress.XtraEditors.SpinEdit();
+            this.label_min_frequency = new System.Windows.Forms.Label();
+            this.label_max_frequency = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_date)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_furier_filter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_min_frequency.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_max_frequency.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -152,7 +159,7 @@
             // 
             this.peakTracesToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(135)))), ((int)(((byte)(148)))));
             this.peakTracesToolStripMenuItem.Name = "peakTracesToolStripMenuItem";
-            this.peakTracesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.peakTracesToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.peakTracesToolStripMenuItem.Text = "Peak traces";
             this.peakTracesToolStripMenuItem.Click += new System.EventHandler(this.peakTracesToolStripMenuItem_Click);
             // 
@@ -195,7 +202,7 @@
             this.label_artcode.AutoSize = true;
             this.label_artcode.Font = new System.Drawing.Font("Kelly Slab", 150F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_artcode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(135)))), ((int)(((byte)(148)))));
-            this.label_artcode.Location = new System.Drawing.Point(183, 192);
+            this.label_artcode.Location = new System.Drawing.Point(162, 202);
             this.label_artcode.Name = "label_artcode";
             this.label_artcode.Size = new System.Drawing.Size(778, 242);
             this.label_artcode.TabIndex = 1;
@@ -204,7 +211,7 @@
             // pictureBox_date
             // 
             this.pictureBox_date.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.pictureBox_date.Location = new System.Drawing.Point(10, 36);
+            this.pictureBox_date.Location = new System.Drawing.Point(12, 36);
             this.pictureBox_date.Name = "pictureBox_date";
             this.pictureBox_date.Size = new System.Drawing.Size(505, 94);
             this.pictureBox_date.TabIndex = 2;
@@ -215,7 +222,7 @@
             this.label_date_start.AutoSize = true;
             this.label_date_start.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
             this.label_date_start.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_date_start.Location = new System.Drawing.Point(21, 85);
+            this.label_date_start.Location = new System.Drawing.Point(23, 85);
             this.label_date_start.Name = "label_date_start";
             this.label_date_start.Size = new System.Drawing.Size(32, 15);
             this.label_date_start.TabIndex = 3;
@@ -227,7 +234,7 @@
             this.label_date_stop.AutoSize = true;
             this.label_date_stop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
             this.label_date_stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_date_stop.Location = new System.Drawing.Point(198, 85);
+            this.label_date_stop.Location = new System.Drawing.Point(200, 85);
             this.label_date_stop.Name = "label_date_stop";
             this.label_date_stop.Size = new System.Drawing.Size(32, 15);
             this.label_date_stop.TabIndex = 4;
@@ -236,14 +243,14 @@
             // 
             // textBox_date_start
             // 
-            this.textBox_date_start.Location = new System.Drawing.Point(56, 84);
+            this.textBox_date_start.Location = new System.Drawing.Point(58, 84);
             this.textBox_date_start.Name = "textBox_date_start";
             this.textBox_date_start.Size = new System.Drawing.Size(136, 20);
             this.textBox_date_start.TabIndex = 5;
             // 
             // textBox_date_stop
             // 
-            this.textBox_date_stop.Location = new System.Drawing.Point(234, 84);
+            this.textBox_date_stop.Location = new System.Drawing.Point(236, 84);
             this.textBox_date_stop.Name = "textBox_date_stop";
             this.textBox_date_stop.Size = new System.Drawing.Size(141, 20);
             this.textBox_date_stop.TabIndex = 6;
@@ -253,39 +260,96 @@
             this.label_component.AutoSize = true;
             this.label_component.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
             this.label_component.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_component.Location = new System.Drawing.Point(389, 85);
+            this.label_component.Location = new System.Drawing.Point(391, 85);
             this.label_component.Name = "label_component";
             this.label_component.Size = new System.Drawing.Size(71, 15);
             this.label_component.TabIndex = 7;
             this.label_component.Text = "Component";
             this.label_component.Click += new System.EventHandler(this.label_component_Click);
             // 
-            // comboBox1
+            // comboBox_component
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(461, 83);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(42, 21);
-            this.comboBox1.TabIndex = 8;
+            this.comboBox_component.FormattingEnabled = true;
+            this.comboBox_component.Location = new System.Drawing.Point(463, 83);
+            this.comboBox_component.Name = "comboBox_component";
+            this.comboBox_component.Size = new System.Drawing.Size(42, 21);
+            this.comboBox_component.TabIndex = 8;
             // 
             // label_date
             // 
             this.label_date.AutoSize = true;
             this.label_date.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.label_date.Location = new System.Drawing.Point(230, 43);
+            this.label_date.Location = new System.Drawing.Point(232, 43);
             this.label_date.Name = "label_date";
             this.label_date.Size = new System.Drawing.Size(30, 13);
             this.label_date.TabIndex = 9;
             this.label_date.Text = "Date";
             // 
-            // pictureBox2
+            // pictureBox_furier_filter
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.pictureBox2.Location = new System.Drawing.Point(755, 36);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(164, 94);
-            this.pictureBox2.TabIndex = 10;
-            this.pictureBox2.TabStop = false;
+            this.pictureBox_furier_filter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.pictureBox_furier_filter.Location = new System.Drawing.Point(882, 36);
+            this.pictureBox_furier_filter.Name = "pictureBox_furier_filter";
+            this.pictureBox_furier_filter.Size = new System.Drawing.Size(202, 94);
+            this.pictureBox_furier_filter.TabIndex = 10;
+            this.pictureBox_furier_filter.TabStop = false;
+            // 
+            // label_furier_filter
+            // 
+            this.label_furier_filter.AutoSize = true;
+            this.label_furier_filter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.label_furier_filter.Location = new System.Drawing.Point(940, 43);
+            this.label_furier_filter.Name = "label_furier_filter";
+            this.label_furier_filter.Size = new System.Drawing.Size(104, 13);
+            this.label_furier_filter.TabIndex = 11;
+            this.label_furier_filter.Text = "Furier bandpass filter";
+            // 
+            // spinEdit_min_frequency
+            // 
+            this.spinEdit_min_frequency.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.spinEdit_min_frequency.Location = new System.Drawing.Point(975, 61);
+            this.spinEdit_min_frequency.Name = "spinEdit_min_frequency";
+            this.spinEdit_min_frequency.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.spinEdit_min_frequency.Size = new System.Drawing.Size(100, 20);
+            this.spinEdit_min_frequency.TabIndex = 12;
+            // 
+            // spinEdit_max_frequency
+            // 
+            this.spinEdit_max_frequency.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.spinEdit_max_frequency.Location = new System.Drawing.Point(975, 100);
+            this.spinEdit_max_frequency.Name = "spinEdit_max_frequency";
+            this.spinEdit_max_frequency.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.spinEdit_max_frequency.Size = new System.Drawing.Size(100, 20);
+            this.spinEdit_max_frequency.TabIndex = 13;
+            // 
+            // label_min_frequency
+            // 
+            this.label_min_frequency.AutoSize = true;
+            this.label_min_frequency.Location = new System.Drawing.Point(890, 64);
+            this.label_min_frequency.Name = "label_min_frequency";
+            this.label_min_frequency.Size = new System.Drawing.Size(73, 13);
+            this.label_min_frequency.TabIndex = 14;
+            this.label_min_frequency.Text = "min frequency";
+            // 
+            // label_max_frequency
+            // 
+            this.label_max_frequency.AutoSize = true;
+            this.label_max_frequency.Location = new System.Drawing.Point(890, 103);
+            this.label_max_frequency.Name = "label_max_frequency";
+            this.label_max_frequency.Size = new System.Drawing.Size(76, 13);
+            this.label_max_frequency.TabIndex = 15;
+            this.label_max_frequency.Text = "max frequency";
+            this.label_max_frequency.Click += new System.EventHandler(this.label2_Click);
             // 
             // Form1
             // 
@@ -293,9 +357,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(198)))), ((int)(((byte)(208)))));
             this.ClientSize = new System.Drawing.Size(1096, 592);
-            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.label_max_frequency);
+            this.Controls.Add(this.label_min_frequency);
+            this.Controls.Add(this.spinEdit_max_frequency);
+            this.Controls.Add(this.spinEdit_min_frequency);
+            this.Controls.Add(this.label_furier_filter);
+            this.Controls.Add(this.pictureBox_furier_filter);
             this.Controls.Add(this.label_date);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBox_component);
             this.Controls.Add(this.label_component);
             this.Controls.Add(this.textBox_date_stop);
             this.Controls.Add(this.textBox_date_start);
@@ -310,7 +379,9 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_date)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_furier_filter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_min_frequency.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_max_frequency.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -340,9 +411,14 @@
         private System.Windows.Forms.TextBox textBox_date_start;
         private System.Windows.Forms.TextBox textBox_date_stop;
         private System.Windows.Forms.Label label_component;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox_component;
         private System.Windows.Forms.Label label_date;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox_furier_filter;
+        private System.Windows.Forms.Label label_furier_filter;
+        private DevExpress.XtraEditors.SpinEdit spinEdit_min_frequency;
+        private DevExpress.XtraEditors.SpinEdit spinEdit_max_frequency;
+        private System.Windows.Forms.Label label_min_frequency;
+        private System.Windows.Forms.Label label_max_frequency;
     }
 }
 
