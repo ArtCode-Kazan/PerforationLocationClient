@@ -18,8 +18,16 @@ namespace seisapp
         public Form_seismic_records()
         {
             InitializeComponent();
+            string[,] array = new string[Database.get_amount_rows_station_coordinates(), 3];
+            array = Database.get_seismic_records();
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                string  number = array[i, 0];
+                string name = array[i, 1];
+                string path = array[i,2];
+                dataGridView1.Rows.Add(number, name, path);
 
-            
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

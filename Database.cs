@@ -20,7 +20,7 @@ namespace seisapp
         public const string TABLE_STATION_CREATING_COMMAND = "CREATE TABLE " + STATION_COORDINATES_TABLENAME + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, number INTEGER NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
         public const string TABLE_VELOCITY_CREATING_COMMAND = "CREATE TABLE " + VELOCITY_TABLENAME + "(h_top DOUBLE NOT NULL, h_bottom DOUBLE NOT NULL, vp DOUBLE NOT NULL)";
         public const string TABLE_SETTINGS_CREATING_COMMAND = "CREATE TABLE " + SETTINGS_TABLENAME + "(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";
-        public const string TABLE_SEISMIC_RECORDS_CREATING_COMMAND = "CREATE TABLE " + SEISMIC_RECORDS_TABLENAME + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, station_id INTEGER NOT NULL, file_name VARCHAR(45) NOT NULL, root VARCHAR(140) NOT NULL, FOREIGN KEY (station_id)  REFERENCES station_coordinates (id))";
+        public const string TABLE_SEISMIC_RECORDS_CREATING_COMMAND = "CREATE TABLE " + SEISMIC_RECORDS_TABLENAME + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, station_id INTEGER NOT NULL, file_name VARCHAR(45) NOT NULL, root VARCHAR(140) NOT NULL, FOREIGN KEY (station_id) REFERENCES station_coordinates (id), CONSTRAINT UNIQUE_FIELDS UNIQUE (file_name, root))";        
 
         static public void create_table(string name) 
         {
@@ -47,7 +47,7 @@ namespace seisapp
                 command.CommandText = TABLE_VELOCITY_CREATING_COMMAND;
                 command.ExecuteNonQuery();
                 command.CommandText = TABLE_SEISMIC_RECORDS_CREATING_COMMAND;
-                command.ExecuteNonQuery();
+                command.ExecuteNonQuery();               
             }
         }        
         static public void add_row_in_table_velocity(double h_top, double h_bottom, double vp)
