@@ -119,5 +119,25 @@ namespace seisapp
                 corrections_form.ShowDialog();
             }
         }
+
+        private void peakTracesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            label_artcode.Visible = false;
+        }
+
+        private void label_component_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_date_start_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_date_stop_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
