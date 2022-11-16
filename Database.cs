@@ -174,7 +174,7 @@ namespace seisapp
         }
         static public string[,] get_seismic_records()
         {
-            string[,] array = new string[get_amount_rows_station_coordinates(), 3];
+            string[,] array = new string[get_amount_rows_seismic_records(), 3];
 
             using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
             {
@@ -220,7 +220,18 @@ namespace seisapp
                 connection_out.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection_out;
-                command.CommandText = "SELECT COUNT(*) FROM " + Database.STATION_COORDINATES_TABLENAME;
+                command.CommandText = "SELECT COUNT(*) FROM " + STATION_COORDINATES_TABLENAME;
+                return Convert.ToInt32(command.ExecuteScalar());
+            }
+        }
+        static public int get_amount_rows_seismic_records()
+        {
+            using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
+            {
+                connection_out.Open();
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection_out;
+                command.CommandText = "SELECT COUNT(*) FROM " + SEISMIC_RECORDS_TABLENAME;
                 return Convert.ToInt32(command.ExecuteScalar());
             }
         }

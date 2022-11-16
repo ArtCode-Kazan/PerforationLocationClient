@@ -18,7 +18,7 @@ namespace seisapp
         public Form_seismic_records()
         {
             InitializeComponent();
-            string[,] array = new string[Database.get_amount_rows_station_coordinates(), 3];
+            string[,] array = new string[Database.get_amount_rows_seismic_records(), 3];
             array = Database.get_seismic_records();
             for (int i = 0; i < array.GetLength(0); i++)
             {
