@@ -19,25 +19,15 @@ namespace seisapp
             InitializeComponent();
             this.ControlBox = false;
             dataGridView1.AllowUserToAddRows = true;
-            string sqlExpression = "SELECT * FROM " + Database.STATION_COORDINATES_TABLENAME;
-            using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
+
+            double[,] array = new double[Database.get_amount_rows_station_coordinates(), 4];
+            for (int i = 0; i < array.GetLength(0); i++)
             {
-                connection_out.Open();
-                SqliteCommand command = new SqliteCommand(sqlExpression, connection_out);
-                using (SqliteDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.HasRows) // если есть данные
-                    {
-                        while (reader.Read())   // построчно считываем данные
-                        {
-                            var number = reader.GetValue(1);
-                            var x = reader.GetValue(2);
-                            var y = reader.GetValue(3);
-                            var altitude = reader.GetValue(4);
-                            dataGridView1.Rows.Add(number, x, y, altitude);
-                        }
-                    }
-                }
+                int number = Convert.ToInt32(array[i, 0]);
+                var x = array[i, 1];
+                var y = array[i, 2];
+                var altitude = array[i, 3];
+                dataGridView1.Rows.Add(number, x, y, altitude);
             }
         }
 
@@ -92,7 +82,7 @@ namespace seisapp
             Database.clear_table(Database.STATION_COORDINATES_TABLENAME);
             using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
-                connection.Open();                
+                connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
                 string number = "0";
@@ -109,27 +99,27 @@ namespace seisapp
                         number = r.Cells["number"].Value.ToString();
                     }
                     else
-                    {MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");}
+                    { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
                     if (r.Cells["x"].Value != null)
                     {
                         x = r.Cells["x"].Value.ToString();
                     }
                     else
-                    {MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");}
+                    { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
                     if (r.Cells["y"].Value != null)
                     {
                         y = r.Cells["y"].Value.ToString();
                     }
                     else
-                    {MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");}
+                    { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
                     if (r.Cells["altitude"].Value != null)
                     {
                         altitude = r.Cells["altitude"].Value.ToString();
                     }
                     else
-                    {MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");}
+                    { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
 
-                    command.CommandText = "INSERT INTO " + Database.STATION_COORDINATES_TABLENAME +  " (number, x, y, altitude) VALUES (" + number + ", " + x + "," + y + "," + altitude + ")";
+                    command.CommandText = "INSERT INTO " + Database.STATION_COORDINATES_TABLENAME + " (number, x, y, altitude) VALUES (" + number + ", " + x + "," + y + "," + altitude + ")";
                     command.ExecuteNonQuery();
                 }
             }
