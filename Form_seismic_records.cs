@@ -32,7 +32,10 @@ namespace seisapp
         {
             //open file
             FolderBrowserDialog choofdlog = new FolderBrowserDialog(); 
+
             string path_to_file = "";
+            string number = "";
+
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 textBox1.Text = folderBrowserDialog1.SelectedPath;
@@ -48,15 +51,34 @@ namespace seisapp
             string[] all_files =  oo_files.Concat(xx_files).ToArray();
             all_files = all_files.Concat(bin_files).ToArray();
 
-            stations;
+            double[,] array = Database.get_stations();
 
+            string[] station_numbers = new string[array.GetLength(0)];
+
+            for (int i = 0; i < station_numbers.Length; i++)
+            {
+                station_numbers[i] = Convert.ToString(array[i, 0]);
+            }
+            
             for (int i = 0; i < all_files.Length; i++)
             {
                 FileInfo file = new FileInfo(all_files[i]);
-                dataGridView1.Rows.Add(file.Name, file.DirectoryName);
+                if (station_numbers.Contains(file.Name.Substring(0, file.Name.IndexOf('_'))))
+                {
+                    number = file.Name.Substring(0, file.Name.IndexOf('_'));
+                }
+                else
+                {
+                    MessageBox.Show("Номера" + file.Name.Substring(0, file.Name.IndexOf('_')) + "нет в таблице");
+                }
+                dataGridView1.Rows.Add(number, file.Name, file.DirectoryName);
             }
+            dataGridView1.Sort(dataGridView1.Columns["number"], ListSortDirection.Ascending);
+        }
 
-            dataGridView1.Sort(dataGridView1.Columns["file"], ListSortDirection.Ascending);
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
