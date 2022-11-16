@@ -12,12 +12,10 @@ using System.Windows.Forms;
 namespace seisapp
 {
     public partial class Form_seismic_records : Form
-    {
-        static string[] station_numbers;
-
+    {        
         public Form_seismic_records()
         {
-            InitializeComponent();
+            InitializeComponent();            
             string[,] array = new string[Database.get_amount_rows_seismic_records(), 3];
             array = Database.get_seismic_records();
             for (int i = 0; i < array.GetLength(0); i++)
@@ -26,7 +24,6 @@ namespace seisapp
                 string name = array[i, 1];
                 string path = array[i,2];
                 dataGridView1.Rows.Add(number, name, path);
-
             }
         }
 
@@ -37,13 +34,21 @@ namespace seisapp
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Database.clear_table(Database.SEISMIC_RECORDS_TABLENAME);
+            int number = 0;
             dataGridView1.AllowUserToAddRows = false;
             foreach (DataGridViewRow r in dataGridView1.Rows)
-            {                
-                int number = Convert.ToInt32(r.Cells["number"].Value);
-                string file = Convert.ToString(r.Cells["file"].Value);
-                string path = Convert.ToString(r.Cells["path"].Value);
-                Database.add_row_in_table_seismic_records(number, file, path);
+            {
+                if (Int32.TryParse(Convert.ToString(r.Cells["number"].Value), out number))
+                {
+                    number = Convert.ToInt32(r.Cells["number"].Value);
+                    string file = Convert.ToString(r.Cells["file"].Value);
+                    string path = Convert.ToString(r.Cells["path"].Value);
+                    MessageBox.Show(Convert.ToString(number));
+                    MessageBox.Show(file);
+                    MessageBox.Show(path);
+                    Database.add_row_in_table_seismic_records(number, file, path);
+                }                                                
             }
             dataGridView1.AllowUserToAddRows = true;
             Close();
@@ -74,7 +79,7 @@ namespace seisapp
 
             double[,] array = Database.get_stations();
 
-            station_numbers = new string[array.GetLength(0)];
+            string[] station_numbers = new string[array.GetLength(0)];
 
             for (int i = 0; i < station_numbers.Length; i++)
             {
@@ -109,6 +114,14 @@ namespace seisapp
             dataGridView1.AllowUserToAddRows = false;
             foreach (DataGridViewRow r in dataGridView1.Rows)
             {
+
+                double[,] array = Database.get_stations();
+                string[] station_numbers = new string[array.GetLength(0)];
+
+                for (int i = 0; i < station_numbers.Length; i++)
+                {
+                    station_numbers[i] = Convert.ToString(array[i, 0]);
+                }
                 string number = Convert.ToString(r.Cells["number"].Value);
                 if (number != "")
                 {

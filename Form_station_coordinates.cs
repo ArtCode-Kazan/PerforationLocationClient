@@ -30,10 +30,10 @@ namespace seisapp
                     {
                         while (reader.Read())   // построчно считываем данные
                         {
-                            var number = reader.GetValue(0);
-                            var x = reader.GetValue(1);
-                            var y = reader.GetValue(2);
-                            var altitude = reader.GetValue(3);
+                            var number = reader.GetValue(1);
+                            var x = reader.GetValue(2);
+                            var y = reader.GetValue(3);
+                            var altitude = reader.GetValue(4);
                             dataGridView1.Rows.Add(number, x, y, altitude);
                         }
                     }

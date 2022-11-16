@@ -298,7 +298,7 @@
             // 
             this.label_furier_filter.AutoSize = true;
             this.label_furier_filter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.label_furier_filter.Location = new System.Drawing.Point(940, 43);
+            this.label_furier_filter.Location = new System.Drawing.Point(934, 43);
             this.label_furier_filter.Name = "label_furier_filter";
             this.label_furier_filter.Size = new System.Drawing.Size(104, 13);
             this.label_furier_filter.TabIndex = 11;
@@ -325,7 +325,7 @@
             0,
             0,
             0});
-            this.spinEdit_max_frequency.Location = new System.Drawing.Point(975, 100);
+            this.spinEdit_max_frequency.Location = new System.Drawing.Point(975, 95);
             this.spinEdit_max_frequency.Name = "spinEdit_max_frequency";
             this.spinEdit_max_frequency.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -335,18 +335,22 @@
             // label_min_frequency
             // 
             this.label_min_frequency.AutoSize = true;
+            this.label_min_frequency.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.label_min_frequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_min_frequency.Location = new System.Drawing.Point(890, 64);
             this.label_min_frequency.Name = "label_min_frequency";
-            this.label_min_frequency.Size = new System.Drawing.Size(73, 13);
+            this.label_min_frequency.Size = new System.Drawing.Size(84, 15);
             this.label_min_frequency.TabIndex = 14;
             this.label_min_frequency.Text = "min frequency";
             // 
             // label_max_frequency
             // 
             this.label_max_frequency.AutoSize = true;
-            this.label_max_frequency.Location = new System.Drawing.Point(890, 103);
+            this.label_max_frequency.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.label_max_frequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_max_frequency.Location = new System.Drawing.Point(890, 98);
             this.label_max_frequency.Name = "label_max_frequency";
-            this.label_max_frequency.Size = new System.Drawing.Size(76, 13);
+            this.label_max_frequency.Size = new System.Drawing.Size(87, 15);
             this.label_max_frequency.TabIndex = 15;
             this.label_max_frequency.Text = "max frequency";
             this.label_max_frequency.Click += new System.EventHandler(this.label2_Click);

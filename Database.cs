@@ -176,7 +176,7 @@ namespace seisapp
         {
             string[,] array = new string[get_amount_rows_seismic_records(), 3];
 
-            using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection_out = new SqliteConnection("Data Source=" + PATH))
             {
                 int i = 0;
                 connection_out.Open();
@@ -189,9 +189,9 @@ namespace seisapp
                     {
                         while (reader.Read())   // построчно считываем данные
                         {
-                            string number = Convert.ToString(reader.GetValue(0));
-                            string x = Convert.ToString(reader.GetValue(1));
-                            string y = Convert.ToString(reader.GetValue(2));                            
+                            string number = Convert.ToString(reader.GetValue(1));
+                            string x = Convert.ToString(reader.GetValue(2));
+                            string y = Convert.ToString(reader.GetValue(3));                            
                             array[i, 0] = number;
                             array[i, 1] = x;
                             array[i, 2] = y;                            
@@ -248,7 +248,7 @@ namespace seisapp
         }
         static public void clear_table(string table_name)
         {
-            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection = new SqliteConnection("Data Source=" + PATH))
             {
                 connection.Open();
                 SqliteCommand command_del = new SqliteCommand("DELETE  FROM " + table_name, connection);
