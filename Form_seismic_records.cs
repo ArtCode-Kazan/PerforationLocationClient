@@ -90,14 +90,18 @@ namespace seisapp
             dataGridView1.AllowUserToAddRows = false;
             foreach (DataGridViewRow r in dataGridView1.Rows)
             {
-                var number = r.Cells["number"].Value;
-                if (station_numbers.Contains(number))
+                string number = Convert.ToString(r.Cells["number"].Value);
+                if (number != "")
                 {
-                    
-                }
-                else
-                {
-                    MessageBox.Show("Номера" + file.Name.Substring(0, file.Name.IndexOf('_')) + "нет в таблице");
+                    if (station_numbers.Contains(number))
+                    {
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Номера " + number + " нет в таблице");
+                        r.Cells["number"].Value = DBNull.Value;
+                    }
                 }
             }
             dataGridView1.AllowUserToAddRows = true;
