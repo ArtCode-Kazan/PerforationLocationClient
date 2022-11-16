@@ -103,7 +103,7 @@ namespace seisapp
                 connection_out.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection_out;
-                command.CommandText = "SELECT * FROM velocity";
+                command.CommandText = "SELECT * FROM " + VELOCITY_TABLENAME;
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows) // если есть данные
@@ -116,6 +116,38 @@ namespace seisapp
                             array[i, 0] = h_top;
                             array[i, 1] = h_bottom;
                             array[i, 2] = vp;
+                            i++;
+                        }
+                    }
+                }
+            }
+            return array;
+        }
+        static public double[,] get_stations()
+        {
+            double[,] array = new double[get_amount_rows_station_coordinates(), 4];
+
+            using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
+            {
+                int i = 0;
+                connection_out.Open();
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection_out;
+                command.CommandText = "SELECT * FROM " + STATION_COORDINATES_TABLENAME;
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows) // если есть данные
+                    {
+                        while (reader.Read())   // построчно считываем данные
+                        {
+                            var number = Convert.ToDouble(reader.GetValue(0));
+                            var x = Convert.ToDouble(reader.GetValue(1));
+                            var y = Convert.ToDouble(reader.GetValue(2));
+                            var altitude = Convert.ToDouble(reader.GetValue(3));
+                            array[i, 0] = number;
+                            array[i, 1] = x;
+                            array[i, 2] = y;
+                            array[i, 3] = altitude;
                             i++;
                         }
                     }

@@ -39,7 +39,7 @@ namespace seisapp
                 path_to_file = folderBrowserDialog1.SelectedPath;
             }
 
-
+            dataGridView1.Rows.Clear();
 
             string[] oo_files = Directory.GetFiles(path_to_file, "*.00", SearchOption.AllDirectories);
             string[] xx_files = Directory.GetFiles(path_to_file, "*.xx", SearchOption.AllDirectories);
@@ -48,10 +48,15 @@ namespace seisapp
             string[] all_files =  oo_files.Concat(xx_files).ToArray();
             all_files = all_files.Concat(bin_files).ToArray();
 
+            stations;
+
             for (int i = 0; i < all_files.Length; i++)
             {
-                dataGridView1.Rows.Add("1", all_files[i]);
+                FileInfo file = new FileInfo(all_files[i]);
+                dataGridView1.Rows.Add(file.Name, file.DirectoryName);
             }
-        } 
+
+            dataGridView1.Sort(dataGridView1.Columns["file"], ListSortDirection.Ascending);
+        }
     }
 }
