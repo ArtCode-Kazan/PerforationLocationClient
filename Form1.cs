@@ -139,7 +139,7 @@ namespace seisapp
             label_min_frequency.Visible = false;
             label_max_frequency.Visible = false;
             spinEdit_min_frequency.Visible = false;
-            spinEdit_min_frequency.Visible = false;
+            spinEdit_max_frequency.Visible = false;
         }
 
         private void peakTracesToolStripMenuItem_Click(object sender, EventArgs e)

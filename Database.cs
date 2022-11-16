@@ -15,10 +15,12 @@ namespace seisapp
         public const string SETTINGS_TABLENAME = "settings";
         public const string VELOCITY_TABLENAME = "velocity";
         public const string STATION_COORDINATES_TABLENAME = "station_coordinates";
+        public const string SEISMIC_RECORDS_TABLENAME = "seismic_records";
 
         public const string TABLE_STATION_CREATING_COMMAND = "CREATE TABLE " + STATION_COORDINATES_TABLENAME + "(number INTEGER NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
         public const string TABLE_VELOCITY_CREATING_COMMAND = "CREATE TABLE " + VELOCITY_TABLENAME + "(h_top DOUBLE NOT NULL, h_bottom DOUBLE NOT NULL, vp DOUBLE NOT NULL)";
         public const string TABLE_SETTINGS_CREATING_COMMAND = "CREATE TABLE " + SETTINGS_TABLENAME + "(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";
+        public const string TABLE_SEISMIC_RECORDS_CREATING_COMMAND = "CREATE TABLE " + SEISMIC_RECORDS_TABLENAME + "(_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, number INTEGER NOT NULL, file_name VARCHAR(45) NOT NULL, file_path VARCHAR(140) NOT NULL)";
 
         static public void create_table(string name) 
         {
