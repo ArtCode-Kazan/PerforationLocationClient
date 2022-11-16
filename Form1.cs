@@ -82,15 +82,15 @@ namespace seisapp
 
         private void seismicRecordsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Database.PATH == "")
-            {
-                MessageBox.Show("Choose file");
-            }
-            else
-            {
+            //if (Database.PATH == "")
+            //{
+              //  MessageBox.Show("Choose file");
+            //}
+            //else
+            //{
                 Form seismic_records_form = new Form_seismic_records();
                 seismic_records_form.ShowDialog();
-            }
+            //}
         }
 
         private void clearDataToolStripMenuItem_Click(object sender, EventArgs e)
