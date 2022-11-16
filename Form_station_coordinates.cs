@@ -24,9 +24,9 @@ namespace seisapp
             for (int i = 0; i < array.GetLength(0); i++)
             {
                 int number = Convert.ToInt32(array[i, 0]);
-                var x = array[i, 1];
-                var y = array[i, 2];
-                var altitude = array[i, 3];
+                double x = array[i, 1];
+                double y = array[i, 2];
+                double altitude = array[i, 3];
                 dataGridView1.Rows.Add(number, x, y, altitude);
             }
         }
