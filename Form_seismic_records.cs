@@ -44,9 +44,7 @@ namespace seisapp
                     number = Convert.ToInt32(r.Cells["number"].Value);
                     string file = Convert.ToString(r.Cells["file"].Value);
                     string path = Convert.ToString(r.Cells["path"].Value);
-                    MessageBox.Show(Convert.ToString(number));
-                    MessageBox.Show(file);
-                    MessageBox.Show(path);
+                    Database.
                     Database.add_row_in_table_seismic_records(number, file, path);
                 }                                                
             }

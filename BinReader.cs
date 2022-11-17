@@ -4,6 +4,8 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.IO.MemoryMappedFiles;
 using System;
+using System.IO;
+using System.Windows.Forms;
 
 namespace SeismicApp
 {
@@ -586,11 +588,11 @@ namespace SeismicApp
         {
         }
 
-        public InvalidDateTimeValue(string? message) : base(message)
+        public InvalidDateTimeValue(string message) : base(message)
         {
         }
 
-        public InvalidDateTimeValue(string? message, Exception? innerException) : base(message, innerException)
+        public InvalidDateTimeValue(string message, Exception innerException) : base(message, innerException)
         {
         }
 
@@ -606,27 +608,17 @@ namespace SeismicApp
         {
         }
 
-        public InvalidResampleFrequency(string? message) : base(message)
+        public InvalidResampleFrequency(string message) : base(message)
         {
         }
 
-        public InvalidResampleFrequency(string? message, Exception? innerException) : base(message, innerException)
+        public InvalidResampleFrequency(string message, Exception innerException) : base(message, innerException)
         {
         }
 
         protected InvalidResampleFrequency(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
-    }
-
-    [StructLayout(LayoutKind.Auto)]
-    public struct Union
-    {
-        public int channel_count;
-        public int frequency;
-        public DateTime datetime_start;
-        public double longitude;
-        public double latitude;          
     }
 
     [Serializable]
@@ -639,7 +631,7 @@ namespace SeismicApp
         {
         }
 
-        public BadFilePath(string? message) : base(message)
+        public BadFilePath(string message) : base(message)
         {
         }
 
@@ -649,7 +641,7 @@ namespace SeismicApp
             this.file_path = file_path;
         }
 
-        public BadFilePath(string? message, Exception? innerException) : base(message, innerException)
+        public BadFilePath(string message, Exception innerException) : base(message, innerException)
         {
         }
 
@@ -668,7 +660,7 @@ namespace SeismicApp
         {
         }
 
-        public InvalidComponentName(string? message) : base(message)
+        public InvalidComponentName(string message) : base(message)
         {
         }
 
@@ -678,7 +670,7 @@ namespace SeismicApp
             this.component = component;
         }
 
-        public InvalidComponentName(string? message, Exception? innerException) : base(message, innerException)
+        public InvalidComponentName(string message, Exception innerException) : base(message, innerException)
         {
         }
 
@@ -686,5 +678,15 @@ namespace SeismicApp
         {
         }
     }
+
+    [StructLayout(LayoutKind.Auto)]
+    public struct Union
+    {
+        public int channel_count;
+        public int frequency;
+        public DateTime datetime_start;
+        public double longitude;
+        public double latitude;          
+    }   
 }
 
