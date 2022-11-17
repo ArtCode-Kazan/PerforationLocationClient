@@ -220,6 +220,45 @@ namespace seisapp
         }
         static public string[,] get_seismic_records()
         {
+            string[,] array = new string[get_amount_rows_seismic_records(), 6];
+
+            using (var connection_out = new SqliteConnection("Data Source=" + PATH))
+            {
+                int i = 0;
+                connection_out.Open();
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection_out;
+                command.CommandText = "SELECT * FROM " + SEISMIC_RECORDS_TABLENAME;
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows) // если есть данные
+                    {
+                        while (reader.Read())   // построчно считываем данные
+                        {
+                            string id = Convert.ToString(reader.GetValue(0));
+                            string station_id = Convert.ToString(reader.GetValue(1));
+                            string root = Convert.ToString(reader.GetValue(2));                            
+                            string file_name = Convert.ToString(reader.GetValue(3));
+                            string datatime_start = Convert.ToString(reader.GetValue(4));
+                            string datatime_stop = Convert.ToString(reader.GetValue(5));
+
+                            array[i, 0] = id;
+                            array[i, 1] = station_id;
+                            array[i, 2] = root;
+                            array[i, 3] = file_name;
+                            array[i, 4] = datatime_start;
+                            array[i, 5] = datatime_stop;
+
+                            i++;
+                        }
+                    }
+                }
+            }
+            return array;
+        }
+        /*
+        static public string[,] get_parameters()
+        {
             string[,] array = new string[get_amount_rows_seismic_records(), 3];
 
             using (var connection_out = new SqliteConnection("Data Source=" + PATH))
@@ -237,10 +276,10 @@ namespace seisapp
                         {
                             string number = Convert.ToString(reader.GetValue(1));
                             string x = Convert.ToString(reader.GetValue(2));
-                            string y = Convert.ToString(reader.GetValue(3));                            
+                            string y = Convert.ToString(reader.GetValue(3));
                             array[i, 0] = number;
                             array[i, 1] = x;
-                            array[i, 2] = y;                            
+                            array[i, 2] = y;
                             i++;
                         }
                     }
@@ -248,6 +287,7 @@ namespace seisapp
             }
             return array;
         }
+        */
         static public int get_amount_rows_velocity()
         {
             using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
