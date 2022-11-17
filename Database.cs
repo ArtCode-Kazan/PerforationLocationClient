@@ -81,16 +81,18 @@ namespace seisapp
                 command.ExecuteNonQuery();
             }
         }
-        static public void add_row_in_table_seismic_records(int station_id, string file_name, string root)
+        static public void add_row_in_table_seismic_records(int station_id, string file_name, string root, DateTime datetime_start, DateTime datetime_stop)
         {
             string sid = Convert.ToString(station_id);
+            string sdatetime_start = datetime_start.ToString();
+            string sdatetime_stop = datetime_stop.ToString();
 
             using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO " + SEISMIC_RECORDS_TABLENAME + " (station_id, file_name, root) VALUES (" + sid + ", '" + file_name + "', '" + root + "')";
+                command.CommandText = "INSERT INTO " + SEISMIC_RECORDS_TABLENAME + " (station_id, file_name, root, datetime_start, datetime_stop) VALUES (" + sid + ", '" + file_name + "', '" + root + "', '" + sdatetime_start + "', '" + sdatetime_stop + "')";
                 command.ExecuteNonQuery();
             }
         }
