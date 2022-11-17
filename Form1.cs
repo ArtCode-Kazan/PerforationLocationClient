@@ -16,7 +16,7 @@ namespace seisapp
         public Form1()
         {
             InitializeComponent();
-            peak_traces_hide();
+            //peak_traces_hide();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -181,7 +181,12 @@ namespace seisapp
 
             for (int i = 0; i < seismic_datetime_start_stop.GetLength(0); i++)
             {
-                if (seismic_datetime_start_stop[i, 0] > maximum_seismic_datetime_start)
+                int start_compare = DateTime.Compare(seismic_datetime_start_stop[i, 0], maximum_seismic_datetime_start);
+                int stop_compare = DateTime.Compare(seismic_datetime_start_stop[i, 1], minimum_seismic_datetime_stop);
+                
+                if (start_compare > )
+                    //https://learn.microsoft.com/ru-ru/dotnet/api/system.datetime.compare?view=net-7.0
+                    if (seismic_datetime_start_stop[i, 0] > maximum_seismic_datetime_start)
                     { maximum_seismic_datetime_start = seismic_datetime_start_stop[i, 0]; }
                 if (seismic_datetime_start_stop[i, 1] > minimum_seismic_datetime_stop)
                 { minimum_seismic_datetime_stop = seismic_datetime_start_stop[i, 1]; }
