@@ -81,48 +81,42 @@ namespace seisapp
         private void button_ok_Click(object sender, EventArgs e)
         {
             Database.clear_table(Database.STATION_COORDINATES_TABLENAME);
-            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
+
+            int number = 0;
+            double x = 0;
+            double y = 0;
+            double altitude = 0;
+
+            dataGridView1.AllowUserToAddRows = false;
+            foreach (DataGridViewRow r in dataGridView1.Rows)
             {
-                connection.Open();
-                SqliteCommand command = new SqliteCommand();
-                command.Connection = connection;
-                string number = "0";
-                string x = "0";
-                string y = "0";
-                string altitude = "0";
 
-                dataGridView1.AllowUserToAddRows = false;
-                foreach (DataGridViewRow r in dataGridView1.Rows)
+                if (r.Cells["number"].Value != null)
                 {
-
-                    if (r.Cells["number"].Value != null)
-                    {
-                        number = r.Cells["number"].Value.ToString();
-                    }
-                    else
-                    { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
-                    if (r.Cells["x"].Value != null)
-                    {
-                        x = r.Cells["x"].Value.ToString();
-                    }
-                    else
-                    { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
-                    if (r.Cells["y"].Value != null)
-                    {
-                        y = r.Cells["y"].Value.ToString();
-                    }
-                    else
-                    { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
-                    if (r.Cells["altitude"].Value != null)
-                    {
-                        altitude = r.Cells["altitude"].Value.ToString();
-                    }
-                    else
-                    { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
-
-                    command.CommandText = "INSERT INTO " + Database.STATION_COORDINATES_TABLENAME + " (number, x, y, altitude) VALUES (" + number + ", " + x + "," + y + "," + altitude + ")";
-                    command.ExecuteNonQuery();
+                    number = Convert.ToInt32(r.Cells["number"].Value);
                 }
+                else
+                { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
+                if (r.Cells["x"].Value != null)
+                {
+                    x = Convert.ToDouble(r.Cells["x"].Value);
+                }
+                else
+                { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
+                if (r.Cells["y"].Value != null)
+                {
+                    y = Convert.ToDouble(r.Cells["y"].Value);
+                }
+                else
+                { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
+                if (r.Cells["altitude"].Value != null)
+                {
+                    altitude = Convert.ToDouble(r.Cells["altitude"].Value);
+                }
+                else
+                { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
+
+                Database.add_row_in_table_station_coordinates(number, x, y, altitude);
             }
             Close();
         }
