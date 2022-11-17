@@ -16,7 +16,7 @@ namespace seisapp
         public Form1()
         {
             InitializeComponent();
-            hide();
+            peak_traces_hide();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -121,7 +121,7 @@ namespace seisapp
             }
         }
 
-        public void hide()
+        public void peak_traces_hide()
         {
             label_artcode.Visible = false;
 
@@ -141,10 +141,31 @@ namespace seisapp
             spinEdit_min_frequency.Visible = false;
             spinEdit_max_frequency.Visible = false;
         }
+        public void peak_traces_show()
+        {
+            label_artcode.Visible = false;
+
+            pictureBox_date.Visible = true;
+            label_date.Visible = true;
+            label_date_start.Visible = true;
+            label_date_stop.Visible = true;
+            textBox_date_start.Visible = true;
+            textBox_date_stop.Visible = true;
+            label_component.Visible = true;
+            comboBox_component.Visible = true;
+
+            pictureBox_furier_filter.Visible = true;
+            label_furier_filter.Visible = true;
+            label_min_frequency.Visible = true;
+            label_max_frequency.Visible = true;
+            spinEdit_min_frequency.Visible = true;
+            spinEdit_max_frequency.Visible = true;
+        }
 
         private void peakTracesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            label_artcode.Visible = false;
+            peak_traces_show();
+
         }
 
         private void label_component_Click(object sender, EventArgs e)
