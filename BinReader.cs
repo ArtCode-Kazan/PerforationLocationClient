@@ -258,10 +258,11 @@ namespace seisapp
         }
         public Binary_File(string file_path, int resample_frequency = 0, bool is_use_avg_values = false)
         {
-            bool is_path_correct = Operations.is_binary_file_path(file_path);
-            if (is_path_correct == false) { throw new BadFilePath("Invalid path - {1}", file_path); }
+            bool is_path_correct = Operations.is_binary_file_path(__path);
+            if (is_path_correct == false) { throw new BadFilePath("Invalid path - {1}", __path); }
             // full file path
             __path = file_path;
+
             // header file data
             __file_header = __get_file_header;
 
