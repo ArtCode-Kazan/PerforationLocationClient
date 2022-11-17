@@ -203,7 +203,7 @@ namespace seisapp
             return new FileHeader(channel_count, frequency, datetime_start, longitude, latitude);
         }
         public static bool is_binary_file_path(string path)
-        {
+        {            
             if (File.Exists(path) == true)
             {
                 string extension = Path.GetExtension(path);
@@ -258,11 +258,11 @@ namespace seisapp
         }
         public Binary_File(string file_path, int resample_frequency = 0, bool is_use_avg_values = false)
         {
-            bool is_path_correct = Operations.is_binary_file_path(__path);
+            bool is_path_correct = Operations.is_binary_file_path(file_path);
             if (is_path_correct == false) { throw new BadFilePath("Invalid path - {1}", __path); }
             // full file path
             __path = file_path;
-
+            
             // header file data
             __file_header = __get_file_header;
 
@@ -351,7 +351,8 @@ namespace seisapp
         {
             get
             {
-                long file_size = __path.Length; 
+                FileInfo file = new FileInfo(__path);                
+                long file_size = file.Length;
                 int discrete_amount = Convert.ToInt32((file_size - header_memory_size) / (FileHeader.channel_count * 4));
                 return discrete_amount;
             }

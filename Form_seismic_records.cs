@@ -46,17 +46,15 @@ namespace seisapp
                     number = Convert.ToInt32(r.Cells["number"].Value);
                     string file = Convert.ToString(r.Cells["file"].Value);
                     string path = Convert.ToString(r.Cells["path"].Value);
+                    
 
-                    string full_path = path + "/" + file;
-
-                    Binary_File binfile = new Binary_File(full_path);
+                    Binary_File binfile = new Binary_File(path + "/" + file);
                     DateTime datetime_stop = binfile.datetime_stop;
                     DateTime datetime_start = binfile.datetime_start;
                     
-
                     Database.add_row_in_table_seismic_records(number, file, path, datetime_start, datetime_stop);
 
-                    Binary_File example = new Binary_File(path);
+                    
                     //example.
 
                 }                                                

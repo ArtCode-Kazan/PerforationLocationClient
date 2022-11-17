@@ -16,12 +16,13 @@ namespace seisapp
         public const string VELOCITY_TABLENAME = "velocity";
         public const string STATION_COORDINATES_TABLENAME = "station_coordinates";
         public const string SEISMIC_RECORDS_TABLENAME = "seismic_records";
+        public const string PARAMETERS_TABLENAME = "parameters";
 
         public const string TABLE_STATION_CREATING_COMMAND = "CREATE TABLE " + STATION_COORDINATES_TABLENAME + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, number INTEGER NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
         public const string TABLE_VELOCITY_CREATING_COMMAND = "CREATE TABLE " + VELOCITY_TABLENAME + "(h_top DOUBLE NOT NULL, h_bottom DOUBLE NOT NULL, vp DOUBLE NOT NULL)";
         public const string TABLE_SETTINGS_CREATING_COMMAND = "CREATE TABLE " + SETTINGS_TABLENAME + "(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";
         public const string TABLE_SEISMIC_RECORDS_CREATING_COMMAND = "CREATE TABLE " + SEISMIC_RECORDS_TABLENAME + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, station_id INTEGER NOT NULL, root VARCHAR(140) NOT NULL, file_name VARCHAR(45) NOT NULL, datetime_start VARCHAR(45) NOT NULL, datetime_stop VARCHAR(45) NOT NULL, FOREIGN KEY (station_id) REFERENCES station_coordinates (id), CONSTRAINT UNIQUE_FIELDS UNIQUE (file_name, root))";
-        public const string TABLE_PARAMETERS_CREATING_COMMAND = "CREATE TABLE " + SETTINGS_TABLENAME + "(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";
+        public const string TABLE_PARAMETERS_CREATING_COMMAND = "CREATE TABLE " + PARAMETERS_TABLENAME + "(datetime_graph_start VARCHAR(45) NOT NULL, datetime_graph_stop VARCHAR(45) NOT NULL, component VARCHAR(1) NOT NULL, furier_min_freq DOUBLE NOT NULL, furier_max_freq DOUBLE NOT NULL, stalta_min_window DOUBLE NOT NULL, stalta_max_window DOUBLE NOT NULL, stalta_order INTEGER NOT NULL)";
 
         static public void create_table(string name) 
         {
@@ -48,7 +49,9 @@ namespace seisapp
                 command.CommandText = TABLE_VELOCITY_CREATING_COMMAND;
                 command.ExecuteNonQuery();
                 command.CommandText = TABLE_SEISMIC_RECORDS_CREATING_COMMAND;
-                command.ExecuteNonQuery();               
+                command.ExecuteNonQuery();
+                command.CommandText = TABLE_PARAMETERS_CREATING_COMMAND;
+                command.ExecuteNonQuery();
             }
         }        
         static public void add_row_in_table_velocity(double h_top, double h_bottom, double vp)
@@ -66,7 +69,12 @@ namespace seisapp
                 command.ExecuteNonQuery();
             }
         }
-        static public void add_row_in_table_station_coordinates(int number, double x, double y, double altitude)
+        static public void add_row_in_table_station_coordinates(
+            int number, 
+            double x, 
+            double y, 
+            double altitude
+        )
         {
             string snumber = Convert.ToString(number);            
             string sx = Convert.ToString(x);
@@ -82,7 +90,13 @@ namespace seisapp
                 command.ExecuteNonQuery();
             }
         }
-        static public void add_row_in_table_seismic_records(int station_id, string file_name, string root, DateTime datetime_start, DateTime datetime_stop)
+        static public void add_row_in_table_seismic_records(
+            int station_id, 
+            string file_name, 
+            string root, 
+            DateTime datetime_start, 
+            DateTime datetime_stop
+        )
         {
             string sid = Convert.ToString(station_id);
             string sdatetime_start = datetime_start.ToString();
@@ -110,6 +124,35 @@ namespace seisapp
                     clear_table(SETTINGS_TABLENAME);
                 }
                 command.CommandText = "INSERT INTO " + SETTINGS_TABLENAME + " (ip, port) VALUES ('" + ip + "', " + Convert.ToString(port) + ")";
+                command.ExecuteNonQuery();
+            }
+        }
+        static public void refresh_row_in_table_parameters(
+            string datetime_graph_start, 
+            string datetime_graph_stop, 
+            string component,
+            double furier_min_freq, 
+            double furier_max_freq, 
+            double stalta_min_window, 
+            double stalta_max_window, 
+            int stalta_order)
+        {
+            string sfurier_min_freq = Convert.ToString(furier_min_freq);
+            string sfurier_max_freq = Convert.ToString(furier_max_freq);
+            string sstalta_min_window = Convert.ToString(stalta_min_window);
+            string sstalta_max_window = Convert.ToString(stalta_max_window);
+            string sstalta_order = Convert.ToString(stalta_order);
+            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection;
+                command.CommandText = "SELECT COUNT(*) FROM " + PARAMETERS_TABLENAME;
+                if (Convert.ToInt32(command.ExecuteScalar()) != 0)
+                {
+                    clear_table(PARAMETERS_TABLENAME);
+                }
+                command.CommandText = "INSERT INTO " + PARAMETERS_TABLENAME + " (datetime_graph_start, datetime_graph_stop, component, furier_min_freq, furier_max_freq, stalta_min_window, stalta_max_window, stalta_order) VALUES ('" + datetime_graph_start + "', '" + datetime_graph_stop + "', '" + component + "', " + sfurier_min_freq + ", " + sfurier_max_freq + ", " + sstalta_min_window + ", " + sstalta_max_window + ", " + sstalta_order + ")";
                 command.ExecuteNonQuery();
             }
         }
