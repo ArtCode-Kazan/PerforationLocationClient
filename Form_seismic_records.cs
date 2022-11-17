@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.Utils.Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static seisapp.Operations;
 
 namespace seisapp
 {
@@ -44,8 +46,13 @@ namespace seisapp
                     number = Convert.ToInt32(r.Cells["number"].Value);
                     string file = Convert.ToString(r.Cells["file"].Value);
                     string path = Convert.ToString(r.Cells["path"].Value);
-                    Database.
-                    Database.add_row_in_table_seismic_records(number, file, path);
+                    DateTime datetime_start = FileHeader.get_datetime_start(path + "/" + file);
+
+                    Database.add_row_in_table_seismic_records(number, file, path, datetime_start, datetime_start);
+
+                    Binary_File example = new Binary_File(path);
+                    example.
+
                 }                                                
             }
             dataGridView1.AllowUserToAddRows = true;
