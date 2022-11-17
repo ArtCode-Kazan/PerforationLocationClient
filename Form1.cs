@@ -165,7 +165,37 @@ namespace seisapp
         private void peakTracesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             peak_traces_show();
+            string[,] seismic_records_array = new string[Database.get_amount_rows_seismic_records(), 6];
+            seismic_records_array = Database.get_seismic_records();
 
+            DateTime[,] seismic_datetime_start_stop = new DateTime[seismic_records_array.GetLength(0), 2];
+
+            for (int i = 0; i < seismic_records_array.GetLength(0); i++)
+            {
+                seismic_datetime_start_stop[i, 0] = DateTime.Parse(seismic_records_array[i, 4]);
+                seismic_datetime_start_stop[i, 1] = DateTime.Parse(seismic_records_array[i, 5]);
+            }
+
+            DateTime maximum_seismic_datetime_start = seismic_datetime_start_stop[0, 0];
+            DateTime minimum_seismic_datetime_stop = seismic_datetime_start_stop[0, 1];
+
+            for (int i = 0; i < seismic_datetime_start_stop.GetLength(0); i++)
+            {
+                if (seismic_datetime_start_stop[i, 0] > maximum_seismic_datetime_start)
+                    { maximum_seismic_datetime_start = seismic_datetime_start_stop[i, 0]; }
+                if (seismic_datetime_start_stop[i, 1] > minimum_seismic_datetime_stop)
+                { minimum_seismic_datetime_stop = seismic_datetime_start_stop[i, 1]; }
+            }
+
+            if (maximum_seismic_datetime_start > minimum_seismic_datetime_stop)
+            {
+                MessageBox.Show("Время старта одного из датчиков меньше времени конца другого");
+                maximum_seismic_datetime_start = new DateTime();
+                minimum_seismic_datetime_stop = new DateTime();
+            }
+
+            textBox_date_start.Text = maximum_seismic_datetime_start.ToString();
+            textBox_date_stop.Text = minimum_seismic_datetime_stop.ToString();
         }
 
         private void label_component_Click(object sender, EventArgs e)
