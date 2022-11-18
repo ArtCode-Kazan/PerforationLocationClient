@@ -553,10 +553,9 @@ namespace seisapp
             int strides_size = 4 * channels_count;
             int signal_size = end_moment - start_moment;
 
-
+            
             //signal_array = np.ndarray(signal_size, buffer = mm, dtype = np.int32, offset = offset_size, strides = strides_size).copy()
-
-            ;
+            
             FileStream f = new FileStream(path, FileMode.Open, FileAccess.Read);
             MemoryMappedFile mm = MemoryMappedFile.CreateFromFile(
                 fileStream: f,
@@ -566,7 +565,11 @@ namespace seisapp
                 inheritability: HandleInheritability.None,
                 leaveOpen: false
                 );
-
+                
+            byte[] byte_array = new byte[signal_size];
+            MemoryMappedViewStream mm_stream = mm.CreateViewStream();
+            mm_stream.Read(byte_array, offset_size, signal_size);
+            
 
 
 

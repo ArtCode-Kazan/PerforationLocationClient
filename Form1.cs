@@ -204,6 +204,9 @@ namespace seisapp
 
             textBox_date_start.Text = maximum_seismic_datetime_start.ToString();
             textBox_date_stop.Text = minimum_seismic_datetime_stop.ToString();
+
+            Binary_File signal = new Binary_File("D:/Binaryfiles/HF_0004_2019-08-08_11-51-37_064_132.xx");
+            signal._get_component_signal();
         }
 
         private void label_component_Click(object sender, EventArgs e)
