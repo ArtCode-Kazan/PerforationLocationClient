@@ -183,18 +183,21 @@ namespace seisapp
             {
                 int start_compare = DateTime.Compare(seismic_datetime_start_stop[i, 0], maximum_seismic_datetime_start);
                 int stop_compare = DateTime.Compare(seismic_datetime_start_stop[i, 1], minimum_seismic_datetime_stop);
-                
-                if (start_compare > )
-                    //https://learn.microsoft.com/ru-ru/dotnet/api/system.datetime.compare?view=net-7.0
-                    if (seismic_datetime_start_stop[i, 0] > maximum_seismic_datetime_start)
-                    { maximum_seismic_datetime_start = seismic_datetime_start_stop[i, 0]; }
-                if (seismic_datetime_start_stop[i, 1] > minimum_seismic_datetime_stop)
-                { minimum_seismic_datetime_stop = seismic_datetime_start_stop[i, 1]; }
+
+                if (start_compare >= 0)
+                {
+                    maximum_seismic_datetime_start = seismic_datetime_start_stop[i, 0];
+                }
+
+                if (stop_compare <= 0)
+                {
+                    minimum_seismic_datetime_stop = seismic_datetime_start_stop[i, 1]; 
+                }                
             }
 
-            if (maximum_seismic_datetime_start > minimum_seismic_datetime_stop)
+            if (DateTime.Compare(maximum_seismic_datetime_start,minimum_seismic_datetime_stop) >= 0)
             {
-                MessageBox.Show("Время старта одного из датчиков меньше времени конца другого");
+                MessageBox.Show("Время старта одного из датчиков меньше или равно времени конца другого");
                 maximum_seismic_datetime_start = new DateTime();
                 minimum_seismic_datetime_stop = new DateTime();
             }
