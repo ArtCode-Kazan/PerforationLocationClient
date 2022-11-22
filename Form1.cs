@@ -16,7 +16,11 @@ namespace seisapp
         public Form1()
         {
             InitializeComponent();
-            //peak_traces_hide();
+            label_artcode.Visible = true;
+
+
+
+
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -121,27 +125,9 @@ namespace seisapp
             }
         }
 
-        public void peak_traces_hide()
-        {
-            label_artcode.Visible = false;
 
-            pictureBox_date.Visible = false;                
-            label_date.Visible = false;
-            label_date_start.Visible = false;
-            label_date_stop.Visible = false;
-            textBox_date_start.Visible = false;
-            textBox_date_stop.Visible = false;
-            label_component.Visible = false;
-            comboBox_component.Visible = false;
 
-            pictureBox_furier_filter.Visible = false;
-            label_furier_filter.Visible = false;
-            label_min_frequency.Visible = false;
-            label_max_frequency.Visible = false;
-            spinEdit_min_frequency.Visible = false;
-            spinEdit_max_frequency.Visible = false;
-        }
-        public void peak_traces_show()
+        private void peakTracesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             label_artcode.Visible = false;
 
@@ -160,11 +146,7 @@ namespace seisapp
             label_max_frequency.Visible = true;
             spinEdit_min_frequency.Visible = true;
             spinEdit_max_frequency.Visible = true;
-        }
 
-        private void peakTracesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            peak_traces_show();
             string[,] seismic_records_array = new string[Database.get_amount_rows_seismic_records(), 6];
             seismic_records_array = Database.get_seismic_records();
 
@@ -195,15 +177,15 @@ namespace seisapp
                 }                
             }
 
-            if (DateTime.Compare(maximum_seismic_datetime_start,minimum_seismic_datetime_stop) >= 0)
+            if (DateTime.Compare(maximum_seismic_datetime_start, minimum_seismic_datetime_stop) >= 0)
             {
                 MessageBox.Show("Время старта одного из датчиков меньше или равно времени конца другого");
                 maximum_seismic_datetime_start = new DateTime();
                 minimum_seismic_datetime_stop = new DateTime();
             }
 
-            textBox_date_start.Text = maximum_seismic_datetime_start.ToString();
-            textBox_date_stop.Text = minimum_seismic_datetime_stop.ToString();
+            textBox_date_start.Text = Convert.ToString(DateTime.Now);
+            textBox_date_stop.Text = Convert.ToString(DateTime.Now);
 
             Binary_File signal = new Binary_File("D:/Binaryfiles/HF_0004_2019-08-08_11-51-37_064_132.xx");
             signal._get_component_signal();

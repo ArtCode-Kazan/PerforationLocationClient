@@ -18,12 +18,12 @@ namespace seisapp
         public Form_seismic_records()
         {
             InitializeComponent();            
-            string[,] array = new string[Database.get_amount_rows_seismic_records(), 3];
+            string[,] array = new string[Database.get_amount_rows_seismic_records(), 6];
             array = Database.get_seismic_records();
             for (int i = 0; i < array.GetLength(0); i++)
             {
-                string  number = array[i, 0];
-                string name = array[i, 1];
+                string  number = array[i, 1];
+                string name = array[i, 3];
                 string path = array[i,2];
                 dataGridView1.Rows.Add(number, name, path);
             }
