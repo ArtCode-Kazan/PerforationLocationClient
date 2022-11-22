@@ -6,6 +6,7 @@ using System.IO.MemoryMappedFiles;
 using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace seisapp
 {
@@ -294,7 +295,7 @@ namespace seisapp
         }
         private bool is_use_avg_values
         {
-            get { return is_use_avg_values; }
+            get { return __is_use_avg_values; }
         }
         private int origin_frequency
         {
@@ -429,7 +430,7 @@ namespace seisapp
             {
                 if (__read_date_time_stop == new DateTime())
                 {
-                    __read_date_time_stop = datetime_start;
+                    __read_date_time_stop = datetime_stop;
                 }
                 return __read_date_time_stop;
             }
@@ -532,11 +533,26 @@ namespace seisapp
                 else { return false; }
             }
         }
+        public dynamic resample(Int32[] signal, int resample_parameter)
+        {
+            int discrete_amount = signal.GetLength(0);
+            int resample_discrete_amount = (discrete_amount - (discrete_amount % resample_parameter)) / resample_parameter;
+            Int32[] resample_signal = new int[resample_discrete_amount];
+
+            for (int i = 0; i < resample_discrete_amount; i++)
+            {
+                for (i = i * resample_parameter, i < ( i + 1 ) * resample_parameter ))
+                    sum(signal[i * resample_parameter: (i + 1) * resample_parameter]);
+                int sum_val = sum( signal[i * resample_parameter: (i + 1) * resample_parameter] );
+                resample_signal[i] = sum_val; // resample_parameter
+            } 
+            return resample_signal;
+         }
 
         //def __create_unique_file_name(self) -> str:
         //return '{}.{}'.format(uuid.uuid4().hex, self.file_extension)
 
-        public dynamic _get_component_signal(string component_name = "Z")
+        public dynamic _get_component_signal(string component_name = "Y")
         {
             int column_index;
             if (channels_count == 3)
@@ -567,15 +583,36 @@ namespace seisapp
                 );
                 
             byte[] byte_array = new byte[signal_size];
-            MemoryMappedViewStream mm_stream = mm.CreateViewStream();
-            mm_stream.Read(byte_array, offset_size, signal_size);
-            
+            byte[] byte_array_clip = new byte[signal_size / strides_size];
+            MemoryMappedViewStream mm_stream = mm.CreateViewStream(offset_size, signal_size, MemoryMappedFileAccess.Read);
+            mm_stream.Read(byte_array, 0, signal_size);
+            for (int i = 0; 
+                i < 500;
+                i++
+                )
+            {
+                byte_array_clip[i * 4] = byte_array[i * strides_size];
+                byte_array_clip[i * 4 + 1] = byte_array[i * strides_size + 1];
+                byte_array_clip[i * 4 + 2] = byte_array[i * strides_size + 2];
+                byte_array_clip[i * 4 + 3] = byte_array[i * strides_size + 3];
 
+            }
 
-
-            return null;
+            Int32[] int_array = new int[byte_array_clip.Length / 4];
+            for (int i = 0; i < int_array.Length / 4; i++)
+            {
+                int_array[i] = BitConverter.ToInt32(byte_array_clip, i * 4);                
+            }            
+            return int_array;
         }
 
+        public dynamic _resample_signal(Int32[] src_signal)
+        {
+            if (resample_parameter == 1)
+                return src_signal
+            
+            return resampling(src_signal, self.resample_parameter)
+        }
         public dynamic read_signal(string component = "Z")
         {
             component = component.ToUpper();
@@ -583,7 +620,23 @@ namespace seisapp
             {
                 throw new InvalidComponentName("{1} not found", component);
             }
-            return null;
+
+            Int32[] signal_array = _get_component_signal(component);
+
+            Int32[] resample_signal = _resample_signal(signal_array);
+            if (is_use_avg_values == false)
+            {
+                return resample_signal;
+            }
+
+            Int32[] averaged_array = resample_signal;
+
+            for (int i = 0; i < averaged_array.Length; i++)
+            {
+                averaged_array[i] = averaged_array[i] - Convert.ToInt32(Enumerable.Average(resample_signal));
+            }
+
+            return averaged_array;                                            
         }
     }    
     
