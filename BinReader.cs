@@ -533,18 +533,20 @@ namespace seisapp
                 else { return false; }
             }
         }
-        public dynamic resample(Int32[] signal, int resample_parameter)
+        public dynamic resampling(Int32[] signal, int resample_parameter)
         {
             int discrete_amount = signal.GetLength(0);
             int resample_discrete_amount = (discrete_amount - (discrete_amount % resample_parameter)) / resample_parameter;
             Int32[] resample_signal = new int[resample_discrete_amount];
-
             for (int i = 0; i < resample_discrete_amount; i++)
             {
-                for (i = i * resample_parameter, i < ( i + 1 ) * resample_parameter ))
-                    sum(signal[i * resample_parameter: (i + 1) * resample_parameter]);
-                int sum_val = sum( signal[i * resample_parameter: (i + 1) * resample_parameter] );
-                resample_signal[i] = sum_val; // resample_parameter
+                int sum = 0;                
+                for (int j=i * resample_parameter; j < (i + 1) * resample_parameter; j++)
+                {                    
+                    sum += signal[i];
+                }                       
+                int sum_val = sum;
+                resample_signal[i] = sum_val;
             } 
             return resample_signal;
          }
@@ -609,9 +611,9 @@ namespace seisapp
         public dynamic _resample_signal(Int32[] src_signal)
         {
             if (resample_parameter == 1)
-                return src_signal
-            
-            return resampling(src_signal, self.resample_parameter)
+                return src_signal;
+
+            return resampling(src_signal, resample_parameter);
         }
         public dynamic read_signal(string component = "Z")
         {
@@ -620,20 +622,19 @@ namespace seisapp
             {
                 throw new InvalidComponentName("{1} not found", component);
             }
-
             Int32[] signal_array = _get_component_signal(component);
-
             Int32[] resample_signal = _resample_signal(signal_array);
+
             if (is_use_avg_values == false)
             {
                 return resample_signal;
             }
 
             Int32[] averaged_array = resample_signal;
-
+            int avg_value = Convert.ToInt32(Enumerable.Average(resample_signal));
             for (int i = 0; i < averaged_array.Length; i++)
             {
-                averaged_array[i] = averaged_array[i] - Convert.ToInt32(Enumerable.Average(resample_signal));
+                averaged_array[i] = averaged_array[i] - avg_value;
             }
 
             return averaged_array;                                            
