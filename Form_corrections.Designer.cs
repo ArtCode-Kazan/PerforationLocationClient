@@ -28,157 +28,157 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label_calibration_explosion = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.button_ok = new System.Windows.Forms.Button();
-            this.button_cancel = new System.Windows.Forms.Button();
-            this.dateTimePicker_blow_datetime = new System.Windows.Forms.DateTimePicker();
-            this.spinEdit_calibration_y = new DevExpress.XtraEditors.SpinEdit();
-            this.spinEdit_calibration_altitude = new DevExpress.XtraEditors.SpinEdit();
-            this.spinEdit_calibration_x = new DevExpress.XtraEditors.SpinEdit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_calibration_y.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_calibration_altitude.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_calibration_x.Properties)).BeginInit();
+            this.labelCalibrationExplosion = new System.Windows.Forms.Label();
+            this.labelBlowDateTime = new System.Windows.Forms.Label();
+            this.labelX = new System.Windows.Forms.Label();
+            this.labelY = new System.Windows.Forms.Label();
+            this.labelAltitude = new System.Windows.Forms.Label();
+            this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.dateTimePickerBlowDateTime = new System.Windows.Forms.DateTimePicker();
+            this.spinEditCalibrationY = new DevExpress.XtraEditors.SpinEdit();
+            this.spinEditCalibrationAltitude = new DevExpress.XtraEditors.SpinEdit();
+            this.spinEditCalibrationX = new DevExpress.XtraEditors.SpinEdit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEditCalibrationY.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEditCalibrationAltitude.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEditCalibrationX.Properties)).BeginInit();
             this.SuspendLayout();
             // 
-            // label_calibration_explosion
+            // labelCalibrationExplosion
             // 
-            this.label_calibration_explosion.AutoSize = true;
-            this.label_calibration_explosion.Location = new System.Drawing.Point(153, 18);
-            this.label_calibration_explosion.Name = "label_calibration_explosion";
-            this.label_calibration_explosion.Size = new System.Drawing.Size(103, 13);
-            this.label_calibration_explosion.TabIndex = 0;
-            this.label_calibration_explosion.Text = "Calibration explosion";
+            this.labelCalibrationExplosion.AutoSize = true;
+            this.labelCalibrationExplosion.Location = new System.Drawing.Point(153, 18);
+            this.labelCalibrationExplosion.Name = "labelCalibrationExplosion";
+            this.labelCalibrationExplosion.Size = new System.Drawing.Size(103, 13);
+            this.labelCalibrationExplosion.TabIndex = 0;
+            this.labelCalibrationExplosion.Text = "Calibration explosion";
             // 
-            // label2
+            // labelBlowDateTime
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(54, 81);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Blow datetime";
+            this.labelBlowDateTime.AutoSize = true;
+            this.labelBlowDateTime.Location = new System.Drawing.Point(54, 81);
+            this.labelBlowDateTime.Name = "labelBlowDateTime";
+            this.labelBlowDateTime.Size = new System.Drawing.Size(73, 13);
+            this.labelBlowDateTime.TabIndex = 1;
+            this.labelBlowDateTime.Text = "Blow datetime";
             // 
-            // label3
+            // labelX
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(54, 128);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(12, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "x";
+            this.labelX.AutoSize = true;
+            this.labelX.Location = new System.Drawing.Point(54, 128);
+            this.labelX.Name = "labelX";
+            this.labelX.Size = new System.Drawing.Size(12, 13);
+            this.labelX.TabIndex = 6;
+            this.labelX.Text = "x";
             // 
-            // label4
+            // labelY
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(54, 158);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(12, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "y";
+            this.labelY.AutoSize = true;
+            this.labelY.Location = new System.Drawing.Point(54, 158);
+            this.labelY.Name = "labelY";
+            this.labelY.Size = new System.Drawing.Size(12, 13);
+            this.labelY.TabIndex = 7;
+            this.labelY.Text = "y";
             // 
-            // label5
+            // labelAltitude
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(54, 188);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(42, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Altitude";
+            this.labelAltitude.AutoSize = true;
+            this.labelAltitude.Location = new System.Drawing.Point(54, 188);
+            this.labelAltitude.Name = "labelAltitude";
+            this.labelAltitude.Size = new System.Drawing.Size(42, 13);
+            this.labelAltitude.TabIndex = 8;
+            this.labelAltitude.Text = "Altitude";
             // 
-            // button_ok
+            // buttonOk
             // 
-            this.button_ok.Location = new System.Drawing.Point(112, 270);
-            this.button_ok.Name = "button_ok";
-            this.button_ok.Size = new System.Drawing.Size(75, 23);
-            this.button_ok.TabIndex = 9;
-            this.button_ok.Text = "ok";
-            this.button_ok.UseVisualStyleBackColor = true;
-            this.button_ok.Click += new System.EventHandler(this.button1_Click);
+            this.buttonOk.Location = new System.Drawing.Point(112, 270);
+            this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Size = new System.Drawing.Size(75, 23);
+            this.buttonOk.TabIndex = 9;
+            this.buttonOk.Text = "ok";
+            this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button_cancel
+            // buttonCancel
             // 
-            this.button_cancel.Location = new System.Drawing.Point(269, 270);
-            this.button_cancel.Name = "button_cancel";
-            this.button_cancel.Size = new System.Drawing.Size(75, 23);
-            this.button_cancel.TabIndex = 10;
-            this.button_cancel.Text = "cancel";
-            this.button_cancel.UseVisualStyleBackColor = true;
-            this.button_cancel.Click += new System.EventHandler(this.button2_Click);
+            this.buttonCancel.Location = new System.Drawing.Point(269, 270);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 10;
+            this.buttonCancel.Text = "cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.button2_Click);
             // 
-            // dateTimePicker_blow_datetime
+            // dateTimePickerBlowDateTime
             // 
-            this.dateTimePicker_blow_datetime.Location = new System.Drawing.Point(144, 75);
-            this.dateTimePicker_blow_datetime.Name = "dateTimePicker_blow_datetime";
-            this.dateTimePicker_blow_datetime.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker_blow_datetime.TabIndex = 11;
+            this.dateTimePickerBlowDateTime.Location = new System.Drawing.Point(144, 75);
+            this.dateTimePickerBlowDateTime.Name = "dateTimePickerBlowDateTime";
+            this.dateTimePickerBlowDateTime.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerBlowDateTime.TabIndex = 11;
             // 
-            // spinEdit_calibration_y
+            // spinEditCalibrationY
             // 
-            this.spinEdit_calibration_y.EditValue = new decimal(new int[] {
+            this.spinEditCalibrationY.EditValue = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.spinEdit_calibration_y.Location = new System.Drawing.Point(112, 155);
-            this.spinEdit_calibration_y.Name = "spinEdit_calibration_y";
-            this.spinEdit_calibration_y.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.spinEditCalibrationY.Location = new System.Drawing.Point(112, 155);
+            this.spinEditCalibrationY.Name = "spinEditCalibrationY";
+            this.spinEditCalibrationY.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.spinEdit_calibration_y.Size = new System.Drawing.Size(100, 20);
-            this.spinEdit_calibration_y.TabIndex = 25;
+            this.spinEditCalibrationY.Size = new System.Drawing.Size(100, 20);
+            this.spinEditCalibrationY.TabIndex = 25;
             // 
-            // spinEdit_calibration_altitude
+            // spinEditCalibrationAltitude
             // 
-            this.spinEdit_calibration_altitude.EditValue = new decimal(new int[] {
+            this.spinEditCalibrationAltitude.EditValue = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.spinEdit_calibration_altitude.Location = new System.Drawing.Point(112, 185);
-            this.spinEdit_calibration_altitude.Name = "spinEdit_calibration_altitude";
-            this.spinEdit_calibration_altitude.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.spinEditCalibrationAltitude.Location = new System.Drawing.Point(112, 185);
+            this.spinEditCalibrationAltitude.Name = "spinEditCalibrationAltitude";
+            this.spinEditCalibrationAltitude.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.spinEdit_calibration_altitude.Size = new System.Drawing.Size(100, 20);
-            this.spinEdit_calibration_altitude.TabIndex = 26;
+            this.spinEditCalibrationAltitude.Size = new System.Drawing.Size(100, 20);
+            this.spinEditCalibrationAltitude.TabIndex = 26;
             // 
-            // spinEdit_calibration_x
+            // spinEditCalibrationX
             // 
-            this.spinEdit_calibration_x.EditValue = new decimal(new int[] {
+            this.spinEditCalibrationX.EditValue = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.spinEdit_calibration_x.Location = new System.Drawing.Point(112, 125);
-            this.spinEdit_calibration_x.Name = "spinEdit_calibration_x";
-            this.spinEdit_calibration_x.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.spinEditCalibrationX.Location = new System.Drawing.Point(112, 125);
+            this.spinEditCalibrationX.Name = "spinEditCalibrationX";
+            this.spinEditCalibrationX.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.spinEdit_calibration_x.Size = new System.Drawing.Size(100, 20);
-            this.spinEdit_calibration_x.TabIndex = 27;
+            this.spinEditCalibrationX.Size = new System.Drawing.Size(100, 20);
+            this.spinEditCalibrationX.TabIndex = 27;
             // 
             // Form_corrections
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(427, 384);
-            this.Controls.Add(this.spinEdit_calibration_x);
-            this.Controls.Add(this.spinEdit_calibration_altitude);
-            this.Controls.Add(this.spinEdit_calibration_y);
-            this.Controls.Add(this.dateTimePicker_blow_datetime);
-            this.Controls.Add(this.button_cancel);
-            this.Controls.Add(this.button_ok);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label_calibration_explosion);
+            this.Controls.Add(this.spinEditCalibrationX);
+            this.Controls.Add(this.spinEditCalibrationAltitude);
+            this.Controls.Add(this.spinEditCalibrationY);
+            this.Controls.Add(this.dateTimePickerBlowDateTime);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonOk);
+            this.Controls.Add(this.labelAltitude);
+            this.Controls.Add(this.labelY);
+            this.Controls.Add(this.labelX);
+            this.Controls.Add(this.labelBlowDateTime);
+            this.Controls.Add(this.labelCalibrationExplosion);
             this.Name = "Form_corrections";
             this.Text = "seisapp";
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_calibration_y.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_calibration_altitude.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_calibration_x.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEditCalibrationY.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEditCalibrationAltitude.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEditCalibrationX.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,16 +186,16 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label_calibration_explosion;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button_ok;
-        private System.Windows.Forms.Button button_cancel;
-        private System.Windows.Forms.DateTimePicker dateTimePicker_blow_datetime;
-        private DevExpress.XtraEditors.SpinEdit spinEdit_calibration_y;
-        private DevExpress.XtraEditors.SpinEdit spinEdit_calibration_altitude;
-        private DevExpress.XtraEditors.SpinEdit spinEdit_calibration_x;
+        private System.Windows.Forms.Label labelCalibrationExplosion;
+        private System.Windows.Forms.Label labelBlowDateTime;
+        private System.Windows.Forms.Label labelX;
+        private System.Windows.Forms.Label labelY;
+        private System.Windows.Forms.Label labelAltitude;
+        private System.Windows.Forms.Button buttonOk;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.DateTimePicker dateTimePickerBlowDateTime;
+        private DevExpress.XtraEditors.SpinEdit spinEditCalibrationY;
+        private DevExpress.XtraEditors.SpinEdit spinEditCalibrationAltitude;
+        private DevExpress.XtraEditors.SpinEdit spinEditCalibrationX;
     }
 }
