@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraCharts.XYDiagram xyDiagram2 = new DevExpress.XtraCharts.XYDiagram();
-            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView2 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,28 +50,32 @@
             this.pictureBox_date = new System.Windows.Forms.PictureBox();
             this.label_date_start = new System.Windows.Forms.Label();
             this.label_date_stop = new System.Windows.Forms.Label();
-            this.textBox_date_start = new System.Windows.Forms.TextBox();
-            this.textBox_date_stop = new System.Windows.Forms.TextBox();
             this.label_component = new System.Windows.Forms.Label();
             this.comboBox_component = new System.Windows.Forms.ComboBox();
             this.label_date = new System.Windows.Forms.Label();
             this.pictureBox_furier_filter = new System.Windows.Forms.PictureBox();
             this.label_furier_filter = new System.Windows.Forms.Label();
-            this.spinEdit_min_frequency = new DevExpress.XtraEditors.SpinEdit();
-            this.spinEdit_max_frequency = new DevExpress.XtraEditors.SpinEdit();
+            this.spinEdit_furier_min_frequency = new DevExpress.XtraEditors.SpinEdit();
+            this.spinEdit_furier_max_frequency = new DevExpress.XtraEditors.SpinEdit();
             this.label_min_frequency = new System.Windows.Forms.Label();
             this.label_max_frequency = new System.Windows.Forms.Label();
             this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
             this.button1 = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dateTimePicker_start = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker_stop = new System.Windows.Forms.DateTimePicker();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_date)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_furier_filter)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_min_frequency.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_max_frequency.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_min_frequency.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_max_frequency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -236,7 +240,6 @@
             this.label_date_start.Size = new System.Drawing.Size(32, 15);
             this.label_date_start.TabIndex = 3;
             this.label_date_start.Text = "Start";
-            this.label_date_start.Click += new System.EventHandler(this.label_date_start_Click);
             // 
             // label_date_stop
             // 
@@ -248,21 +251,6 @@
             this.label_date_stop.Size = new System.Drawing.Size(32, 15);
             this.label_date_stop.TabIndex = 4;
             this.label_date_stop.Text = "Stop";
-            this.label_date_stop.Click += new System.EventHandler(this.label_date_stop_Click);
-            // 
-            // textBox_date_start
-            // 
-            this.textBox_date_start.Location = new System.Drawing.Point(58, 84);
-            this.textBox_date_start.Name = "textBox_date_start";
-            this.textBox_date_start.Size = new System.Drawing.Size(136, 20);
-            this.textBox_date_start.TabIndex = 5;
-            // 
-            // textBox_date_stop
-            // 
-            this.textBox_date_stop.Location = new System.Drawing.Point(236, 84);
-            this.textBox_date_stop.Name = "textBox_date_stop";
-            this.textBox_date_stop.Size = new System.Drawing.Size(141, 20);
-            this.textBox_date_stop.TabIndex = 6;
             // 
             // label_component
             // 
@@ -274,7 +262,6 @@
             this.label_component.Size = new System.Drawing.Size(71, 15);
             this.label_component.TabIndex = 7;
             this.label_component.Text = "Component";
-            this.label_component.Click += new System.EventHandler(this.label_component_Click);
             // 
             // comboBox_component
             // 
@@ -317,33 +304,33 @@
             this.label_furier_filter.TabIndex = 11;
             this.label_furier_filter.Text = "Furier bandpass filter";
             // 
-            // spinEdit_min_frequency
+            // spinEdit_furier_min_frequency
             // 
-            this.spinEdit_min_frequency.EditValue = new decimal(new int[] {
+            this.spinEdit_furier_min_frequency.EditValue = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.spinEdit_min_frequency.Location = new System.Drawing.Point(975, 61);
-            this.spinEdit_min_frequency.Name = "spinEdit_min_frequency";
-            this.spinEdit_min_frequency.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.spinEdit_furier_min_frequency.Location = new System.Drawing.Point(975, 61);
+            this.spinEdit_furier_min_frequency.Name = "spinEdit_furier_min_frequency";
+            this.spinEdit_furier_min_frequency.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.spinEdit_min_frequency.Size = new System.Drawing.Size(100, 20);
-            this.spinEdit_min_frequency.TabIndex = 12;
+            this.spinEdit_furier_min_frequency.Size = new System.Drawing.Size(100, 20);
+            this.spinEdit_furier_min_frequency.TabIndex = 12;
             // 
-            // spinEdit_max_frequency
+            // spinEdit_furier_max_frequency
             // 
-            this.spinEdit_max_frequency.EditValue = new decimal(new int[] {
+            this.spinEdit_furier_max_frequency.EditValue = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.spinEdit_max_frequency.Location = new System.Drawing.Point(975, 95);
-            this.spinEdit_max_frequency.Name = "spinEdit_max_frequency";
-            this.spinEdit_max_frequency.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.spinEdit_furier_max_frequency.Location = new System.Drawing.Point(975, 95);
+            this.spinEdit_furier_max_frequency.Name = "spinEdit_furier_max_frequency";
+            this.spinEdit_furier_max_frequency.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.spinEdit_max_frequency.Size = new System.Drawing.Size(100, 20);
-            this.spinEdit_max_frequency.TabIndex = 13;
+            this.spinEdit_furier_max_frequency.Size = new System.Drawing.Size(100, 20);
+            this.spinEdit_furier_max_frequency.TabIndex = 13;
             // 
             // label_min_frequency
             // 
@@ -366,27 +353,29 @@
             this.label_max_frequency.Size = new System.Drawing.Size(87, 15);
             this.label_max_frequency.TabIndex = 15;
             this.label_max_frequency.Text = "max frequency";
-            this.label_max_frequency.Click += new System.EventHandler(this.label2_Click);
             // 
             // chartControl1
             // 
+            this.chartControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.chartControl1.CrosshairOptions.ShowOutOfRangePoints = true;
-            xyDiagram2.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram2.AxisY.VisibleInPanesSerializable = "-1";
-            xyDiagram2.EnableAxisXZooming = true;
-            xyDiagram2.EnableAxisYZooming = true;
-            xyDiagram2.Rotated = true;
-            xyDiagram2.ZoomingOptions.AxisXMaxZoomPercent = 100000D;
-            xyDiagram2.ZoomingOptions.AxisYMaxZoomPercent = 100000D;
-            this.chartControl1.Diagram = xyDiagram2;
+            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
+            xyDiagram1.EnableAxisXZooming = true;
+            xyDiagram1.EnableAxisYZooming = true;
+            xyDiagram1.Rotated = true;
+            xyDiagram1.ZoomingOptions.AxisXMaxZoomPercent = 100000D;
+            xyDiagram1.ZoomingOptions.AxisYMaxZoomPercent = 100000D;
+            this.chartControl1.Diagram = xyDiagram1;
             this.chartControl1.Legend.Direction = DevExpress.XtraCharts.LegendDirection.BottomToTop;
-            this.chartControl1.Location = new System.Drawing.Point(124, 162);
+            this.chartControl1.Location = new System.Drawing.Point(0, 14);
             this.chartControl1.Name = "chartControl1";
-            series2.Name = "signal";
-            series2.View = lineSeriesView2;
+            series1.Name = "signal";
+            series1.View = lineSeriesView1;
             this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        series2};
-            this.chartControl1.Size = new System.Drawing.Size(217, 346);
+        series1};
+            this.chartControl1.Size = new System.Drawing.Size(745, 336);
             this.chartControl1.TabIndex = 16;
             // 
             // button1
@@ -400,25 +389,61 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.chartControl1);
+            this.groupBox1.Location = new System.Drawing.Point(72, 165);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(759, 351);
+            this.groupBox1.TabIndex = 18;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            // 
+            // dateTimePicker_start
+            // 
+            this.dateTimePicker_start.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_start.Location = new System.Drawing.Point(58, 84);
+            this.dateTimePicker_start.Name = "dateTimePicker_start";
+            this.dateTimePicker_start.Size = new System.Drawing.Size(136, 20);
+            this.dateTimePicker_start.TabIndex = 19;
+            // 
+            // dateTimePicker_stop
+            // 
+            this.dateTimePicker_stop.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_stop.Location = new System.Drawing.Point(235, 84);
+            this.dateTimePicker_stop.Name = "dateTimePicker_stop";
+            this.dateTimePicker_stop.Size = new System.Drawing.Size(141, 20);
+            this.dateTimePicker_stop.TabIndex = 20;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.pictureBox1.Location = new System.Drawing.Point(665, 36);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(202, 94);
+            this.pictureBox1.TabIndex = 21;
+            this.pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(198)))), ((int)(((byte)(208)))));
             this.ClientSize = new System.Drawing.Size(1096, 592);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.dateTimePicker_stop);
+            this.Controls.Add(this.dateTimePicker_start);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.chartControl1);
             this.Controls.Add(this.label_max_frequency);
             this.Controls.Add(this.label_min_frequency);
-            this.Controls.Add(this.spinEdit_max_frequency);
-            this.Controls.Add(this.spinEdit_min_frequency);
+            this.Controls.Add(this.spinEdit_furier_max_frequency);
+            this.Controls.Add(this.spinEdit_furier_min_frequency);
             this.Controls.Add(this.label_furier_filter);
             this.Controls.Add(this.pictureBox_furier_filter);
             this.Controls.Add(this.label_date);
             this.Controls.Add(this.comboBox_component);
             this.Controls.Add(this.label_component);
-            this.Controls.Add(this.textBox_date_stop);
-            this.Controls.Add(this.textBox_date_start);
             this.Controls.Add(this.label_date_stop);
             this.Controls.Add(this.label_date_start);
             this.Controls.Add(this.pictureBox_date);
@@ -431,12 +456,14 @@
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_date)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_furier_filter)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_min_frequency.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_max_frequency.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_min_frequency.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_max_frequency.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -463,19 +490,21 @@
         private System.Windows.Forms.PictureBox pictureBox_date;
         private System.Windows.Forms.Label label_date_start;
         private System.Windows.Forms.Label label_date_stop;
-        private System.Windows.Forms.TextBox textBox_date_start;
-        private System.Windows.Forms.TextBox textBox_date_stop;
         private System.Windows.Forms.Label label_component;
         private System.Windows.Forms.ComboBox comboBox_component;
         private System.Windows.Forms.Label label_date;
         private System.Windows.Forms.PictureBox pictureBox_furier_filter;
         private System.Windows.Forms.Label label_furier_filter;
-        private DevExpress.XtraEditors.SpinEdit spinEdit_min_frequency;
-        private DevExpress.XtraEditors.SpinEdit spinEdit_max_frequency;
+        private DevExpress.XtraEditors.SpinEdit spinEdit_furier_min_frequency;
+        private DevExpress.XtraEditors.SpinEdit spinEdit_furier_max_frequency;
         private System.Windows.Forms.Label label_min_frequency;
         private System.Windows.Forms.Label label_max_frequency;
         private DevExpress.XtraCharts.ChartControl chartControl1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_start;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_stop;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

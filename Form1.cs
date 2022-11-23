@@ -19,6 +19,8 @@ namespace seisapp
             InitializeComponent();
             label_artcode.Visible = true;
             comboBox_component.Text = "Z";
+            dateTimePicker_start.CustomFormat = "dd.MM.yyyy hh:mm:ss";
+            dateTimePicker_stop.CustomFormat = "dd.MM.yyyy hh:mm:ss";
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -133,8 +135,6 @@ namespace seisapp
             label_date.Visible = true;
             label_date_start.Visible = true;
             label_date_stop.Visible = true;
-            textBox_date_start.Visible = true;
-            textBox_date_stop.Visible = true;
             label_component.Visible = true;
             comboBox_component.Visible = true;
 
@@ -142,8 +142,8 @@ namespace seisapp
             label_furier_filter.Visible = true;
             label_min_frequency.Visible = true;
             label_max_frequency.Visible = true;
-            spinEdit_min_frequency.Visible = true;
-            spinEdit_max_frequency.Visible = true;
+            spinEdit_furier_min_frequency.Visible = true;
+            spinEdit_furier_max_frequency.Visible = true;
 
             string[,] seismic_records_array = new string[Database.get_amount_rows_seismic_records(), 6];
             seismic_records_array = Database.get_seismic_records();
@@ -174,50 +174,36 @@ namespace seisapp
                     minimum_seismic_datetime_stop = seismic_datetime_start_stop[i, 1]; 
                 }                
             }
-
+            
             if (DateTime.Compare(maximum_seismic_datetime_start, minimum_seismic_datetime_stop) >= 0)
             {
                 MessageBox.Show("Время старта одного из датчиков меньше или равно времени конца другого");
-                maximum_seismic_datetime_start = new DateTime();
-                minimum_seismic_datetime_stop = new DateTime();
+                maximum_seismic_datetime_start = DateTime.Now;
+                minimum_seismic_datetime_stop = DateTime.Now;
             }
 
-            textBox_date_start.Text = Convert.ToString(DateTime.Now);
-            textBox_date_stop.Text = Convert.ToString(DateTime.Now);
-
-            
-        }
-
-        private void label_component_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label_date_start_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label_date_stop_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
+            dateTimePicker_start.Value = maximum_seismic_datetime_start;
+            dateTimePicker_stop.Value = minimum_seismic_datetime_stop;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            double furier_min_frequency = Convert.ToDouble(spinEdit_furier_min_frequency.Text);
+            double furier_max_frequency = Convert.ToDouble(spinEdit_furier_max_frequency.Text);
+
+            DateTime start = dateTimePicker_start.Value;
+            DateTime stop = dateTimePicker_stop.Value;
+
             Binary_File binary_signal = new Binary_File("D:/Binaryfiles/HF_0006_2020-02-22_00-00-00_6247_258.00");
-            binary_signal.__resample_frequency = 100;
+            binary_signal.__resample_frequency = 1000;
 
             string comp = comboBox_component.Text;
             Int32[] signal = binary_signal.read_signal(comp);
-            
 
+                       
+            
             Series xy_collection = chartControl1.Series["signal"];
+            chartControl1.Series.Add(new Series());
             xy_collection.Points.Clear();           
 
             for (int i = 0; i < signal.Length; i++)
