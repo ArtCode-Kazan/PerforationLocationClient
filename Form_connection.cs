@@ -17,19 +17,36 @@ namespace seisapp
         {
             InitializeComponent();
         }
-
+        static bool check_ip(string address)
+        {
+            var nums = address.Split('.');            
+            return nums.Length == 4 && nums.All(n => int.TryParse(n, out int x)) &&
+                   nums.Select(int.Parse).All(n => n < 256);
+        }
+        static bool check_port(string port)
+        {
+            return !int.TryParse(port, out int x);
+        }
         private void button_ok_Click(object sender, EventArgs e)
         {
             string ip = textBox1.Text;
-            if (!int.TryParse(textBox2.Text, out int port))
+            string port = textBox2.Text;
+            
+            if (check_ip(ip) == false)
             {
-                MessageBox.Show("Введите правильные значения");
+                MessageBox.Show("Введите правильное значение ip");
+                textBox1.Text = "";
+            }
+            
+            if (check_port(port) == false)
+            {
+                MessageBox.Show("Введите правильное значение порта");
                 textBox2.Text = "";
-            }            
-            Database.refresh_row_in_table_settings(ip, port);
+            }
+            
+            Database.refresh_row_in_table_settings(ip, Convert.ToInt32(port));
             Close();
         }
-
         private void button_cancel_Click(object sender, EventArgs e)
         {
             Close();
