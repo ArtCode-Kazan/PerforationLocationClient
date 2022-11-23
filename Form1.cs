@@ -19,8 +19,8 @@ namespace seisapp
             InitializeComponent();
             label_artcode.Visible = true;
             comboBox_component.Text = "Z";
-            dateTimePicker_start.CustomFormat = "dd.MM.yyyy hh:mm:ss";
-            dateTimePicker_stop.CustomFormat = "dd.MM.yyyy hh:mm:ss";
+            dateTimePicker_start.CustomFormat = "dd.MM.yyyy HH:mm:ss";
+            dateTimePicker_stop.CustomFormat = "dd.MM.yyyy HH:mm:ss";
             spinEdit_stalta_filter_order.Properties.Mask.EditMask = "f0";   // only int
 
         }
@@ -185,7 +185,7 @@ namespace seisapp
             }
 
             dateTimePicker_start.Value = maximum_seismic_datetime_start;
-            dateTimePicker_stop.Value = minimum_seismic_datetime_stop;
+            dateTimePicker_stop.Value = minimum_seismic_datetime_stop;           
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -196,7 +196,10 @@ namespace seisapp
             DateTime start = dateTimePicker_start.Value;
             DateTime stop = dateTimePicker_stop.Value;
 
-            Binary_File binary_signal = new Binary_File("D:/Binaryfiles/HF_0016_2019-08-18_08-59-33_sigma003_sigma003.bin");
+            string[,] seismic_records_array = new string[Database.get_amount_rows_seismic_records(), 6];
+            seismic_records_array = Database.get_seismic_records();
+
+            Binary_File binary_signal = new Binary_File(seismic_records_array[0, 2] + "/" + seismic_records_array[0, 3]);
             binary_signal.__resample_frequency = 200;
             binary_signal.__read_date_time_stop = stop;
 
