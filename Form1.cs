@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.XtraCharts;
 using Microsoft.Data.Sqlite;
 
 namespace seisapp
@@ -17,10 +18,7 @@ namespace seisapp
         {
             InitializeComponent();
             label_artcode.Visible = true;
-
-
-
-
+            comboBox_component.Text = "Z";
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -187,8 +185,7 @@ namespace seisapp
             textBox_date_start.Text = Convert.ToString(DateTime.Now);
             textBox_date_stop.Text = Convert.ToString(DateTime.Now);
 
-            Binary_File signal = new Binary_File("D:/Binaryfiles/HF_0004_2019-08-08_11-51-37_064_132.xx");
-            signal._get_component_signal();
+            
         }
 
         private void label_component_Click(object sender, EventArgs e)
@@ -209,6 +206,25 @@ namespace seisapp
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Binary_File binary_signal = new Binary_File("D:/Binaryfiles/HF_0006_2020-02-22_00-00-00_6247_258.00");
+            binary_signal.__resample_frequency = 100;
+
+            string comp = comboBox_component.Text;
+            Int32[] signal = binary_signal.read_signal(comp);
+            
+
+            Series xy_collection = chartControl1.Series["signal"];
+            xy_collection.Points.Clear();           
+
+            for (int i = 0; i < signal.Length; i++)
+            {
+                int value = signal[i];                
+                xy_collection.Points.AddPoint(i, value);
+            }
         }
     }
 }

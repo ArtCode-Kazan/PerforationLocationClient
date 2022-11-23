@@ -38,9 +38,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
             this.h_top = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
@@ -118,6 +118,16 @@
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             // 
+            // h_top
+            // 
+            this.h_top.HeaderText = "h_top";
+            this.h_top.Name = "h_top";
+            // 
+            // vp
+            // 
+            this.vp.HeaderText = "Vp";
+            this.vp.Name = "vp";
+            // 
             // chartControl1
             // 
             xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
@@ -135,16 +145,6 @@
         series1};
             this.chartControl1.Size = new System.Drawing.Size(303, 301);
             this.chartControl1.TabIndex = 14;
-            // 
-            // h_top
-            // 
-            this.h_top.HeaderText = "h_top";
-            this.h_top.Name = "h_top";
-            // 
-            // vp
-            // 
-            this.vp.HeaderText = "Vp";
-            this.vp.Name = "vp";
             // 
             // Form_speed_model
             // 

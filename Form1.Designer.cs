@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevExpress.XtraCharts.XYDiagram xyDiagram2 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView2 = new DevExpress.XtraCharts.LineSeriesView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,11 +61,17 @@
             this.spinEdit_max_frequency = new DevExpress.XtraEditors.SpinEdit();
             this.label_min_frequency = new System.Windows.Forms.Label();
             this.label_max_frequency = new System.Windows.Forms.Label();
+            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_date)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_furier_filter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_min_frequency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_max_frequency.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -270,6 +279,10 @@
             // comboBox_component
             // 
             this.comboBox_component.FormattingEnabled = true;
+            this.comboBox_component.Items.AddRange(new object[] {
+            "Z",
+            "Y",
+            "X"});
             this.comboBox_component.Location = new System.Drawing.Point(463, 83);
             this.comboBox_component.Name = "comboBox_component";
             this.comboBox_component.Size = new System.Drawing.Size(42, 21);
@@ -355,12 +368,46 @@
             this.label_max_frequency.Text = "max frequency";
             this.label_max_frequency.Click += new System.EventHandler(this.label2_Click);
             // 
+            // chartControl1
+            // 
+            this.chartControl1.CrosshairOptions.ShowOutOfRangePoints = true;
+            xyDiagram2.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram2.AxisY.VisibleInPanesSerializable = "-1";
+            xyDiagram2.EnableAxisXZooming = true;
+            xyDiagram2.EnableAxisYZooming = true;
+            xyDiagram2.Rotated = true;
+            xyDiagram2.ZoomingOptions.AxisXMaxZoomPercent = 100000D;
+            xyDiagram2.ZoomingOptions.AxisYMaxZoomPercent = 100000D;
+            this.chartControl1.Diagram = xyDiagram2;
+            this.chartControl1.Legend.Direction = DevExpress.XtraCharts.LegendDirection.BottomToTop;
+            this.chartControl1.Location = new System.Drawing.Point(124, 162);
+            this.chartControl1.Name = "chartControl1";
+            series2.Name = "signal";
+            series2.View = lineSeriesView2;
+            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
+        series2};
+            this.chartControl1.Size = new System.Drawing.Size(217, 346);
+            this.chartControl1.TabIndex = 16;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.button1.Location = new System.Drawing.Point(475, 503);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(139, 39);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "LESGO";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(198)))), ((int)(((byte)(208)))));
             this.ClientSize = new System.Drawing.Size(1096, 592);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.chartControl1);
             this.Controls.Add(this.label_max_frequency);
             this.Controls.Add(this.label_min_frequency);
             this.Controls.Add(this.spinEdit_max_frequency);
@@ -386,6 +433,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_furier_filter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_min_frequency.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_max_frequency.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -423,6 +474,8 @@
         private DevExpress.XtraEditors.SpinEdit spinEdit_max_frequency;
         private System.Windows.Forms.Label label_min_frequency;
         private System.Windows.Forms.Label label_max_frequency;
+        private DevExpress.XtraCharts.ChartControl chartControl1;
+        private System.Windows.Forms.Button button1;
     }
 }
 
