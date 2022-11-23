@@ -92,6 +92,7 @@ namespace seisapp
                 int hours = (secs - days * 24 * 3600) / 3600;
                 int minutes = (secs - days * 24 * 3600 - hours * 3600) / 60;
                 double seconds = BinaryFile_Info.duration_in_seconds - days * 24 * 3600 - hours * 3600 - minutes * 60;
+                
                 return Operations.format_duration(days, hours, minutes, seconds);
             }
         }
@@ -116,16 +117,22 @@ namespace seisapp
             var memoryStream = new MemoryStream(data);
             memoryStream.Seek(skipping_bytes, SeekOrigin.Begin);
             var reader = new BinaryReader(memoryStream);
+
             if (type == "uint16")
                 return reader.ReadUInt16();
+            
             else if (type == "uint32")
                 return reader.ReadUInt32();
+            
             else if (type == "double")
                 return reader.ReadDouble();
+            
             else if (type == "long")
                 return reader.ReadUInt64();
+            
             else if (type == "string")
                 return new string(reader.ReadChars(count));
+            
             else
                 return false;
         }
@@ -133,6 +140,7 @@ namespace seisapp
         {
             DateTime const_datetime = new DateTime(1980, 1, 1);
             ulong seconds = time_begin / 256000000;
+
             return const_datetime.AddSeconds(seconds);
         }
         static public object read_baikal7_header(string path)
@@ -143,6 +151,7 @@ namespace seisapp
             double longitude = binary_read(path, "double", 1, 80);
             double latitude = binary_read(path, "double", 1, 72);
             DateTime datetime = get_datetime_start_baikal7(time_begin);
+
             return new FileHeader(channel_count, frequency, datetime, longitude, latitude);
         }
         static public object read_baikal8_header(string path)
@@ -157,6 +166,7 @@ namespace seisapp
             double longitude = binary_read(path, "double", 1, 80);
             DateTime datetime_start = new DateTime(year, month, day, 0, 0, 1).AddSeconds(seconds);
             int frequency = Convert.ToInt16(1 / dt);
+
             return new FileHeader(channel_count, frequency, datetime_start, longitude, latitude);
         }
         static public object read_sigma_header(string path)
@@ -208,23 +218,33 @@ namespace seisapp
             if (File.Exists(path) == true)
             {
                 string extension = Path.GetExtension(path);
+
                 if (extension == BAIKAL7_FMT | extension == BAIKAL8_FMT | extension == SIGMA_FMT)
                 {
                     return true;
                 }
-                else { return false; }
+                else 
+                { 
+                    return false; 
+                }
             }
-            else { return false; }
+
+            else 
+            { 
+                return false; 
+            }
         }
         static public string format_duration(int days, int hours, int minutes, double seconds)
         {
             string hours_fmt = Convert.ToString(hours).PadLeft(2, '0');
             string minutes_fmt = Convert.ToString(minutes).PadLeft(2, '0');
             string seconds_fmt = Convert.ToString(seconds).PadLeft(6, '0'); //THERE SHOULD BE f'{seconds:.3f}'
+            
             if (days != 0)
             {
                 return Convert.ToString(days) + " days " + hours_fmt + ":" + minutes_fmt + ":" + seconds_fmt;
             }
+            
             else
             {
                 return hours_fmt + ":" + minutes_fmt + ":" + seconds_fmt;
@@ -287,19 +307,31 @@ namespace seisapp
 
         private string path
         {
-            get { return __path; }
+            get 
+            { 
+                return __path; 
+            }
         }
         private FileHeader file_header
         {
-            get { return file_header; }
+            get 
+            { 
+                return file_header; 
+            }
         }
         private bool is_use_avg_values
         {
-            get { return __is_use_avg_values; }
+            get 
+            { 
+                return __is_use_avg_values; 
+            }
         }
         private int origin_frequency
         {
-            get { return FileHeader.frequency; }
+            get 
+            { 
+                return FileHeader.frequency; 
+            }
         }
         private int resample_frequency
         {
@@ -309,16 +341,23 @@ namespace seisapp
                 { 
                     __resample_frequency = origin_frequency; 
                 }
+
                 return __resample_frequency;
             }
         }
         private string file_extension
         {
-            get { return Path.GetExtension(path); }
+            get 
+            { 
+                return Path.GetExtension(path); 
+            }
         }
         private string unique_file_name
         {
-            get { return __unique_file_name; }
+            get 
+            { 
+                return __unique_file_name; 
+            }
         }
         private string format_type
         {
@@ -327,24 +366,34 @@ namespace seisapp
                 foreach (var file in BINARY_FILE_FORMATS)
                 {
                     if (file.Value == file_extension)
-                    { return file.Key; }
+                    { 
+                        return file.Key; 
+                    }
                 }
+
                 return null;
             }
         }
         private DateTime origin_datetime_start
         {
-            get { return FileHeader.datetime_start; }
+            get 
+            { 
+                return FileHeader.datetime_start; 
+            }
         }
         private int channels_count
         {
-            get { return FileHeader.channel_count; }
+            get 
+            { 
+                return FileHeader.channel_count; 
+            }
         }
         private int header_memory_size
         {
             get
             {
                 int channel_count = channels_count;
+                
                 return 120 + 72 * channel_count;
             }
         }
@@ -355,6 +404,7 @@ namespace seisapp
                 FileInfo file = new FileInfo(__path);                
                 long file_size = file.Length;
                 int discrete_amount = Convert.ToInt32((file_size - header_memory_size) / (FileHeader.channel_count * 4));
+                
                 return discrete_amount;
             }
         }
@@ -366,6 +416,7 @@ namespace seisapp
                 int freq = origin_frequency;
                 int accuracy = Convert.ToInt32(Math.Log10(freq));
                 double delta_seconds = Math.Round(Convert.ToDouble(discrete_count / freq), accuracy);
+                
                 return delta_seconds;
             }
         }
@@ -381,9 +432,14 @@ namespace seisapp
             get
             {
                 if (format_type == "SIGMA_FMT")
-                { return origin_datetime_start.AddSeconds(Operations.SIGMA_SECONDS_OFFSET); }
+                { 
+                    return origin_datetime_start.AddSeconds(Operations.SIGMA_SECONDS_OFFSET); 
+                }
+                
                 else
-                { return origin_datetime_start.AddSeconds(0); }
+                { 
+                    return origin_datetime_start.AddSeconds(0); 
+                }
             }
         }
         public DateTime datetime_stop
@@ -395,11 +451,17 @@ namespace seisapp
         }
         private double longitude
         {
-            get { return Math.Round(FileHeader.longitude, 6); }
+            get 
+            { 
+                return Math.Round(FileHeader.longitude, 6); 
+            }
         }
         private double latitude
         {
-            get { return Math.Round(FileHeader.latitude, 6); }
+            get 
+            { 
+                return Math.Round(FileHeader.latitude, 6); 
+            }
         }
         //WARNING! there are a datetime that need to be ...
         private DateTime read_date_time_start
@@ -410,6 +472,7 @@ namespace seisapp
                 {
                     __read_date_time_start = datetime_start;
                 }
+
                 return __read_date_time_start;
             }
             set
@@ -417,10 +480,16 @@ namespace seisapp
                 DateTime datetime = new DateTime();
                 double dt1 = datetime.Subtract(datetime_start).TotalSeconds;
                 double dt2 = datetime_stop.Subtract(datetime).TotalSeconds;
+                
                 if (dt1 >= 0 & dt2 > 0)
-                { __read_date_time_start = datetime; }
+                { 
+                    __read_date_time_start = datetime; 
+                }
+                
                 else
-                { throw new InvalidDateTimeValue("Invalid start reading datetime"); }
+                { 
+                    throw new InvalidDateTimeValue("Invalid start reading datetime"); 
+                }
             }
         }
         //WARNING! there are a datetime that need to be ...
@@ -432,6 +501,7 @@ namespace seisapp
                 {
                     __read_date_time_stop = datetime_stop;
                 }
+
                 return __read_date_time_stop;
             }
             set
@@ -439,10 +509,16 @@ namespace seisapp
                 DateTime datetime = new DateTime();
                 double dt1 = datetime.Subtract(datetime_start).TotalSeconds;
                 double dt2 = datetime_stop.Subtract(datetime).TotalSeconds;
+                
                 if (dt1 > 0 & dt2 >= 0)
-                { __read_date_time_stop = datetime; }
+                { 
+                    __read_date_time_stop = datetime; 
+                }
+                
                 else
-                { throw new InvalidDateTimeValue("Invalid stop reading datetime"); }
+                { 
+                    throw new InvalidDateTimeValue("Invalid stop reading datetime"); 
+                }
             }
         }
         private int start_moment
@@ -492,6 +568,7 @@ namespace seisapp
                         {record_type.Substring(1,1), 2},
                         {record_type.Substring(2,1), 3}
                     };
+
                 return indexes;
             }
         }
@@ -507,30 +584,49 @@ namespace seisapp
             get
             {
                 string extension = Path.GetExtension(__path);
+
                 if (extension == Operations.BAIKAL7_FMT)
                 {
                     return Operations.read_baikal7_header(__path);
                 }
+                
                 else if (extension == Operations.BAIKAL8_FMT)
                 {
                     return Operations.read_baikal8_header(__path);
                 }
+                
                 else if (extension == Operations.SIGMA_FMT)
                 {
                     return Operations.read_sigma_header(__path);
                 }
+                
                 else
                     return null;
             }
         }
         public bool is_correct_resample_frequency(int value)
         {
-            if (value < 0) { return false; }
-            else if (value == 0) { return true; }
+            if (value < 0) 
+            { 
+                return false; 
+            }
+            
+            else if (value == 0) 
+            { 
+                return true; 
+            }
+            
             else
             {
-                if (origin_frequency % value == 0) { return true; }
-                else { return false; }
+                if (origin_frequency % value == 0) 
+                { 
+                    return true; 
+                }
+
+                else 
+                {
+                    return false; 
+                }
             }
         }
         public dynamic resampling(Int32[] signal, int resample_parameter)
@@ -538,6 +634,7 @@ namespace seisapp
             int discrete_amount = signal.GetLength(0);
             int resample_discrete_amount = (discrete_amount - (discrete_amount % resample_parameter)) / resample_parameter;
             Int32[] resample_signal = new int[resample_discrete_amount];
+            
             for (int i = 0; i < resample_discrete_amount; i++)
             {
                 int sum = 0;                
@@ -548,29 +645,30 @@ namespace seisapp
                 int sum_val = sum;
                 resample_signal[i] = sum_val;
             } 
+
             return resample_signal;
          }
-
         //def __create_unique_file_name(self) -> str:
         //return '{}.{}'.format(uuid.uuid4().hex, self.file_extension)
-
         public dynamic _get_component_signal(string component_name = "Y")
         {
             int column_index;
+
             if (channels_count == 3)
             {
                 components_index.TryGetValue(component_name, out column_index);
             }
+
             else
             {
                 components_index.TryGetValue(component_name, out column_index);
                 column_index = column_index + 3;
             }
+
             int skip_data_size = 4 * channels_count * start_moment;
             int offset_size = header_memory_size + skip_data_size + column_index * 4;
             int strides_size = 4 * channels_count;
             int signal_size = end_moment - start_moment;
-
             
             //signal_array = np.ndarray(signal_size, buffer = mm, dtype = np.int32, offset = offset_size, strides = strides_size).copy()
             
@@ -588,26 +686,24 @@ namespace seisapp
             byte[] byte_array_clip = new byte[signal_size / strides_size];
             MemoryMappedViewStream mm_stream = mm.CreateViewStream(offset_size, signal_size, MemoryMappedFileAccess.Read);
             mm_stream.Read(byte_array, 0, signal_size);
-            for (int i = 0; 
-                i < 500;
-                i++
-                )
+            
+            for (int i = 0; i < 500; i++)
             {
                 byte_array_clip[i * 4] = byte_array[i * strides_size];
                 byte_array_clip[i * 4 + 1] = byte_array[i * strides_size + 1];
                 byte_array_clip[i * 4 + 2] = byte_array[i * strides_size + 2];
                 byte_array_clip[i * 4 + 3] = byte_array[i * strides_size + 3];
-
             }
 
             Int32[] int_array = new int[byte_array_clip.Length / 4];
+            
             for (int i = 0; i < int_array.Length / 4; i++)
             {
                 int_array[i] = BitConverter.ToInt32(byte_array_clip, i * 4);                
             }            
+            
             return int_array;
         }
-
         public dynamic _resample_signal(Int32[] src_signal)
         {
             if (resample_parameter == 1)
@@ -618,6 +714,7 @@ namespace seisapp
         public dynamic read_signal(string component = "Z")
         {
             component = component.ToUpper();
+
             if (components_index.ContainsKey(component) == false)
             {
                 throw new InvalidComponentName("{1} not found", component);

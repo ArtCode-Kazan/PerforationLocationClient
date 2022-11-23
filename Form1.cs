@@ -196,16 +196,16 @@ namespace seisapp
             DateTime start = dateTimePicker_start.Value;
             DateTime stop = dateTimePicker_stop.Value;
 
-            Binary_File binary_signal = new Binary_File("D:/Binaryfiles/HF_0006_2020-02-22_00-00-00_6247_258.00");
-            binary_signal.__resample_frequency = 1000;
+            Binary_File binary_signal = new Binary_File("D:/Binaryfiles/HF_0004_2019-08-08_11-51-37_064_132.xx");
+            binary_signal.__resample_frequency = 200;
+            binary_signal.__read_date_time_stop = stop;
 
             string comp = comboBox_component.Text;
             Int32[] signal = binary_signal.read_signal(comp);
 
-                       
+              
             
-            Series xy_collection = chartControl1.Series["signal"];
-            chartControl1.Series.Add(new Series());
+            Series xy_collection = chartControl1.Series["signal"];            
             xy_collection.Points.Clear();           
 
             for (int i = 0; i < signal.Length; i++)

@@ -85,12 +85,11 @@ namespace seisapp
             int number = 0;
             double x = 0;
             double y = 0;
-            double altitude = 0;
+            double altitude = 0;            
 
             dataGridView1.AllowUserToAddRows = false;
             foreach (DataGridViewRow r in dataGridView1.Rows)
             {
-
                 if (r.Cells["number"].Value != null)
                 {
                     number = Convert.ToInt32(r.Cells["number"].Value);
@@ -99,19 +98,21 @@ namespace seisapp
                 { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
                 if (r.Cells["x"].Value != null)
                 {
-                    x = Convert.ToDouble(r.Cells["x"].Value);
+                    string stroka = Convert.ToString(r.Cells["x"].Value);
+                    stroka = stroka.Replace(',', '.');
+                    x = Convert.ToDouble(stroka);
                 }
                 else
                 { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
                 if (r.Cells["y"].Value != null)
                 {
-                    y = Convert.ToDouble(r.Cells["y"].Value);
+                    y = Convert.ToDouble(Convert.ToString(r.Cells["y"].Value).Replace(',', '.'));
                 }
                 else
                 { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
                 if (r.Cells["altitude"].Value != null)
                 {
-                    altitude = Convert.ToDouble(r.Cells["altitude"].Value);
+                    altitude = Convert.ToDouble(Convert.ToString(r.Cells["altitude"].Value).Replace(',', '.'));
                 }
                 else
                 { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
