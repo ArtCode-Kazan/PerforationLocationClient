@@ -17,12 +17,14 @@ namespace seisapp
         public const string STATION_COORDINATES_TABLENAME = "station_coordinates";
         public const string SEISMIC_RECORDS_TABLENAME = "seismic_records";
         public const string PARAMETERS_TABLENAME = "parameters";
+        public const string CALIBRATION_EXPLOSION = "calibration_explosion";
 
         public const string TABLE_STATION_CREATING_COMMAND = "CREATE TABLE " + STATION_COORDINATES_TABLENAME + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, number INTEGER NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
         public const string TABLE_VELOCITY_CREATING_COMMAND = "CREATE TABLE " + VELOCITY_TABLENAME + "(h_top DOUBLE NOT NULL, h_bottom DOUBLE NOT NULL, vp DOUBLE NOT NULL)";
         public const string TABLE_SETTINGS_CREATING_COMMAND = "CREATE TABLE " + SETTINGS_TABLENAME + "(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";
         public const string TABLE_SEISMIC_RECORDS_CREATING_COMMAND = "CREATE TABLE " + SEISMIC_RECORDS_TABLENAME + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, station_id INTEGER NOT NULL, root VARCHAR(140) NOT NULL, file_name VARCHAR(45) NOT NULL, datetime_start VARCHAR(45) NOT NULL, datetime_stop VARCHAR(45) NOT NULL, FOREIGN KEY (station_id) REFERENCES station_coordinates (id), CONSTRAINT UNIQUE_FIELDS UNIQUE (file_name, root))";
         public const string TABLE_PARAMETERS_CREATING_COMMAND = "CREATE TABLE " + PARAMETERS_TABLENAME + "(datetime_graph_start VARCHAR(45) NOT NULL, datetime_graph_stop VARCHAR(45) NOT NULL, component VARCHAR(1) NOT NULL, furier_min_freq DOUBLE NOT NULL, furier_max_freq DOUBLE NOT NULL, stalta_min_window DOUBLE NOT NULL, stalta_max_window DOUBLE NOT NULL, stalta_order INTEGER NOT NULL)";
+        public const string TABLE_CALIBRATION_EXPLOSION_CREATING_COMMAND = "CREATE TABLE " + CALIBRATION_EXPLOSION + "(datetime_blow VARCHAR(45) NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
 
         static public void create_table(string name)
         {
@@ -51,6 +53,8 @@ namespace seisapp
                 command.CommandText = TABLE_SEISMIC_RECORDS_CREATING_COMMAND;
                 command.ExecuteNonQuery();
                 command.CommandText = TABLE_PARAMETERS_CREATING_COMMAND;
+                command.ExecuteNonQuery();
+                command.CommandText = TABLE_CALIBRATION_EXPLOSION_CREATING_COMMAND;
                 command.ExecuteNonQuery();
             }
         }
@@ -108,6 +112,21 @@ namespace seisapp
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
                 command.CommandText = "INSERT INTO " + SEISMIC_RECORDS_TABLENAME + " (station_id, file_name, root, datetime_start, datetime_stop) VALUES (" + sid + ", '" + file_name + "', '" + root + "', '" + sdatetime_start + "', '" + sdatetime_stop + "')";
+                command.ExecuteNonQuery();
+            }
+        }
+        static public void add_row_in_table_calibration_explosion(DateTime datetime_blow, double x, double y, double altitude)
+        {            
+            string sdatetime_blow = datetime_blow.ToString();
+            string sx = Convert.ToString(x);
+            string sy = Convert.ToString(y);
+            string saltitude = Convert.ToString(altitude);
+            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection;
+                command.CommandText = "INSERT INTO " + CALIBRATION_EXPLOSION + " (datetime_blow, x, y, altitude) VALUES ('" + sdatetime_blow + "', " + sx + ", " + sy + ", " + saltitude + ")";
                 command.ExecuteNonQuery();
             }
         }

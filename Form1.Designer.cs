@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
-            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.XYDiagram xyDiagram2 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView2 = new DevExpress.XtraCharts.LineSeriesView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,9 +78,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_min_frequency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_max_frequency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_stalta_filter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_min_frequency.Properties)).BeginInit();
@@ -370,21 +370,21 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chartControl1.CrosshairOptions.ShowOutOfRangePoints = true;
-            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
-            xyDiagram1.EnableAxisXZooming = true;
-            xyDiagram1.EnableAxisYZooming = true;
-            xyDiagram1.Rotated = true;
-            xyDiagram1.ZoomingOptions.AxisXMaxZoomPercent = 100000D;
-            xyDiagram1.ZoomingOptions.AxisYMaxZoomPercent = 100000D;
-            this.chartControl1.Diagram = xyDiagram1;
+            xyDiagram2.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram2.AxisY.VisibleInPanesSerializable = "-1";
+            xyDiagram2.EnableAxisXZooming = true;
+            xyDiagram2.EnableAxisYZooming = true;
+            xyDiagram2.Rotated = true;
+            xyDiagram2.ZoomingOptions.AxisXMaxZoomPercent = 100000D;
+            xyDiagram2.ZoomingOptions.AxisYMaxZoomPercent = 100000D;
+            this.chartControl1.Diagram = xyDiagram2;
             this.chartControl1.Legend.Direction = DevExpress.XtraCharts.LegendDirection.BottomToTop;
             this.chartControl1.Location = new System.Drawing.Point(0, 14);
             this.chartControl1.Name = "chartControl1";
-            series1.Name = "signal";
-            series1.View = lineSeriesView1;
+            series2.Name = "signal";
+            series2.View = lineSeriesView2;
             this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        series1};
+        series2};
             this.chartControl1.Size = new System.Drawing.Size(745, 336);
             this.chartControl1.TabIndex = 16;
             // 
@@ -449,7 +449,7 @@
             this.label_stalta_filter_min_frequency.AutoSize = true;
             this.label_stalta_filter_min_frequency.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
             this.label_stalta_filter_min_frequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_stalta_filter_min_frequency.Location = new System.Drawing.Point(673, 60);
+            this.label_stalta_filter_min_frequency.Location = new System.Drawing.Point(670, 58);
             this.label_stalta_filter_min_frequency.Name = "label_stalta_filter_min_frequency";
             this.label_stalta_filter_min_frequency.Size = new System.Drawing.Size(84, 15);
             this.label_stalta_filter_min_frequency.TabIndex = 24;
@@ -474,7 +474,7 @@
             this.label_stalta_filter_max_frequency.AutoSize = true;
             this.label_stalta_filter_max_frequency.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
             this.label_stalta_filter_max_frequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_stalta_filter_max_frequency.Location = new System.Drawing.Point(673, 82);
+            this.label_stalta_filter_max_frequency.Location = new System.Drawing.Point(670, 82);
             this.label_stalta_filter_max_frequency.Name = "label_stalta_filter_max_frequency";
             this.label_stalta_filter_max_frequency.Size = new System.Drawing.Size(87, 15);
             this.label_stalta_filter_max_frequency.TabIndex = 25;
@@ -513,7 +513,7 @@
             this.label_stalta_filter_order.AutoSize = true;
             this.label_stalta_filter_order.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
             this.label_stalta_filter_order.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_stalta_filter_order.Location = new System.Drawing.Point(673, 107);
+            this.label_stalta_filter_order.Location = new System.Drawing.Point(670, 107);
             this.label_stalta_filter_order.Name = "label_stalta_filter_order";
             this.label_stalta_filter_order.Size = new System.Drawing.Size(36, 15);
             this.label_stalta_filter_order.TabIndex = 28;
@@ -560,9 +560,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_furier_filter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_min_frequency.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_max_frequency.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_stalta_filter)).EndInit();
