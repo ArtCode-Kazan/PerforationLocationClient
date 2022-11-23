@@ -196,7 +196,7 @@ namespace seisapp
             DateTime start = dateTimePicker_start.Value;
             DateTime stop = dateTimePicker_stop.Value;
 
-            Binary_File binary_signal = new Binary_File("D:/Binaryfiles/HF_0004_2019-08-08_11-51-37_064_132.xx");
+            Binary_File binary_signal = new Binary_File("D:/Binaryfiles/HF_0016_2019-08-18_08-59-33_sigma003_sigma003.bin");
             binary_signal.__resample_frequency = 200;
             binary_signal.__read_date_time_stop = stop;
 

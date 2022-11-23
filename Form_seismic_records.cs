@@ -22,24 +22,24 @@ namespace seisapp
             array = Database.get_seismic_records();
             for (int i = 0; i < array.GetLength(0); i++)
             {
-                string  number = array[i, 1];
+                string number = array[i, 1];
                 string name = array[i, 3];
                 string path = array[i,2];
-                dataGridView1.Rows.Add(number, name, path);
+                dataGridViewSeismicRecords.Rows.Add(number, name, path);
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonOk_Click(object sender, EventArgs e)
         {
             Database.clear_table(Database.SEISMIC_RECORDS_TABLENAME);
             int number = 0;
-            dataGridView1.AllowUserToAddRows = false;
-            foreach (DataGridViewRow r in dataGridView1.Rows)
+            dataGridViewSeismicRecords.AllowUserToAddRows = false;
+            foreach (DataGridViewRow r in dataGridViewSeismicRecords.Rows)
             {
                 if (Int32.TryParse(Convert.ToString(r.Cells["number"].Value), out number))
                 {
@@ -48,93 +48,89 @@ namespace seisapp
                     string path = Convert.ToString(r.Cells["path"].Value);
                     
 
-                    Binary_File binfile = new Binary_File(path + "/" + file);
-                    DateTime datetime_stop = binfile.datetime_stop;
-                    DateTime datetime_start = binfile.datetime_start;
+                    Binary_File binFile = new Binary_File(path + "/" + file);
+                    DateTime datetimeStop = binFile.datetime_stop;
+                    DateTime datetimeStart = binFile.datetime_start;
                     
-                    Database.add_row_in_table_seismic_records(number, file, path, datetime_start, datetime_stop);
-
-                    
-                    //example.
-
+                    Database.add_row_in_table_seismic_records(number, file, path, datetimeStart, datetimeStop);
                 }                                                
             }
-            dataGridView1.AllowUserToAddRows = true;
+            dataGridViewSeismicRecords.AllowUserToAddRows = true;
             Close();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void buttonBrowse_Click(object sender, EventArgs e)
         {
             //open file
             FolderBrowserDialog choofdlog = new FolderBrowserDialog(); 
 
-            string path_to_file = "";
+            string pathToFile = "";
             int number = 0;
 
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                textBox1.Text = folderBrowserDialog1.SelectedPath;
-                path_to_file = folderBrowserDialog1.SelectedPath;
+                textBoxLoadFromFolder.Text = folderBrowserDialog1.SelectedPath;
+                pathToFile = folderBrowserDialog1.SelectedPath;
             }
 
-            dataGridView1.Rows.Clear();
+            dataGridViewSeismicRecords.Rows.Clear();
 
-            string[] oo_files = Directory.GetFiles(path_to_file, "*.00", SearchOption.AllDirectories);
-            string[] xx_files = Directory.GetFiles(path_to_file, "*.xx", SearchOption.AllDirectories);
-            string[] bin_files = Directory.GetFiles(path_to_file, "*.bin", SearchOption.AllDirectories);
+            string[] ooFiles = Directory.GetFiles(pathToFile, "*.00", SearchOption.AllDirectories);
+            string[] xxFiles = Directory.GetFiles(pathToFile, "*.xx", SearchOption.AllDirectories);
+            string[] binFiles = Directory.GetFiles(pathToFile, "*.bin", SearchOption.AllDirectories);
             
-            string[] all_files =  oo_files.Concat(xx_files).ToArray();
-            all_files = all_files.Concat(bin_files).ToArray();
+            string[] allFiles =  ooFiles.Concat(xxFiles).ToArray();
+            allFiles = allFiles.Concat(binFiles).ToArray();
 
             double[,] array = Database.get_stations();
 
-            string[] station_numbers = new string[array.GetLength(0)];
+            string[] stationNumbers = new string[array.GetLength(0)];
 
-            for (int i = 0; i < station_numbers.Length; i++)
+            for (int i = 0; i < stationNumbers.Length; i++)
             {
-                station_numbers[i] = Convert.ToString(array[i, 0]);
+                stationNumbers[i] = Convert.ToString(array[i, 0]);
             }
             
-            for (int i = 0; i < all_files.Length; i++)
+            for (int i = 0; i < allFiles.Length; i++)
             {
-                FileInfo file = new FileInfo(all_files[i]);
-                string current_number = file.Name.Substring(0, file.Name.IndexOf('_'));
-                if (Int32.TryParse(current_number, out number))
+                FileInfo file = new FileInfo(allFiles[i]);
+                string currentNumber = file.Name.Substring(0, file.Name.IndexOf('_'));
+                if (Int32.TryParse(currentNumber, out number))
                 {
-                    if (station_numbers.Contains(current_number))
+                    if (stationNumbers.Contains(currentNumber))
                     {
                     }
                     else
                     {
                         number = 0;
                     }
-                    dataGridView1.Rows.Add(number, file.Name, file.DirectoryName);
+                    dataGridViewSeismicRecords.Rows.Add(number, file.Name, file.DirectoryName);
                 }
                 else 
                 {
-                    dataGridView1.Rows.Add("", file.Name, file.DirectoryName);
+                    dataGridViewSeismicRecords.Rows.Add("", file.Name, file.DirectoryName);
                 }                
             }
-            dataGridView1.Sort(dataGridView1.Columns["number"], ListSortDirection.Ascending);
+            dataGridViewSeismicRecords.Sort(dataGridViewSeismicRecords.Columns["number"], ListSortDirection.Ascending);
         }
 
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewSeismicRecords_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            dataGridView1.AllowUserToAddRows = false;
-            foreach (DataGridViewRow r in dataGridView1.Rows)
+            dataGridViewSeismicRecords.AllowUserToAddRows = false;
+            foreach (DataGridViewRow r in dataGridViewSeismicRecords.Rows)
             {
 
                 double[,] array = Database.get_stations();
-                string[] station_numbers = new string[array.GetLength(0)];
+                string[] stationNumbers = new string[array.GetLength(0)];
 
-                for (int i = 0; i < station_numbers.Length; i++)
+                for (int i = 0; i < stationNumbers.Length; i++)
                 {
-                    station_numbers[i] = Convert.ToString(array[i, 0]);
+                    stationNumbers[i] = Convert.ToString(array[i, 0]);
                 }
                 string number = Convert.ToString(r.Cells["number"].Value);
                 if (number != "")
                 {
-                    if (station_numbers.Contains(number))
+                    if (stationNumbers.Contains(number))
                     {
 
                     }
@@ -145,7 +141,7 @@ namespace seisapp
                     }
                 }
             }
-            dataGridView1.AllowUserToAddRows = true;
+            dataGridViewSeismicRecords.AllowUserToAddRows = true;
         }
     }
 }
