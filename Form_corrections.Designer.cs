@@ -97,7 +97,7 @@
             this.buttonOk.TabIndex = 9;
             this.buttonOk.Text = "ok";
             this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.button1_Click);
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // buttonCancel
             // 
@@ -107,7 +107,7 @@
             this.buttonCancel.TabIndex = 10;
             this.buttonCancel.Text = "cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.button2_Click);
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // dateTimePickerBlowDateTime
             // 

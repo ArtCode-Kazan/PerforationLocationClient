@@ -27,7 +27,7 @@ namespace seisapp
         {
             return !int.TryParse(port, out int x);
         }
-        private void button_ok_Click(object sender, EventArgs e)
+        private void buttonOk_Click(object sender, EventArgs e)
         {
             string ip = textBoxIpAddress.Text;
             string port = textBoxPort.Text;
@@ -47,7 +47,7 @@ namespace seisapp
             Database.refresh_row_in_table_settings(ip, Convert.ToInt32(port));
             Close();
         }
-        private void button_cancel_Click(object sender, EventArgs e)
+        private void buttonCancel_Click(object sender, EventArgs e)
         {
             Close();
         }

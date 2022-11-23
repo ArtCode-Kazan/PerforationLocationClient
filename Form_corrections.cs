@@ -17,7 +17,7 @@ namespace seisapp
             InitializeComponent();
             dateTimePickerBlowDateTime.CustomFormat = "dd.MM.yyyy hh:mm:ss";
         }       
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonOk_Click(object sender, EventArgs e)
         {
             DateTime blowDatetime = dateTimePickerBlowDateTime.Value;
             double x = Convert.ToDouble(spinEditCalibrationX.Value);
@@ -28,7 +28,7 @@ namespace seisapp
             Database.add_row_in_table_calibration_explosion(blowDatetime, x, y, altitude);
             Close();
         }
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
