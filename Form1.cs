@@ -21,6 +21,8 @@ namespace seisapp
             comboBox_component.Text = "Z";
             dateTimePicker_start.CustomFormat = "dd.MM.yyyy hh:mm:ss";
             dateTimePicker_stop.CustomFormat = "dd.MM.yyyy hh:mm:ss";
+            spinEdit_stalta_filter_order.Properties.Mask.EditMask = "f0";   // only int
+
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
