@@ -21,7 +21,11 @@ namespace seisapp
         private void button_ok_Click(object sender, EventArgs e)
         {
             string ip = textBox1.Text;
-            int port = int.Parse(textBox2.Text);
+            if (!int.TryParse(textBox2.Text, out int port))
+            {
+                MessageBox.Show("Введите правильные значения");
+                textBox2.Text = "";
+            }            
             Database.refresh_row_in_table_settings(ip, port);
             Close();
         }
