@@ -108,15 +108,15 @@ namespace seisapp
 
         static public dynamic binary_read(string path, string type, int count, int skipping_bytes = 0)
         {
-            FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read);
-            byte[] data;
+            FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read);            
             int size = 0;
             size = (int)stream.Length;
-            data = new byte[size];
-            stream.Read(data, 0, size);
-            var memoryStream = new MemoryStream(data);
+            byte[] data = new byte[size];
+            stream.Read(data, 0, 336);
+            var memoryStream = new MemoryStream(data, 0, 336);
             memoryStream.Seek(skipping_bytes, SeekOrigin.Begin);
             var reader = new BinaryReader(memoryStream);
+            stream.Close();
 
             if (type == "uint16")
                 return reader.ReadUInt16();
@@ -700,8 +700,9 @@ namespace seisapp
             for (int i = 0; i < int_array.Length / 4; i++)
             {
                 int_array[i] = BitConverter.ToInt32(byte_array_clip, i * 4);                
-            }            
-            
+            }
+
+            mm.Dispose();
             return int_array;
         }
         public dynamic _resample_signal(Int32[] src_signal)
@@ -719,6 +720,7 @@ namespace seisapp
             {
                 throw new InvalidComponentName("{1} not found", component);
             }
+
             Int32[] signal_array = _get_component_signal(component);
             Int32[] resample_signal = _resample_signal(signal_array);
 
@@ -729,6 +731,7 @@ namespace seisapp
 
             Int32[] averaged_array = resample_signal;
             int avg_value = Convert.ToInt32(Enumerable.Average(resample_signal));
+
             for (int i = 0; i < averaged_array.Length; i++)
             {
                 averaged_array[i] = averaged_array[i] - avg_value;

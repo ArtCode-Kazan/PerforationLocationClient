@@ -40,7 +40,7 @@ namespace seisapp
             {
                 Database.PATH = save_file.FileName + ".db";
                 Database.create_table();
-            }                    
+            }
         }
 
         private void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)
@@ -173,10 +173,10 @@ namespace seisapp
 
                 if (stop_compare <= 0)
                 {
-                    minimum_seismic_datetime_stop = seismic_datetime_start_stop[i, 1]; 
-                }                
+                    minimum_seismic_datetime_stop = seismic_datetime_start_stop[i, 1];
+                }
             }
-            
+
             if (DateTime.Compare(maximum_seismic_datetime_start, minimum_seismic_datetime_stop) >= 0)
             {
                 MessageBox.Show("Время старта одного из датчиков меньше или равно времени конца другого");
@@ -185,7 +185,7 @@ namespace seisapp
             }
 
             dateTimePicker_start.Value = maximum_seismic_datetime_start;
-            dateTimePicker_stop.Value = minimum_seismic_datetime_stop;           
+            dateTimePicker_stop.Value = minimum_seismic_datetime_stop;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -196,20 +196,20 @@ namespace seisapp
             DateTime start = dateTimePicker_start.Value;
             DateTime stop = dateTimePicker_stop.Value;
 
-            int signalAmount = 2;
-
+            string[] arrayOfPathToBinaryFiles = new string[Database.get_amount_rows_seismic_records()];
             string[,] seismic_records_array = new string[Database.get_amount_rows_seismic_records(), 6];
             seismic_records_array = Database.get_seismic_records();
 
-            Binary_File binary_signal = new Binary_File(seismic_records_array[0, 2] + "/" + seismic_records_array[0, 3]);
-            binary_signal.__resample_frequency = 200;
-            binary_signal.__read_date_time_stop = stop;
+            int signalAmount = Database.get_amount_rows_seismic_records();
 
-            string comp = comboBox_component.Text;
-            Int32[] signal = binary_signal.read_signal(comp);
+            for (int i = 0; i < arrayOfPathToBinaryFiles.Length; i++)
+            {
+                arrayOfPathToBinaryFiles[i] = seismic_records_array[i, 2] + "/" + seismic_records_array[i, 3];
+            }
 
             DevExpress.XtraCharts.Series[] series1 = new DevExpress.XtraCharts.Series[signalAmount];
-            DevExpress.XtraCharts.LineSeriesView[] lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView[signalAmount];                 
+            DevExpress.XtraCharts.LineSeriesView[] lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView[signalAmount];
+
             for (int i = 0; i < signalAmount; i++)
             {
                 series1[i] = new DevExpress.XtraCharts.Series();
@@ -217,32 +217,39 @@ namespace seisapp
 
                 series1[i].Name = "file=" + Convert.ToString(i);
                 series1[i].View = lineSeriesView1[i];
-                this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] { series1[i] };
 
                 ((System.ComponentModel.ISupportInitialize)(series1[i])).BeginInit();
                 ((System.ComponentModel.ISupportInitialize)(lineSeriesView1[i])).BeginInit();
                 ((System.ComponentModel.ISupportInitialize)(lineSeriesView1[i])).EndInit();
                 ((System.ComponentModel.ISupportInitialize)(series1[i])).EndInit();
+
+
+                Binary_File binarySignal = new Binary_File(arrayOfPathToBinaryFiles[i]);
+                binarySignal.__resample_frequency = 100;
+                binarySignal.__read_date_time_stop = stop;
+                binarySignal.__read_date_time_start = start;
+
+                string component = comboBox_component.Text;
+                Int32[] signal = binarySignal.read_signal(component);
+
+                Int32 maximumOfSignal = signal.Max();
+                double coefNorm = Convert.ToDouble(1) / maximumOfSignal;
+
+                for (int z = 0; z < signal.Length; z++)
+                {
+                    double value = signal[z] * coefNorm + 1 * i;
+                    series1[i].Points.AddPoint(z, value);
+                }
+
             }
-            
+            this.chartControl1.SeriesSerializable = series1;
+
             XYDiagram xyDiagram = (XYDiagram)chartControl1.Diagram;
             xyDiagram.EnableAxisXZooming = true;
             xyDiagram.EnableAxisXScrolling = true;
             xyDiagram.EnableAxisYZooming = true;
             xyDiagram.EnableAxisYScrolling = true;
             xyDiagram.Rotated = true;
-
-            for (int j = 0; j < signalAmount; j++)
-            {
-                Series xy_collection = chartControl1.Series["file=1"];
-                xy_collection.Points.Clear();
-
-                for (int i = 0; i < signal.Length; i++)
-                {
-                    int value = signal[i];
-                    xy_collection.Points.AddPoint(i, value);
-                }
-            }
         }
     }
 }
