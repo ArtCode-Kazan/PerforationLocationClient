@@ -196,6 +196,8 @@ namespace seisapp
             DateTime start = dateTimePicker_start.Value;
             DateTime stop = dateTimePicker_stop.Value;
 
+            int signalAmount = 2;
+
             string[,] seismic_records_array = new string[Database.get_amount_rows_seismic_records(), 6];
             seismic_records_array = Database.get_seismic_records();
 
@@ -206,15 +208,40 @@ namespace seisapp
             string comp = comboBox_component.Text;
             Int32[] signal = binary_signal.read_signal(comp);
 
-              
-            
-            Series xy_collection = chartControl1.Series["signal"];            
-            xy_collection.Points.Clear();           
-
-            for (int i = 0; i < signal.Length; i++)
+            DevExpress.XtraCharts.Series[] series1 = new DevExpress.XtraCharts.Series[signalAmount];
+            DevExpress.XtraCharts.LineSeriesView[] lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView[signalAmount];                 
+            for (int i = 0; i < signalAmount; i++)
             {
-                int value = signal[i];                
-                xy_collection.Points.AddPoint(i, value);
+                series1[i] = new DevExpress.XtraCharts.Series();
+                lineSeriesView1[i] = new DevExpress.XtraCharts.LineSeriesView();
+
+                series1[i].Name = "file=" + Convert.ToString(i);
+                series1[i].View = lineSeriesView1[i];
+                this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] { series1[i] };
+
+                ((System.ComponentModel.ISupportInitialize)(series1[i])).BeginInit();
+                ((System.ComponentModel.ISupportInitialize)(lineSeriesView1[i])).BeginInit();
+                ((System.ComponentModel.ISupportInitialize)(lineSeriesView1[i])).EndInit();
+                ((System.ComponentModel.ISupportInitialize)(series1[i])).EndInit();
+            }
+            
+            XYDiagram xyDiagram = (XYDiagram)chartControl1.Diagram;
+            xyDiagram.EnableAxisXZooming = true;
+            xyDiagram.EnableAxisXScrolling = true;
+            xyDiagram.EnableAxisYZooming = true;
+            xyDiagram.EnableAxisYScrolling = true;
+            xyDiagram.Rotated = true;
+
+            for (int j = 0; j < signalAmount; j++)
+            {
+                Series xy_collection = chartControl1.Series["file=1"];
+                xy_collection.Points.Clear();
+
+                for (int i = 0; i < signal.Length; i++)
+                {
+                    int value = signal[i];
+                    xy_collection.Points.AddPoint(i, value);
+                }
             }
         }
     }

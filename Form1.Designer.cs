@@ -28,9 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraCharts.XYDiagram xyDiagram2 = new DevExpress.XtraCharts.XYDiagram();
-            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView2 = new DevExpress.XtraCharts.LineSeriesView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,9 +75,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_min_frequency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_max_frequency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_stalta_filter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_min_frequency.Properties)).BeginInit();
@@ -370,21 +364,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chartControl1.CrosshairOptions.ShowOutOfRangePoints = true;
-            xyDiagram2.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram2.AxisY.VisibleInPanesSerializable = "-1";
-            xyDiagram2.EnableAxisXZooming = true;
-            xyDiagram2.EnableAxisYZooming = true;
-            xyDiagram2.Rotated = true;
-            xyDiagram2.ZoomingOptions.AxisXMaxZoomPercent = 100000D;
-            xyDiagram2.ZoomingOptions.AxisYMaxZoomPercent = 100000D;
-            this.chartControl1.Diagram = xyDiagram2;
             this.chartControl1.Legend.Direction = DevExpress.XtraCharts.LegendDirection.BottomToTop;
             this.chartControl1.Location = new System.Drawing.Point(0, 14);
             this.chartControl1.Name = "chartControl1";
-            series2.Name = "signal";
-            series2.View = lineSeriesView2;
-            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        series2};
+            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
             this.chartControl1.Size = new System.Drawing.Size(745, 336);
             this.chartControl1.TabIndex = 16;
             // 
@@ -560,9 +543,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_furier_filter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_min_frequency.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_max_frequency.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_stalta_filter)).EndInit();
