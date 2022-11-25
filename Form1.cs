@@ -237,7 +237,7 @@ namespace seisapp
 
                 for (int z = 0; z < signal.Length; z++)
                 {
-                    double value = signal[z] * coefNorm + 1 * i;
+                    double value = signal[z] * coefNorm + 2 * i;
                     series1[i].Points.AddPoint(z, value);
                 }
 

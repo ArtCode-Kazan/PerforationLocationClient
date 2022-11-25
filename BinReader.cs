@@ -723,30 +723,37 @@ namespace seisapp
                 leaveOpen: false
                 );
 
-            byte[] byte_array = new byte[signal_size];
+            byte[] byteArray = new byte[signal_size];
             byte[] byte_array_clip = new byte[signal_size / strides_size];
-            MemoryMappedViewStream mm_stream = mm.CreateViewStream(offset_size, signal_size, MemoryMappedFileAccess.Read);
-            mm_stream.Read(byte_array, 0, signal_size);
+            Int32[] intArray = new int[byte_array_clip.Length / 4];
 
-            for (int i = 0; i < 500; i++)
-            {
-                byte_array_clip[i * 4] = byte_array[i * strides_size];
-                byte_array_clip[i * 4 + 1] = byte_array[i * strides_size + 1];
-                byte_array_clip[i * 4 + 2] = byte_array[i * strides_size + 2];
-                byte_array_clip[i * 4 + 3] = byte_array[i * strides_size + 3];
+            if (offset_size < 0)
+            { 
+                return intArray; 
             }
 
-            Int32[] int_array = new int[byte_array_clip.Length / 4];
+            MemoryMappedViewStream mm_stream = mm.CreateViewStream(offset_size, signal_size, MemoryMappedFileAccess.Read);
+            mm_stream.Read(byteArray, 0, signal_size);
 
-            for (int i = 0; i < int_array.Length / 4; i++)
+            for (int i = 0; i < (signal_size / strides_size / 4); i++)
             {
-                int_array[i] = BitConverter.ToInt32(byte_array_clip, i * 4);
+                byte_array_clip[i * 4] = byteArray[i * strides_size];
+                byte_array_clip[i * 4 + 1] = byteArray[i * strides_size + 1];
+                byte_array_clip[i * 4 + 2] = byteArray[i * strides_size + 2];
+                byte_array_clip[i * 4 + 3] = byteArray[i * strides_size + 3];
+            }
+
+            for (int i = 0; i < intArray.Length / 4; i++)
+            {
+                Int32 currentSignal = BitConverter.ToInt32(byte_array_clip, i * 4);
+                intArray[i] = currentSignal;
             }
 
             f.Close();
             mm_stream.Close();
             mm.Dispose();
-            return int_array;
+
+            return intArray;
         }
         public dynamic _resample_signal(Int32[] src_signal)
         {

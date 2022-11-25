@@ -99,10 +99,10 @@ namespace seisapp
                 {
                     if (stationNumbers.Contains(currentNumber))
                     {
+                        number = Int32.Parse(currentNumber);
                     }
                     else
-                    {
-                        number = 0;
+                    {                        
                     }
                     dataGridViewSeismicRecords.Rows.Add(number, file.Name, file.DirectoryName);
                 }
