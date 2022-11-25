@@ -693,22 +693,22 @@ namespace seisapp
         //return '{}.{}'.format(uuid.uuid4().hex, self.file_extension)
         public dynamic _get_component_signal(string component_name = "Y")
         {
-            int column_index;
+            int columnIndex;
 
             if (channels_count == 3)
             {
-                components_index.TryGetValue(component_name, out column_index);
+                components_index.TryGetValue(component_name, out columnIndex);
             }
 
             else
             {
-                components_index.TryGetValue(component_name, out column_index);
-                column_index = column_index + 3;
+                components_index.TryGetValue(component_name, out columnIndex);
+                columnIndex = columnIndex + 3;
             }
 
-            int skip_data_size = 4 * channels_count * start_moment;
-            int offset_size = header_memory_size + skip_data_size + column_index * 4;
-            int strides_size = 4 * channels_count;
+            int skipDataSize = 4 * channels_count * start_moment;
+            int offsetSize = header_memory_size + skipDataSize + columnIndex * 4;
+            int stridesSize = 4 * channels_count;
             int signal_size = end_moment - start_moment;
 
             //signal_array = np.ndarray(signal_size, buffer = mm, dtype = np.int32, offset = offset_size, strides = strides_size).copy()
@@ -724,28 +724,28 @@ namespace seisapp
                 );
 
             byte[] byteArray = new byte[signal_size];
-            byte[] byte_array_clip = new byte[signal_size / strides_size];
-            Int32[] intArray = new int[byte_array_clip.Length / 4];
+            byte[] byteArrayClip = new byte[signal_size / stridesSize];
+            Int32[] intArray = new int[byteArrayClip.Length / 4];
 
-            if (offset_size < 0)
+            if (offsetSize < 0)
             { 
                 return intArray; 
             }
 
-            MemoryMappedViewStream mm_stream = mm.CreateViewStream(offset_size, signal_size, MemoryMappedFileAccess.Read);
+            MemoryMappedViewStream mm_stream = mm.CreateViewStream(offsetSize, signal_size, MemoryMappedFileAccess.Read);
             mm_stream.Read(byteArray, 0, signal_size);
 
-            for (int i = 0; i < (signal_size / strides_size / 4); i++)
+            for (int i = 0; i < (signal_size / stridesSize / 4); i++)
             {
-                byte_array_clip[i * 4] = byteArray[i * strides_size];
-                byte_array_clip[i * 4 + 1] = byteArray[i * strides_size + 1];
-                byte_array_clip[i * 4 + 2] = byteArray[i * strides_size + 2];
-                byte_array_clip[i * 4 + 3] = byteArray[i * strides_size + 3];
+                byteArrayClip[i * 4] = byteArray[i * stridesSize];
+                byteArrayClip[i * 4 + 1] = byteArray[i * stridesSize + 1];
+                byteArrayClip[i * 4 + 2] = byteArray[i * stridesSize + 2];
+                byteArrayClip[i * 4 + 3] = byteArray[i * stridesSize + 3];
             }
 
             for (int i = 0; i < intArray.Length / 4; i++)
             {
-                Int32 currentSignal = BitConverter.ToInt32(byte_array_clip, i * 4);
+                Int32 currentSignal = BitConverter.ToInt32(byteArrayClip, i * 4);
                 intArray[i] = currentSignal;
             }
 
