@@ -709,7 +709,7 @@ namespace seisapp
             int skipDataSize = 4 * channels_count * start_moment;
             int offsetSize = header_memory_size + skipDataSize + columnIndex * 4;
             int stridesSize = 4 * channels_count;
-            int signal_size = end_moment - start_moment;
+            int signalSize = end_moment - start_moment;
 
             //signal_array = np.ndarray(signal_size, buffer = mm, dtype = np.int32, offset = offset_size, strides = strides_size).copy()
 
@@ -723,8 +723,8 @@ namespace seisapp
                 leaveOpen: false
                 );
 
-            byte[] byteArray = new byte[signal_size];
-            byte[] byteArrayClip = new byte[signal_size / stridesSize];
+            byte[] byteArray = new byte[signalSize];
+            byte[] byteArrayClip = new byte[signalSize / stridesSize];
             Int32[] intArray = new int[byteArrayClip.Length / 4];
 
             if (offsetSize < 0)
@@ -732,10 +732,10 @@ namespace seisapp
                 return intArray; 
             }
 
-            MemoryMappedViewStream mm_stream = mm.CreateViewStream(offsetSize, signal_size, MemoryMappedFileAccess.Read);
-            mm_stream.Read(byteArray, 0, signal_size);
+            MemoryMappedViewStream mm_stream = mm.CreateViewStream(offsetSize, signalSize, MemoryMappedFileAccess.Read);
+            mm_stream.Read(byteArray, 0, signalSize);
 
-            for (int i = 0; i < (signal_size / stridesSize / 4); i++)
+            for (int i = 0; i < (signalSize / stridesSize / 4); i++)
             {
                 byteArrayClip[i * 4] = byteArray[i * stridesSize];
                 byteArrayClip[i * 4 + 1] = byteArray[i * stridesSize + 1];

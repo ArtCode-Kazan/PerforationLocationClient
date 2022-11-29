@@ -22,6 +22,8 @@ namespace seisapp
             dateTimePicker_start.CustomFormat = "dd.MM.yyyy HH:mm:ss";
             dateTimePicker_stop.CustomFormat = "dd.MM.yyyy HH:mm:ss";
             spinEdit_stalta_filter_order.Properties.Mask.EditMask = "f0";   // only int
+            spinEdit_frequency.Properties.Mask.EditMask = "f0";   // only int
+            spinEdit_frequency.Value = 200;
 
         }
 
@@ -223,9 +225,8 @@ namespace seisapp
                 ((System.ComponentModel.ISupportInitialize)(lineSeriesView1[i])).EndInit();
                 ((System.ComponentModel.ISupportInitialize)(series1[i])).EndInit();
 
-
                 Binary_File binarySignal = new Binary_File(arrayOfPathToBinaryFiles[i]);
-                binarySignal.__resample_frequency = 100;
+                binarySignal.__resample_frequency = Convert.ToInt32(spinEdit_frequency.Value);
                 binarySignal.__read_date_time_stop = stop;
                 binarySignal.__read_date_time_start = start;
 
@@ -233,14 +234,22 @@ namespace seisapp
                 Int32[] signal = binarySignal.read_signal(component);
 
                 Int32 maximumOfSignal = signal.Max();
-                double coefNorm = Convert.ToDouble(1) / maximumOfSignal;
+                Int32 minimumOfSignal = signal.Min();               
+                
 
+
+                double coefNorm = Convert.ToDouble(2) / (maximumOfSignal - minimumOfSignal);
+                double max = 0;
+                double min = 1999;
                 for (int z = 0; z < signal.Length; z++)
                 {
-                    double value = signal[z] * coefNorm + 2 * i;
+                    double value = signal[z] * coefNorm - minimumOfSignal * coefNorm + 2 * i;
                     series1[i].Points.AddPoint(z, value);
+                    if (max < value) { max = value; }
+                    if (min > value) { min = value; }
                 }
-
+                max = max;
+                min = min;
             }
             this.chartControl1.SeriesSerializable = series1;
 

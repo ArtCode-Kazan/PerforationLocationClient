@@ -24,7 +24,7 @@ namespace seisapp
             {
                 string number = array[i, 1];
                 string name = array[i, 3];
-                string path = array[i,2];
+                string path = array[i, 2];
                 dataGridViewSeismicRecords.Rows.Add(number, name, path);
             }
         }

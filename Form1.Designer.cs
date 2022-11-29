@@ -69,6 +69,7 @@
             this.spinEdit_stalta_filter_max_frequency = new DevExpress.XtraEditors.SpinEdit();
             this.spinEdit_stalta_filter_order = new DevExpress.XtraEditors.SpinEdit();
             this.label_stalta_filter_order = new System.Windows.Forms.Label();
+            this.spinEdit_frequency = new DevExpress.XtraEditors.SpinEdit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_date)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_furier_filter)).BeginInit();
@@ -80,6 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_min_frequency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_max_frequency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_order.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_frequency.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -502,12 +504,27 @@
             this.label_stalta_filter_order.TabIndex = 28;
             this.label_stalta_filter_order.Text = "order";
             // 
+            // spinEdit_frequency
+            // 
+            this.spinEdit_frequency.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.spinEdit_frequency.Location = new System.Drawing.Point(533, 87);
+            this.spinEdit_frequency.Name = "spinEdit_frequency";
+            this.spinEdit_frequency.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.spinEdit_frequency.Size = new System.Drawing.Size(100, 20);
+            this.spinEdit_frequency.TabIndex = 29;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(198)))), ((int)(((byte)(208)))));
             this.ClientSize = new System.Drawing.Size(1096, 592);
+            this.Controls.Add(this.spinEdit_frequency);
             this.Controls.Add(this.label_stalta_filter_order);
             this.Controls.Add(this.spinEdit_stalta_filter_order);
             this.Controls.Add(this.spinEdit_stalta_filter_max_frequency);
@@ -549,6 +566,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_min_frequency.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_max_frequency.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_order.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_frequency.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -597,6 +615,7 @@
         private DevExpress.XtraEditors.SpinEdit spinEdit_stalta_filter_max_frequency;
         private DevExpress.XtraEditors.SpinEdit spinEdit_stalta_filter_order;
         private System.Windows.Forms.Label label_stalta_filter_order;
+        private DevExpress.XtraEditors.SpinEdit spinEdit_frequency;
     }
 }
 
