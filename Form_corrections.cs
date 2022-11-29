@@ -24,8 +24,8 @@ namespace seisapp
             double y = Convert.ToDouble(spinEditCalibrationY.Value);
             double altitude = Convert.ToDouble(spinEditCalibrationAltitude.Value);
 
-            Database.clear_table(Database.TABLE_CALIBRATION_EXPLOSION_CREATING_COMMAND);            
-            Database.add_row_in_table_calibration_explosion(blowDatetime, x, y, altitude);
+            Database.ClearTable(Database.TableCalibrationExplosionCreatingCommand);            
+            Database.AddRowInCalibrationExplosion(blowDatetime, x, y, altitude);
             Close();
         }
         private void buttonCancel_Click(object sender, EventArgs e)

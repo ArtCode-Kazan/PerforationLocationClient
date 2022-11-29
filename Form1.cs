@@ -20,7 +20,7 @@ namespace seisapp
             spinEdit_frequency.Value = 200;            
             this.chartControlSignals.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseDown);
             chartControlSignals.SeriesTemplate.CrosshairLabelPattern = "{S}: {A:F0}";
-            Database.PATH = "C://Users//user//Desktop/budda.db";
+            Database.Path = "C://Users//user//Desktop/budda.db";
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -36,8 +36,8 @@ namespace seisapp
 
             if (save_file.ShowDialog() == DialogResult.OK)
             {
-                Database.PATH = save_file.FileName + ".db";
-                Database.create_table();
+                Database.Path = save_file.FileName + ".db";
+                Database.CreateTable();
             }
         }
 
@@ -49,13 +49,13 @@ namespace seisapp
 
             if (save_file.ShowDialog() == DialogResult.OK)
             {
-                Database.PATH = save_file.FileName;
+                Database.Path = save_file.FileName;
             }
         }
 
         private void stationCoordinatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Database.PATH == "")
+            if (Database.Path == "")
             {
                 MessageBox.Show("Choose file");
             }
@@ -68,7 +68,7 @@ namespace seisapp
 
         private void speedModelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Database.PATH == "")
+            if (Database.Path == "")
             {
                 MessageBox.Show("Choose file");
             }
@@ -87,7 +87,7 @@ namespace seisapp
 
         private void seismicRecordsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Database.PATH == "")
+            if (Database.Path == "")
             {
                 MessageBox.Show("Choose file");
             }
@@ -100,21 +100,21 @@ namespace seisapp
 
         private void clearDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Database.PATH == "")
+            if (Database.Path == "")
             {
                 MessageBox.Show("Choose file");
             }
             else
             {
-                Database.clear_table(Database.VELOCITY_TABLENAME);
-                Database.clear_table(Database.SETTINGS_TABLENAME);
-                Database.clear_table(Database.STATION_COORDINATES_TABLENAME);
+                Database.ClearTable(Database.VelocityTableName);
+                Database.ClearTable(Database.SettingsTableName);
+                Database.ClearTable(Database.StationCoordinatesTableName);
             }
         }
 
         private void correctionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Database.PATH == "")
+            if (Database.Path == "")
             {
                 MessageBox.Show("Choose file");
             }
@@ -145,8 +145,8 @@ namespace seisapp
             spinEdit_furier_min_frequency.Visible = true;
             spinEdit_furier_max_frequency.Visible = true;
 
-            string[,] seismic_records_array = new string[Database.get_amount_rows_seismic_records(), 6];
-            seismic_records_array = Database.get_seismic_records();
+            string[,] seismic_records_array = new string[Database.GetAmountRowsSeismicRecords(), 6];
+            seismic_records_array = Database.GetSeismicRecords();
 
             DateTime[,] seismic_datetime_start_stop = new DateTime[seismic_records_array.GetLength(0), 2];
 
@@ -194,11 +194,11 @@ namespace seisapp
             DateTime start = dateTimePicker_start.Value;
             DateTime stop = dateTimePicker_stop.Value;
 
-            string[] arrayOfPathToBinaryFiles = new string[Database.get_amount_rows_seismic_records()];
-            string[,] seismic_records_array = new string[Database.get_amount_rows_seismic_records(), 6];
-            seismic_records_array = Database.get_seismic_records();
+            string[] arrayOfPathToBinaryFiles = new string[Database.GetAmountRowsSeismicRecords()];
+            string[,] seismic_records_array = new string[Database.GetAmountRowsSeismicRecords(), 6];
+            seismic_records_array = Database.GetSeismicRecords();
 
-            int signalAmount = Database.get_amount_rows_seismic_records();
+            int signalAmount = Database.GetAmountRowsSeismicRecords();
 
             for (int i = 0; i < arrayOfPathToBinaryFiles.Length; i++)
             {

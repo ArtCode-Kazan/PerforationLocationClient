@@ -44,7 +44,7 @@ namespace seisapp
                 textBoxPort.Text = "";
             }
             
-            Database.refresh_row_in_table_settings(ip, Convert.ToInt32(port));
+            Database.RefreshSettings(ip, Convert.ToInt32(port));
             Close();
         }
         private void buttonCancel_Click(object sender, EventArgs e)

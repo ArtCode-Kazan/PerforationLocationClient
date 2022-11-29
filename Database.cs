@@ -11,24 +11,24 @@ namespace seisapp
 {
     internal class Database
     {
-        public static string PATH = "";
-        public const string SETTINGS_TABLENAME = "settings";
-        public const string VELOCITY_TABLENAME = "velocity";
-        public const string STATION_COORDINATES_TABLENAME = "station_coordinates";
-        public const string SEISMIC_RECORDS_TABLENAME = "seismic_records";
-        public const string PARAMETERS_TABLENAME = "parameters";
-        public const string CALIBRATION_EXPLOSION = "calibration_explosion";
+        public static string Path = "";
+        public const string StationCoordinatesTableName = "station_coordinates";
+        public const string SeismicRecordsTableName = "seismic_records";
+        public const string VelocityTableName = "velocity";
+        public const string CalibrationExplosionTableName = "calibration_explosion";
+        public const string SettingsTableName = "settings";        
+        public const string ParametersTableName = "parameters";        
 
-        public const string TABLE_STATION_CREATING_COMMAND = "CREATE TABLE " + STATION_COORDINATES_TABLENAME + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, number INTEGER NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
-        public const string TABLE_VELOCITY_CREATING_COMMAND = "CREATE TABLE " + VELOCITY_TABLENAME + "(h_top DOUBLE NOT NULL, h_bottom DOUBLE NOT NULL, vp DOUBLE NOT NULL)";
-        public const string TABLE_SETTINGS_CREATING_COMMAND = "CREATE TABLE " + SETTINGS_TABLENAME + "(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";
-        public const string TABLE_SEISMIC_RECORDS_CREATING_COMMAND = "CREATE TABLE " + SEISMIC_RECORDS_TABLENAME + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, station_id INTEGER NOT NULL, root VARCHAR(140) NOT NULL, file_name VARCHAR(45) NOT NULL, datetime_start VARCHAR(45) NOT NULL, datetime_stop VARCHAR(45) NOT NULL, FOREIGN KEY (station_id) REFERENCES station_coordinates (id), CONSTRAINT UNIQUE_FIELDS UNIQUE (file_name, root))";
-        public const string TABLE_PARAMETERS_CREATING_COMMAND = "CREATE TABLE " + PARAMETERS_TABLENAME + "(datetime_graph_start VARCHAR(45) NOT NULL, datetime_graph_stop VARCHAR(45) NOT NULL, component VARCHAR(1) NOT NULL, furier_min_freq DOUBLE NOT NULL, furier_max_freq DOUBLE NOT NULL, stalta_min_window DOUBLE NOT NULL, stalta_max_window DOUBLE NOT NULL, stalta_order INTEGER NOT NULL)";
-        public const string TABLE_CALIBRATION_EXPLOSION_CREATING_COMMAND = "CREATE TABLE " + CALIBRATION_EXPLOSION + "(datetime_blow VARCHAR(45) NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
+        public const string TableStationCoordinatesCreatingCommand = "CREATE TABLE " + StationCoordinatesTableName + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, number INTEGER NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
+        public const string TableSeismicRecordsCreatingCommand = "CREATE TABLE " + SeismicRecordsTableName + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, station_id INTEGER NOT NULL, root VARCHAR(140) NOT NULL, file_name VARCHAR(45) NOT NULL, datetime_start VARCHAR(45) NOT NULL, datetime_stop VARCHAR(45) NOT NULL, FOREIGN KEY (station_id) REFERENCES station_coordinates (id), CONSTRAINT UNIQUE_FIELDS UNIQUE (file_name, root))";
+        public const string TableVelocityCreatingCommand = "CREATE TABLE " + VelocityTableName + "(h_top DOUBLE NOT NULL, h_bottom DOUBLE NOT NULL, vp DOUBLE NOT NULL)";
+        public const string TableCalibrationExplosionCreatingCommand = "CREATE TABLE " + CalibrationExplosionTableName + "(datetime_blow VARCHAR(45) NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
+        public const string TableSettingsCreatingCommand = "CREATE TABLE " + SettingsTableName + "(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";        
+        public const string TableParametersCreatingCommand = "CREATE TABLE " + ParametersTableName + "(datetime_graph_start VARCHAR(45) NOT NULL, datetime_graph_stop VARCHAR(45) NOT NULL, component VARCHAR(1) NOT NULL, furier_min_freq DOUBLE NOT NULL, furier_max_freq DOUBLE NOT NULL, stalta_min_window DOUBLE NOT NULL, stalta_max_window DOUBLE NOT NULL, stalta_order INTEGER NOT NULL)";
 
-        static public void create_table(string name)
+        static public void CreateTable(string name)
         {
-            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
@@ -37,43 +37,43 @@ namespace seisapp
                 command.ExecuteNonQuery();
             }
         }
-        static public void create_table()
+        static public void CreateTable()
         {
-            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = TABLE_SETTINGS_CREATING_COMMAND;
+                command.CommandText = TableStationCoordinatesCreatingCommand;
                 command.ExecuteNonQuery();
-                command.CommandText = TABLE_STATION_CREATING_COMMAND;
+                command.CommandText = TableSeismicRecordsCreatingCommand;
                 command.ExecuteNonQuery();
-                command.CommandText = TABLE_VELOCITY_CREATING_COMMAND;
+                command.CommandText = TableVelocityCreatingCommand;
                 command.ExecuteNonQuery();
-                command.CommandText = TABLE_SEISMIC_RECORDS_CREATING_COMMAND;
+                command.CommandText = TableCalibrationExplosionCreatingCommand;
                 command.ExecuteNonQuery();
-                command.CommandText = TABLE_PARAMETERS_CREATING_COMMAND;
+                command.CommandText = TableSettingsCreatingCommand;
                 command.ExecuteNonQuery();
-                command.CommandText = TABLE_CALIBRATION_EXPLOSION_CREATING_COMMAND;
+                command.CommandText = TableParametersCreatingCommand;
                 command.ExecuteNonQuery();
             }
         }
-        static public void add_row_in_table_velocity(double h_top, double h_bottom, double vp)
+        static public void AddRowInVelocity(double h_top, double h_bottom, double vp)
         {
             string sh_top = Convert.ToString(h_top);
             string sh_bottom = Convert.ToString(h_bottom);
             string svp = Convert.ToString(vp);
 
-            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO " + VELOCITY_TABLENAME + " (h_top, h_bottom, vp) VALUES (" + sh_top + ", " + sh_bottom + ", " + svp + ")";
+                command.CommandText = "INSERT INTO " + VelocityTableName + " (h_top, h_bottom, vp) VALUES (" + sh_top + ", " + sh_bottom + ", " + svp + ")";
                 command.ExecuteNonQuery();
             }
         }
-        static public void add_row_in_table_station_coordinates(
+        static public void AddRowInStationCoordinates(
             int number,
             double x,
             double y,
@@ -85,16 +85,16 @@ namespace seisapp
             string sy = Convert.ToString(y);
             string saltitude = Convert.ToString(altitude);
 
-            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO " + STATION_COORDINATES_TABLENAME + " (number, x, y, altitude) VALUES (" + snumber + ", " + sx + ", " + sy + ", " + saltitude + ")";
+                command.CommandText = "INSERT INTO " + StationCoordinatesTableName + " (number, x, y, altitude) VALUES (" + snumber + ", " + sx + ", " + sy + ", " + saltitude + ")";
                 command.ExecuteNonQuery();
             }
         }
-        static public void add_row_in_table_seismic_records(
+        static public void AddRowInSeismicRecords(
             int station_id,
             string file_name,
             string root,
@@ -106,47 +106,47 @@ namespace seisapp
             string sdatetime_start = datetime_start.ToString();
             string sdatetime_stop = datetime_stop.ToString();
 
-            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO " + SEISMIC_RECORDS_TABLENAME + " (station_id, file_name, root, datetime_start, datetime_stop) VALUES (" + sid + ", '" + file_name + "', '" + root + "', '" + sdatetime_start + "', '" + sdatetime_stop + "')";
+                command.CommandText = "INSERT INTO " + SeismicRecordsTableName + " (station_id, file_name, root, datetime_start, datetime_stop) VALUES (" + sid + ", '" + file_name + "', '" + root + "', '" + sdatetime_start + "', '" + sdatetime_stop + "')";
                 command.ExecuteNonQuery();
             }
         }
-        static public void add_row_in_table_calibration_explosion(DateTime datetime_blow, double x, double y, double altitude)
+        static public void AddRowInCalibrationExplosion(DateTime datetime_blow, double x, double y, double altitude)
         {            
             string sdatetime_blow = datetime_blow.ToString();
             string sx = Convert.ToString(x);
             string sy = Convert.ToString(y);
             string saltitude = Convert.ToString(altitude);
-            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO " + CALIBRATION_EXPLOSION + " (datetime_blow, x, y, altitude) VALUES ('" + sdatetime_blow + "', " + sx + ", " + sy + ", " + saltitude + ")";
+                command.CommandText = "INSERT INTO " + CalibrationExplosionTableName + " (datetime_blow, x, y, altitude) VALUES ('" + sdatetime_blow + "', " + sx + ", " + sy + ", " + saltitude + ")";
                 command.ExecuteNonQuery();
             }
         }
-        static public void refresh_row_in_table_settings(string ip, int port)
+        static public void RefreshSettings(string ip, int port)
         {
-            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "SELECT COUNT(*) FROM " + SETTINGS_TABLENAME;
+                command.CommandText = "SELECT COUNT(*) FROM " + SettingsTableName;
                 if (Convert.ToInt32(command.ExecuteScalar()) != 0)
                 {
-                    clear_table(SETTINGS_TABLENAME);
+                    ClearTable(SettingsTableName);
                 }
-                command.CommandText = "INSERT INTO " + SETTINGS_TABLENAME + " (ip, port) VALUES ('" + ip + "', " + Convert.ToString(port) + ")";
+                command.CommandText = "INSERT INTO " + SettingsTableName + " (ip, port) VALUES ('" + ip + "', " + Convert.ToString(port) + ")";
                 command.ExecuteNonQuery();
             }
         }
-        static public void refresh_row_in_table_parameters(
+        static public void RefreshParameters(
             string datetime_graph_start,
             string datetime_graph_stop,
             string component,
@@ -161,31 +161,31 @@ namespace seisapp
             string sstalta_min_window = Convert.ToString(stalta_min_window);
             string sstalta_max_window = Convert.ToString(stalta_max_window);
             string sstalta_order = Convert.ToString(stalta_order);
-            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "SELECT COUNT(*) FROM " + PARAMETERS_TABLENAME;
+                command.CommandText = "SELECT COUNT(*) FROM " + ParametersTableName;
                 if (Convert.ToInt32(command.ExecuteScalar()) != 0)
                 {
-                    clear_table(PARAMETERS_TABLENAME);
+                    ClearTable(ParametersTableName);
                 }
-                command.CommandText = "INSERT INTO " + PARAMETERS_TABLENAME + " (datetime_graph_start, datetime_graph_stop, component, furier_min_freq, furier_max_freq, stalta_min_window, stalta_max_window, stalta_order) VALUES ('" + datetime_graph_start + "', '" + datetime_graph_stop + "', '" + component + "', " + sfurier_min_freq + ", " + sfurier_max_freq + ", " + sstalta_min_window + ", " + sstalta_max_window + ", " + sstalta_order + ")";
+                command.CommandText = "INSERT INTO " + ParametersTableName + " (datetime_graph_start, datetime_graph_stop, component, furier_min_freq, furier_max_freq, stalta_min_window, stalta_max_window, stalta_order) VALUES ('" + datetime_graph_start + "', '" + datetime_graph_stop + "', '" + component + "', " + sfurier_min_freq + ", " + sfurier_max_freq + ", " + sstalta_min_window + ", " + sstalta_max_window + ", " + sstalta_order + ")";
                 command.ExecuteNonQuery();
             }
         }
-        static public double[,] get_velocity()
+        static public double[,] GetVelocity()
         {
-            double[,] array = new double[get_amount_rows_velocity(), 3];
+            double[,] array = new double[GetAmountRowsVelocity(), 3];
 
-            using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection_out = new SqliteConnection("Data Source=" + Database.Path))
             {
                 int i = 0;
                 connection_out.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection_out;
-                command.CommandText = "SELECT * FROM " + VELOCITY_TABLENAME;
+                command.CommandText = "SELECT * FROM " + VelocityTableName;
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows) // если есть данные
@@ -205,17 +205,17 @@ namespace seisapp
             }
             return array;
         }
-        static public double[,] get_stations()
+        static public double[,] GetStations()
         {
-            double[,] array = new double[get_amount_rows_station_coordinates(), 4];
+            double[,] array = new double[GetAmountRowsStationCoordinates(), 4];
 
-            using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection_out = new SqliteConnection("Data Source=" + Database.Path))
             {
                 int i = 0;
                 connection_out.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection_out;
-                command.CommandText = "SELECT * FROM " + STATION_COORDINATES_TABLENAME;
+                command.CommandText = "SELECT * FROM " + StationCoordinatesTableName;
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows) // если есть данные
@@ -237,17 +237,17 @@ namespace seisapp
             }
             return array;
         }
-        static public string[,] get_seismic_records()
+        static public string[,] GetSeismicRecords()
         {
-            string[,] array = new string[get_amount_rows_seismic_records(), 6];
+            string[,] array = new string[GetAmountRowsSeismicRecords(), 6];
 
-            using (var connection_out = new SqliteConnection("Data Source=" + PATH))
+            using (var connection_out = new SqliteConnection("Data Source=" + Path))
             {
                 int i = 0;
                 connection_out.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection_out;
-                command.CommandText = "SELECT * FROM " + SEISMIC_RECORDS_TABLENAME;
+                command.CommandText = "SELECT * FROM " + SeismicRecordsTableName;
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows) // если есть данные
@@ -275,7 +275,7 @@ namespace seisapp
             }
             return array;
         }
-        static public dynamic get_parameters(int column_number = 0)
+        static public dynamic GetParameters(int column_number = 0)
         {
             string datetime_graph_start = "";
             string datetime_graph_stop = "";
@@ -285,12 +285,12 @@ namespace seisapp
             double stalta_min_window = 0;
             double stalta_max_window = 0;
             int stalta_order = 0;
-            using (var connection_out = new SqliteConnection("Data Source=" + PATH))
+            using (var connection_out = new SqliteConnection("Data Source=" + Path))
             {
                 connection_out.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection_out;
-                command.CommandText = "SELECT * FROM " + PARAMETERS_TABLENAME;
+                command.CommandText = "SELECT * FROM " + ParametersTableName;
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows) // если есть данные
@@ -353,42 +353,42 @@ namespace seisapp
                     stalta_order);
             }
         }
-        static public int get_amount_rows_velocity()
+        static public int GetAmountRowsVelocity()
         {
-            using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection_out = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection_out.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection_out;
-                command.CommandText = "SELECT COUNT(*) FROM " + Database.VELOCITY_TABLENAME;
+                command.CommandText = "SELECT COUNT(*) FROM " + Database.VelocityTableName;
                 return Convert.ToInt32(command.ExecuteScalar());
             }
         }
-        static public int get_amount_rows_station_coordinates()
+        static public int GetAmountRowsStationCoordinates()
         {
-            using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection_out = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection_out.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection_out;
-                command.CommandText = "SELECT COUNT(*) FROM " + STATION_COORDINATES_TABLENAME;
+                command.CommandText = "SELECT COUNT(*) FROM " + StationCoordinatesTableName;
                 return Convert.ToInt32(command.ExecuteScalar());
             }
         }
-        static public int get_amount_rows_seismic_records()
+        static public int GetAmountRowsSeismicRecords()
         {
-            using (var connection_out = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection_out = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection_out.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection_out;
-                command.CommandText = "SELECT COUNT(*) FROM " + SEISMIC_RECORDS_TABLENAME;
+                command.CommandText = "SELECT COUNT(*) FROM " + SeismicRecordsTableName;
                 return Convert.ToInt32(command.ExecuteScalar());
             }
         }
-        static public void add_column(string table_name, string column_name, string column_parameters)
+        static public void AddColumn(string table_name, string column_name, string column_parameters)
         {
-            using (var connection = new SqliteConnection("Data Source=" + Database.PATH))
+            using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
@@ -397,9 +397,9 @@ namespace seisapp
                 command.ExecuteNonQuery();
             }
         }
-        static public void clear_table(string table_name)
+        static public void ClearTable(string table_name)
         {
-            using (var connection = new SqliteConnection("Data Source=" + PATH))
+            using (var connection = new SqliteConnection("Data Source=" + Path))
             {
                 connection.Open();
                 SqliteCommand command_del = new SqliteCommand("DELETE  FROM " + table_name, connection);

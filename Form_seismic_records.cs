@@ -18,8 +18,8 @@ namespace seisapp
         public Form_seismic_records()
         {
             InitializeComponent();            
-            string[,] array = new string[Database.get_amount_rows_seismic_records(), 6];
-            array = Database.get_seismic_records();
+            string[,] array = new string[Database.GetAmountRowsSeismicRecords(), 6];
+            array = Database.GetSeismicRecords();
             for (int i = 0; i < array.GetLength(0); i++)
             {
                 string number = array[i, 1];
@@ -36,7 +36,7 @@ namespace seisapp
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            Database.clear_table(Database.SEISMIC_RECORDS_TABLENAME);
+            Database.ClearTable(Database.SeismicRecordsTableName);
             int number = 0;
             dataGridViewSeismicRecords.AllowUserToAddRows = false;
             foreach (DataGridViewRow r in dataGridViewSeismicRecords.Rows)
@@ -52,7 +52,7 @@ namespace seisapp
                     DateTime datetimeStop = binFile.datetime_stop;
                     DateTime datetimeStart = binFile.datetime_start;
                     
-                    Database.add_row_in_table_seismic_records(number, file, path, datetimeStart, datetimeStop);
+                    Database.AddRowInSeismicRecords(number, file, path, datetimeStart, datetimeStop);
                 }                                                
             }
             dataGridViewSeismicRecords.AllowUserToAddRows = true;
@@ -82,7 +82,7 @@ namespace seisapp
             string[] allFiles =  ooFiles.Concat(xxFiles).ToArray();
             allFiles = allFiles.Concat(binFiles).ToArray();
 
-            double[,] array = Database.get_stations();
+            double[,] array = Database.GetStations();
 
             string[] stationNumbers = new string[array.GetLength(0)];
 
@@ -120,7 +120,7 @@ namespace seisapp
             foreach (DataGridViewRow r in dataGridViewSeismicRecords.Rows)
             {
 
-                double[,] array = Database.get_stations();
+                double[,] array = Database.GetStations();
                 string[] stationNumbers = new string[array.GetLength(0)];
 
                 for (int i = 0; i < stationNumbers.Length; i++)

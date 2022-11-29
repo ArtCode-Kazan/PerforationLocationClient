@@ -20,8 +20,8 @@ namespace seisapp
             this.ControlBox = false;
             dataGridView1.AllowUserToAddRows = true;
 
-            double[,] array = new double[Database.get_amount_rows_station_coordinates(), 4];
-            array = Database.get_stations();
+            double[,] array = new double[Database.GetAmountRowsStationCoordinates(), 4];
+            array = Database.GetStations();
             for (int i = 0; i < array.GetLength(0); i++)
             {
                 int number = Convert.ToInt32(array[i, 0]);
@@ -80,7 +80,7 @@ namespace seisapp
 
         private void button_ok_Click(object sender, EventArgs e)
         {
-            Database.clear_table(Database.STATION_COORDINATES_TABLENAME);
+            Database.ClearTable(Database.StationCoordinatesTableName);
 
             int number = 0;
             double x = 0;
@@ -117,7 +117,7 @@ namespace seisapp
                 else
                 { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
 
-                Database.add_row_in_table_station_coordinates(number, x, y, altitude);
+                Database.AddRowInStationCoordinates(number, x, y, altitude);
             }
             Close();
         }

@@ -21,8 +21,8 @@ namespace seisapp
             this.ControlBox = false;
             dataGridView1.AllowUserToAddRows = true;
 
-            double[,] db_array = new double[Database.get_amount_rows_velocity(), 3];
-            db_array = Database.get_velocity();
+            double[,] db_array = new double[Database.GetAmountRowsVelocity(), 3];
+            db_array = Database.GetVelocity();
 
             for (int i = 0; i < db_array.GetLength(0); i++)
             {
@@ -95,7 +95,7 @@ namespace seisapp
 
         private void button_ok_Click(object sender, EventArgs e)
         {
-            Database.clear_table(Database.VELOCITY_TABLENAME);
+            Database.ClearTable(Database.VelocityTableName);
 
             double h_top = 0;
             double h_bottom = 0;
@@ -140,7 +140,7 @@ namespace seisapp
                     h_bottom = array_grid[i + 1, 0];
                     vp = array_grid[i, 1];
                 }                
-                Database.add_row_in_table_velocity(h_top, h_bottom, vp);
+                Database.AddRowInVelocity(h_top, h_bottom, vp);
             }
             Close();
         }
