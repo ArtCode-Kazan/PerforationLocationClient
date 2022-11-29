@@ -68,7 +68,7 @@
             this.spinEdit_stalta_filter_order = new DevExpress.XtraEditors.SpinEdit();
             this.label_stalta_filter_order = new System.Windows.Forms.Label();
             this.spinEdit_frequency = new DevExpress.XtraEditors.SpinEdit();
-            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
+            this.chartControlSignals = new DevExpress.XtraCharts.ChartControl();
             this.dataGridViewLatency = new System.Windows.Forms.DataGridView();
             this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.latency = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -82,7 +82,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_max_frequency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_order.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_frequency.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControlSignals)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLatency)).BeginInit();
             this.SuspendLayout();
             // 
@@ -497,20 +497,23 @@
             this.spinEdit_frequency.Size = new System.Drawing.Size(100, 20);
             this.spinEdit_frequency.TabIndex = 29;
             // 
-            // chartControl1
+            // chartControlSignals
             // 
-            this.chartControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.chartControlSignals.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.chartControl1.CrosshairOptions.CrosshairLabelMode = DevExpress.XtraCharts.CrosshairLabelMode.ShowForNearestSeries;
-            this.chartControl1.CrosshairOptions.ShowOutOfRangePoints = true;
-            this.chartControl1.Legend.Direction = DevExpress.XtraCharts.LegendDirection.BottomToTop;
-            this.chartControl1.Location = new System.Drawing.Point(12, 170);
-            this.chartControl1.Name = "chartControl1";
-            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            this.chartControl1.Size = new System.Drawing.Size(821, 413);
-            this.chartControl1.TabIndex = 16;
-            this.chartControl1.Click += new System.EventHandler(this.chartControl1_Click);
+            this.chartControlSignals.CrosshairOptions.CrosshairLabelMode = DevExpress.XtraCharts.CrosshairLabelMode.ShowForNearestSeries;
+            this.chartControlSignals.CrosshairOptions.GroupHeaderPattern = "{S}";
+            this.chartControlSignals.CrosshairOptions.ShowArgumentLabels = true;
+            this.chartControlSignals.CrosshairOptions.ShowGroupHeaders = false;
+            this.chartControlSignals.CrosshairOptions.ShowOutOfRangePoints = true;
+            this.chartControlSignals.Legend.Direction = DevExpress.XtraCharts.LegendDirection.BottomToTop;
+            this.chartControlSignals.Location = new System.Drawing.Point(12, 170);
+            this.chartControlSignals.Name = "chartControlSignals";
+            this.chartControlSignals.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
+            this.chartControlSignals.Size = new System.Drawing.Size(821, 413);
+            this.chartControlSignals.TabIndex = 16;
+            this.chartControlSignals.Click += new System.EventHandler(this.chartControl1_Click);
             // 
             // dataGridViewLatency
             // 
@@ -548,7 +551,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(198)))), ((int)(((byte)(208)))));
             this.ClientSize = new System.Drawing.Size(1096, 664);
             this.Controls.Add(this.dataGridViewLatency);
-            this.Controls.Add(this.chartControl1);
+            this.Controls.Add(this.chartControlSignals);
             this.Controls.Add(this.spinEdit_frequency);
             this.Controls.Add(this.label_stalta_filter_order);
             this.Controls.Add(this.spinEdit_stalta_filter_order);
@@ -590,7 +593,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_max_frequency.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_order.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_frequency.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControlSignals)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLatency)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -639,7 +642,7 @@
         private DevExpress.XtraEditors.SpinEdit spinEdit_stalta_filter_order;
         private System.Windows.Forms.Label label_stalta_filter_order;
         private DevExpress.XtraEditors.SpinEdit spinEdit_frequency;
-        private DevExpress.XtraCharts.ChartControl chartControl1;
+        private DevExpress.XtraCharts.ChartControl chartControlSignals;
         private System.Windows.Forms.DataGridView dataGridViewLatency;
         private System.Windows.Forms.DataGridViewTextBoxColumn number;
         private System.Windows.Forms.DataGridViewTextBoxColumn latency;

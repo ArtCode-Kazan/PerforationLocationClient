@@ -18,9 +18,9 @@ namespace seisapp
             spinEdit_stalta_filter_order.Properties.Mask.EditMask = "f0";   // only int
             spinEdit_frequency.Properties.Mask.EditMask = "f0";   // only int
             spinEdit_frequency.Value = 200;            
-            this.chartControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseDown);
-
-
+            this.chartControlSignals.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseDown);
+            chartControlSignals.SeriesTemplate.CrosshairLabelPattern = "{S}: {A:F0}";
+            Database.PATH = "C://Users//user//Desktop/budda.db";
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -129,7 +129,7 @@ namespace seisapp
 
         private void peakTracesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            label_artcode.Visible = false;
+            label_artcode.Visible = false;            
 
             pictureBox_date.Visible = true;
             label_date.Visible = true;
@@ -246,16 +246,28 @@ namespace seisapp
                 }
 
                 dataGridViewLatency.Rows.Add(i, "0");
+                                
             }
-            this.chartControl1.SeriesSerializable = series1;
+            this.chartControlSignals.SeriesSerializable = series1;
 
-            XYDiagram xyDiagram = (XYDiagram)chartControl1.Diagram;
+            XYDiagram xyDiagram = (XYDiagram)chartControlSignals.Diagram;
             xyDiagram.EnableAxisXZooming = true;
             xyDiagram.EnableAxisXScrolling = true;
             xyDiagram.EnableAxisYZooming = true;
             xyDiagram.EnableAxisYScrolling = true;
             xyDiagram.Rotated = true;
             xyDiagram.AxisX.Reverse = true;
+            /*
+            chartControlSignals.CrosshairOptions.ShowArgumentLine = true;
+            chartControlSignals.CrosshairOptions.ShowArgumentLabels = true;
+            chartControlSignals.CrosshairOptions.ShowValueLine = false;
+            chartControlSignals.CrosshairOptions.ShowValueLabels = false;
+            chartControlSignals.CrosshairOptions.ShowCrosshairLabels = true;
+            chartControlSignals.CrosshairOptions.ShowGroupHeaders = true;
+            chartControlSignals.CrosshairOptions.GroupHeaderPattern = "{A:F0}";
+            chartControlSignals.SeriesTemplate.CrosshairLabelPattern = "{S}: {A:F0}";
+            ((XYDiagram)chartControlSignals.Diagram).AxisY.CrosshairAxisLabelOptions.Pattern = "{V:F0}";*/
+
         }
 
         private void chartControl1_Click(object sender, EventArgs e)
@@ -270,7 +282,7 @@ namespace seisapp
             //double seriesValue = GetSeriesValue(series, diagramCoordinates.DateTimeArgument);            
             Point position = new Point(e.Location.X, e.Location.Y);
             //DiagramCoordinates diagramCoordinates = diagram.PointToDiagram(position);
-            ChartHitInfo hitInfo = chartControl1.CalcHitInfo(position);
+            ChartHitInfo hitInfo = chartControlSignals.CalcHitInfo(position);
             //MessageBox.Show(Convert.ToString(ChartControl.ChartHitInfo));   
             MessageBox.Show(Convert.ToString(hitInfo.Series));
         }           
