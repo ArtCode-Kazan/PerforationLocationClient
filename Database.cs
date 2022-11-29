@@ -58,18 +58,18 @@ namespace seisapp
                 command.ExecuteNonQuery();
             }
         }
-        static public void AddRowInVelocity(double h_top, double h_bottom, double vp)
+        static public void AddRowInVelocity(double hTop, double hBottom, double vp)
         {
-            string sh_top = Convert.ToString(h_top);
-            string sh_bottom = Convert.ToString(h_bottom);
-            string svp = Convert.ToString(vp);
+            string stringHTop = Convert.ToString(hTop);
+            string stringHBottom = Convert.ToString(hBottom);
+            string stringVp = Convert.ToString(vp);
 
             using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO " + VelocityTableName + " (h_top, h_bottom, vp) VALUES (" + sh_top + ", " + sh_bottom + ", " + svp + ")";
+                command.CommandText = "INSERT INTO " + VelocityTableName + " (h_top, h_bottom, vp) VALUES (" + stringHTop + ", " + stringHBottom + ", " + stringVp + ")";
                 command.ExecuteNonQuery();
             }
         }
@@ -80,53 +80,53 @@ namespace seisapp
             double altitude
         )
         {
-            string snumber = Convert.ToString(number);
-            string sx = Convert.ToString(x);
-            string sy = Convert.ToString(y);
-            string saltitude = Convert.ToString(altitude);
+            string stringNumber = Convert.ToString(number);
+            string stringX = Convert.ToString(x);
+            string stringY = Convert.ToString(y);
+            string stringAltitude = Convert.ToString(altitude);
 
             using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO " + StationCoordinatesTableName + " (number, x, y, altitude) VALUES (" + snumber + ", " + sx + ", " + sy + ", " + saltitude + ")";
+                command.CommandText = "INSERT INTO " + StationCoordinatesTableName + " (number, x, y, altitude) VALUES (" + stringNumber + ", " + stringX + ", " + stringY + ", " + stringAltitude + ")";
                 command.ExecuteNonQuery();
             }
         }
         static public void AddRowInSeismicRecords(
-            int station_id,
-            string file_name,
+            int stationId,
+            string fileName,
             string root,
-            DateTime datetime_start,
-            DateTime datetime_stop
+            DateTime datetimeStart,
+            DateTime datetimeStop
         )
         {
-            string sid = Convert.ToString(station_id);
-            string sdatetime_start = datetime_start.ToString();
-            string sdatetime_stop = datetime_stop.ToString();
+            string stringStationId = Convert.ToString(stationId);
+            string stringDatetimeStart = datetimeStart.ToString();
+            string stringDatetimeStop = datetimeStop.ToString();
 
             using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO " + SeismicRecordsTableName + " (station_id, file_name, root, datetime_start, datetime_stop) VALUES (" + sid + ", '" + file_name + "', '" + root + "', '" + sdatetime_start + "', '" + sdatetime_stop + "')";
+                command.CommandText = "INSERT INTO " + SeismicRecordsTableName + " (station_id, file_name, root, datetime_start, datetime_stop) VALUES (" + stringStationId + ", '" + fileName + "', '" + root + "', '" + stringDatetimeStart + "', '" + stringDatetimeStop + "')";
                 command.ExecuteNonQuery();
             }
         }
-        static public void AddRowInCalibrationExplosion(DateTime datetime_blow, double x, double y, double altitude)
+        static public void AddRowInCalibrationExplosion(DateTime datetimeBlow, double x, double y, double altitude)
         {            
-            string sdatetime_blow = datetime_blow.ToString();
-            string sx = Convert.ToString(x);
-            string sy = Convert.ToString(y);
-            string saltitude = Convert.ToString(altitude);
+            string stringDatetimeBlow = datetimeBlow.ToString();
+            string stringX = Convert.ToString(x);
+            string stringY = Convert.ToString(y);
+            string stringAltitude = Convert.ToString(altitude);
             using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO " + CalibrationExplosionTableName + " (datetime_blow, x, y, altitude) VALUES ('" + sdatetime_blow + "', " + sx + ", " + sy + ", " + saltitude + ")";
+                command.CommandText = "INSERT INTO " + CalibrationExplosionTableName + " (datetime_blow, x, y, altitude) VALUES ('" + stringDatetimeBlow + "', " + stringX + ", " + stringY + ", " + stringAltitude + ")";
                 command.ExecuteNonQuery();
             }
         }
@@ -147,20 +147,20 @@ namespace seisapp
             }
         }
         static public void RefreshParameters(
-            string datetime_graph_start,
-            string datetime_graph_stop,
+            string datetimeGraphStart,
+            string datetimeGraphStop,
             string component,
-            double furier_min_freq,
-            double furier_max_freq,
-            double stalta_min_window,
-            double stalta_max_window,
-            int stalta_order)
+            double furierMinFrequency,
+            double furierMaxFrequency,
+            double staltaMinWindow,
+            double staltaMaxWindow,
+            int staltaOrder)
         {
-            string sfurier_min_freq = Convert.ToString(furier_min_freq);
-            string sfurier_max_freq = Convert.ToString(furier_max_freq);
-            string sstalta_min_window = Convert.ToString(stalta_min_window);
-            string sstalta_max_window = Convert.ToString(stalta_max_window);
-            string sstalta_order = Convert.ToString(stalta_order);
+            string stringFurierMinFrequency = Convert.ToString(furierMinFrequency);
+            string stringFurierMaxFrequency = Convert.ToString(furierMaxFrequency);
+            string stringStaltaMinWindow = Convert.ToString(staltaMinWindow);
+            string stringStaltaMaxWindow = Convert.ToString(staltaMaxWindow);
+            string stringStaltaOrder = Convert.ToString(staltaOrder);
             using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
@@ -171,7 +171,7 @@ namespace seisapp
                 {
                     ClearTable(ParametersTableName);
                 }
-                command.CommandText = "INSERT INTO " + ParametersTableName + " (datetime_graph_start, datetime_graph_stop, component, furier_min_freq, furier_max_freq, stalta_min_window, stalta_max_window, stalta_order) VALUES ('" + datetime_graph_start + "', '" + datetime_graph_stop + "', '" + component + "', " + sfurier_min_freq + ", " + sfurier_max_freq + ", " + sstalta_min_window + ", " + sstalta_max_window + ", " + sstalta_order + ")";
+                command.CommandText = "INSERT INTO " + ParametersTableName + " (datetime_graph_start, datetime_graph_stop, component, furier_min_freq, furier_max_freq, stalta_min_window, stalta_max_window, stalta_order) VALUES ('" + datetimeGraphStart + "', '" + datetimeGraphStop + "', '" + component + "', " + stringFurierMinFrequency + ", " + stringFurierMaxFrequency + ", " + stringStaltaMinWindow + ", " + stringStaltaMaxWindow + ", " + stringStaltaOrder + ")";
                 command.ExecuteNonQuery();
             }
         }
@@ -179,12 +179,12 @@ namespace seisapp
         {
             double[,] array = new double[GetAmountRowsVelocity(), 3];
 
-            using (var connection_out = new SqliteConnection("Data Source=" + Database.Path))
+            using (var connectionOut = new SqliteConnection("Data Source=" + Database.Path))
             {
                 int i = 0;
-                connection_out.Open();
+                connectionOut.Open();
                 SqliteCommand command = new SqliteCommand();
-                command.Connection = connection_out;
+                command.Connection = connectionOut;
                 command.CommandText = "SELECT * FROM " + VelocityTableName;
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
@@ -192,11 +192,11 @@ namespace seisapp
                     {
                         while (reader.Read())   // построчно считываем данные
                         {
-                            var h_top = Convert.ToDouble(reader.GetValue(0));
-                            var h_bottom = Convert.ToDouble(reader.GetValue(1));
+                            var hTop = Convert.ToDouble(reader.GetValue(0));
+                            var hBottom = Convert.ToDouble(reader.GetValue(1));
                             var vp = Convert.ToDouble(reader.GetValue(2));
-                            array[i, 0] = h_top;
-                            array[i, 1] = h_bottom;
+                            array[i, 0] = hTop;
+                            array[i, 1] = hBottom;
                             array[i, 2] = vp;
                             i++;
                         }
@@ -209,12 +209,12 @@ namespace seisapp
         {
             double[,] array = new double[GetAmountRowsStationCoordinates(), 4];
 
-            using (var connection_out = new SqliteConnection("Data Source=" + Database.Path))
+            using (var connectionOut = new SqliteConnection("Data Source=" + Database.Path))
             {
                 int i = 0;
-                connection_out.Open();
+                connectionOut.Open();
                 SqliteCommand command = new SqliteCommand();
-                command.Connection = connection_out;
+                command.Connection = connectionOut;
                 command.CommandText = "SELECT * FROM " + StationCoordinatesTableName;
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
@@ -241,12 +241,12 @@ namespace seisapp
         {
             string[,] array = new string[GetAmountRowsSeismicRecords(), 6];
 
-            using (var connection_out = new SqliteConnection("Data Source=" + Path))
+            using (var connectionOut = new SqliteConnection("Data Source=" + Path))
             {
                 int i = 0;
-                connection_out.Open();
+                connectionOut.Open();
                 SqliteCommand command = new SqliteCommand();
-                command.Connection = connection_out;
+                command.Connection = connectionOut;
                 command.CommandText = "SELECT * FROM " + SeismicRecordsTableName;
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
@@ -255,18 +255,18 @@ namespace seisapp
                         while (reader.Read())   // построчно считываем данные
                         {
                             string id = Convert.ToString(reader.GetValue(0));
-                            string station_id = Convert.ToString(reader.GetValue(1));
+                            string StationId = Convert.ToString(reader.GetValue(1));
                             string root = Convert.ToString(reader.GetValue(2));
-                            string file_name = Convert.ToString(reader.GetValue(3));
-                            string datatime_start = Convert.ToString(reader.GetValue(4));
-                            string datatime_stop = Convert.ToString(reader.GetValue(5));
+                            string fileName = Convert.ToString(reader.GetValue(3));
+                            string datetimeStart = Convert.ToString(reader.GetValue(4));
+                            string datetimeStop = Convert.ToString(reader.GetValue(5));
 
                             array[i, 0] = id;
-                            array[i, 1] = station_id;
+                            array[i, 1] = StationId;
                             array[i, 2] = root;
-                            array[i, 3] = file_name;
-                            array[i, 4] = datatime_start;
-                            array[i, 5] = datatime_stop;
+                            array[i, 3] = fileName;
+                            array[i, 4] = datetimeStart;
+                            array[i, 5] = datetimeStop;
 
                             i++;
                         }
@@ -275,21 +275,21 @@ namespace seisapp
             }
             return array;
         }
-        static public dynamic GetParameters(int column_number = 0)
+        static public dynamic GetParameters(int columnNumber = 0)
         {
-            string datetime_graph_start = "";
-            string datetime_graph_stop = "";
+            string datetimeGraphStart = "";
+            string datetimeGraphStop = "";
             string component = "";
-            double furier_min_freq = 0;
-            double furier_max_freq = 0;
-            double stalta_min_window = 0;
-            double stalta_max_window = 0;
-            int stalta_order = 0;
-            using (var connection_out = new SqliteConnection("Data Source=" + Path))
+            double furierMinFrequency = 0;
+            double furierMaxFrequency = 0;
+            double staltaMinWindow = 0;
+            double staltaMaxWindow = 0;
+            int staltaOrder = 0;
+            using (var connectionOut = new SqliteConnection("Data Source=" + Path))
             {
-                connection_out.Open();
+                connectionOut.Open();
                 SqliteCommand command = new SqliteCommand();
-                command.Connection = connection_out;
+                command.Connection = connectionOut;
                 command.CommandText = "SELECT * FROM " + ParametersTableName;
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
@@ -297,113 +297,113 @@ namespace seisapp
                     {
                         while (reader.Read())   // построчно считываем данные
                         {
-                            datetime_graph_start = Convert.ToString(reader.GetValue(0));
-                            datetime_graph_stop = Convert.ToString(reader.GetValue(1));
+                            datetimeGraphStart = Convert.ToString(reader.GetValue(0));
+                            datetimeGraphStop = Convert.ToString(reader.GetValue(1));
                             component = Convert.ToString(reader.GetValue(2));
-                            furier_min_freq = Convert.ToDouble(reader.GetValue(3));
-                            furier_max_freq = Convert.ToDouble(reader.GetValue(4));
-                            stalta_min_window = Convert.ToDouble(reader.GetValue(5));
-                            stalta_max_window = Convert.ToDouble(reader.GetValue(6));
-                            stalta_order = Convert.ToInt32(reader.GetValue(7));
+                            furierMinFrequency = Convert.ToDouble(reader.GetValue(3));
+                            furierMaxFrequency = Convert.ToDouble(reader.GetValue(4));
+                            staltaMinWindow = Convert.ToDouble(reader.GetValue(5));
+                            staltaMaxWindow = Convert.ToDouble(reader.GetValue(6));
+                            staltaOrder = Convert.ToInt32(reader.GetValue(7));
                         }
                     }
                 }
             }
-            if (column_number == 1)
+            if (columnNumber == 1)
             { 
-                return datetime_graph_start; 
+                return datetimeGraphStart; 
             }
-            else if (column_number == 2)
+            else if (columnNumber == 2)
             { 
-                return datetime_graph_stop; 
+                return datetimeGraphStop; 
             }
-            else if (column_number == 3)
+            else if (columnNumber == 3)
             { 
                 return component; 
             }
-            else if (column_number == 4)
+            else if (columnNumber == 4)
             { 
-                return furier_min_freq; 
+                return furierMinFrequency; 
             }
-            else if (column_number == 5)
+            else if (columnNumber == 5)
             { 
-                return furier_max_freq; 
+                return furierMaxFrequency; 
             }
-            else if (column_number == 6)
+            else if (columnNumber == 6)
             { 
-                return stalta_min_window; 
+                return staltaMinWindow; 
             }
-            else if (column_number == 7)
+            else if (columnNumber == 7)
             { 
-                return stalta_max_window; 
+                return staltaMaxWindow; 
             }
-            else if (column_number == 8)
+            else if (columnNumber == 8)
             {
-                return stalta_order;
+                return staltaOrder;
             }
             else
             {
-                return (datetime_graph_start,
-                    datetime_graph_stop,
+                return (datetimeGraphStart,
+                    datetimeGraphStop,
                     component,
-                    furier_min_freq,
-                    furier_max_freq,
-                    stalta_min_window,
-                    stalta_max_window,
-                    stalta_order);
+                    furierMinFrequency,
+                    furierMaxFrequency,
+                    staltaMinWindow,
+                    staltaMaxWindow,
+                    staltaOrder);
             }
         }
         static public int GetAmountRowsVelocity()
         {
-            using (var connection_out = new SqliteConnection("Data Source=" + Database.Path))
+            using (var connectionOut = new SqliteConnection("Data Source=" + Database.Path))
             {
-                connection_out.Open();
+                connectionOut.Open();
                 SqliteCommand command = new SqliteCommand();
-                command.Connection = connection_out;
+                command.Connection = connectionOut;
                 command.CommandText = "SELECT COUNT(*) FROM " + Database.VelocityTableName;
                 return Convert.ToInt32(command.ExecuteScalar());
             }
         }
         static public int GetAmountRowsStationCoordinates()
         {
-            using (var connection_out = new SqliteConnection("Data Source=" + Database.Path))
+            using (var connectionOut = new SqliteConnection("Data Source=" + Database.Path))
             {
-                connection_out.Open();
+                connectionOut.Open();
                 SqliteCommand command = new SqliteCommand();
-                command.Connection = connection_out;
+                command.Connection = connectionOut;
                 command.CommandText = "SELECT COUNT(*) FROM " + StationCoordinatesTableName;
                 return Convert.ToInt32(command.ExecuteScalar());
             }
         }
         static public int GetAmountRowsSeismicRecords()
         {
-            using (var connection_out = new SqliteConnection("Data Source=" + Database.Path))
+            using (var connectionOut = new SqliteConnection("Data Source=" + Database.Path))
             {
-                connection_out.Open();
+                connectionOut.Open();
                 SqliteCommand command = new SqliteCommand();
-                command.Connection = connection_out;
+                command.Connection = connectionOut;
                 command.CommandText = "SELECT COUNT(*) FROM " + SeismicRecordsTableName;
                 return Convert.ToInt32(command.ExecuteScalar());
             }
         }
-        static public void AddColumn(string table_name, string column_name, string column_parameters)
+        static public void AddColumn(string tableName, string columnName, string columnParameters)
         {
             using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = "ALTER TABLE " + table_name + " ADD COLUMN " + column_name + " " + column_parameters + ";";
+                command.CommandText = "ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " " + columnParameters + ";";
                 command.ExecuteNonQuery();
             }
         }
-        static public void ClearTable(string table_name)
+        static public void ClearTable(string tableName)
         {
             using (var connection = new SqliteConnection("Data Source=" + Path))
             {
                 connection.Open();
-                SqliteCommand command_del = new SqliteCommand("DELETE  FROM " + table_name, connection);
-                command_del.ExecuteNonQuery(); ;
+                SqliteCommand commandDelete = new SqliteCommand("DELETE  FROM " + tableName, connection);
+                commandDelete.ExecuteNonQuery(); ;
             }
         }
     }
