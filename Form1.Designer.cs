@@ -72,6 +72,8 @@
             this.dataGridViewLatency = new System.Windows.Forms.DataGridView();
             this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.latency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonSaveLatency = new System.Windows.Forms.Button();
+            this.buttonClearLatency = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_date)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_furier_filter)).BeginInit();
@@ -529,7 +531,7 @@
             this.dataGridViewLatency.Location = new System.Drawing.Point(844, 170);
             this.dataGridViewLatency.Name = "dataGridViewLatency";
             this.dataGridViewLatency.RowHeadersVisible = false;
-            this.dataGridViewLatency.Size = new System.Drawing.Size(240, 413);
+            this.dataGridViewLatency.Size = new System.Drawing.Size(240, 368);
             this.dataGridViewLatency.TabIndex = 30;
             // 
             // number
@@ -546,12 +548,36 @@
             this.latency.ReadOnly = true;
             this.latency.Width = 119;
             // 
+            // buttonSaveLatency
+            // 
+            this.buttonSaveLatency.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.buttonSaveLatency.Location = new System.Drawing.Point(844, 544);
+            this.buttonSaveLatency.Name = "buttonSaveLatency";
+            this.buttonSaveLatency.Size = new System.Drawing.Size(116, 39);
+            this.buttonSaveLatency.TabIndex = 32;
+            this.buttonSaveLatency.Text = "Save";
+            this.buttonSaveLatency.UseVisualStyleBackColor = false;
+            this.buttonSaveLatency.Click += new System.EventHandler(this.buttonSaveLatency_Click);
+            // 
+            // buttonClearLatency
+            // 
+            this.buttonClearLatency.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.buttonClearLatency.Location = new System.Drawing.Point(968, 544);
+            this.buttonClearLatency.Name = "buttonClearLatency";
+            this.buttonClearLatency.Size = new System.Drawing.Size(116, 39);
+            this.buttonClearLatency.TabIndex = 33;
+            this.buttonClearLatency.Text = "Clear";
+            this.buttonClearLatency.UseVisualStyleBackColor = false;
+            this.buttonClearLatency.Click += new System.EventHandler(this.buttonClearLatency_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(198)))), ((int)(((byte)(208)))));
             this.ClientSize = new System.Drawing.Size(1096, 664);
+            this.Controls.Add(this.buttonClearLatency);
+            this.Controls.Add(this.buttonSaveLatency);
             this.Controls.Add(this.dataGridViewLatency);
             this.Controls.Add(this.chartControlSignals);
             this.Controls.Add(this.spinEdit_frequency);
@@ -648,6 +674,8 @@
         private System.Windows.Forms.DataGridView dataGridViewLatency;
         private System.Windows.Forms.DataGridViewTextBoxColumn number;
         private System.Windows.Forms.DataGridViewTextBoxColumn latency;
+        private System.Windows.Forms.Button buttonSaveLatency;
+        private System.Windows.Forms.Button buttonClearLatency;
     }
 }
 

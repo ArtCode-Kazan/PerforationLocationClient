@@ -307,5 +307,50 @@ namespace seisapp
                 }
             }
         }
+
+        private void buttonClearLatency_Click(object sender, EventArgs e)
+        {
+            dataGridViewLatency.Rows.Clear();
+        }
+
+        private void buttonSaveLatency_Click(object sender, EventArgs e)
+        {
+            int stationId = 0;
+            double latency = 0;
+
+            dataGridViewLatency.AllowUserToAddRows = false;
+            foreach (DataGridViewRow r in dataGridViewLatency.Rows)
+            {
+                if (r.Cells["number"].Value != null)
+                {
+                    stationId = Convert.ToInt32(r.Cells["number"].Value);
+                }
+                else
+                { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
+                if (r.Cells["latency"].Value != null)
+                {
+                    string stroka = Convert.ToString(r.Cells["latency"].Value);
+                    latency = Convert.ToDouble(stroka);
+                }
+                else
+                { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }                
+
+                Database.AddRowInLatency(stationId, latency);
+            }
+            dataGridViewLatency.AllowUserToAddRows = true;
+        }
+
+        public void FillLatencyDataGrid()
+        {
+            dataGridViewLatency.Rows.Clear();
+            double[,] array = new double[Database.GetAmountRowsLatency(), 2];
+            array = Database.GetLatency();
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                double stationId = array[i, 0];
+                double name = array[i, 1];
+                dataGridViewLatency.Rows.Add(number, latency);
+            }
+        }
     }
 }

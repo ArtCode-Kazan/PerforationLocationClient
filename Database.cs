@@ -26,7 +26,7 @@ namespace seisapp
         public const string TableCalibrationExplosionCreatingCommand = "CREATE TABLE " + CalibrationExplosionTableName + "(datetime_blow VARCHAR(45) NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
         public const string TableSettingsCreatingCommand = "CREATE TABLE " + SettingsTableName + "(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";        
         public const string TableParametersCreatingCommand = "CREATE TABLE " + ParametersTableName + "(datetime_graph_start VARCHAR(45) NOT NULL, datetime_graph_stop VARCHAR(45) NOT NULL, component VARCHAR(1) NOT NULL, furier_min_freq DOUBLE NOT NULL, furier_max_freq DOUBLE NOT NULL, stalta_min_window DOUBLE NOT NULL, stalta_max_window DOUBLE NOT NULL, stalta_order INTEGER NOT NULL)";
-        public const string TableLatencyCreatingCommand = "CREATE TABLE " + LatencyTableName + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, station_id DOUBLE NOT NULL, latency DOUBLE NOT NULL, FOREIGN KEY (station_id) REFERENCES station_coordinates (id))";
+        public const string TableLatencyCreatingCommand = "CREATE TABLE " + LatencyTableName + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, station_id INTEGER NOT NULL, latency DOUBLE NOT NULL, FOREIGN KEY (station_id) REFERENCES station_coordinates (id))";
 
         static public void CreateTable(string name)
         {
@@ -116,6 +116,19 @@ namespace seisapp
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
                 command.CommandText = "INSERT INTO " + SeismicRecordsTableName + " (station_id, file_name, root, datetime_start, datetime_stop) VALUES (" + stringStationId + ", '" + fileName + "', '" + root + "', '" + stringDatetimeStart + "', '" + stringDatetimeStop + "')";
+                command.ExecuteNonQuery();
+            }
+        }
+        static public void AddRowInLatency(int stationId, double latency)
+        {
+            string stringStationId = Convert.ToString(stationId);
+            string stringLatency = Convert.ToString(latency);
+            using (var connection = new SqliteConnection("Data Source=" + Database.Path))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection;
+                command.CommandText = "INSERT INTO " + LatencyTableName + " (station_id, latency) VALUES (" + stringStationId + ", " + stringLatency + ")";
                 command.ExecuteNonQuery();
             }
         }
@@ -258,10 +271,10 @@ namespace seisapp
                     {
                         while (reader.Read())   // построчно считываем данные
                         {
-                            var stationId = Convert.ToInt32(reader.GetValue(0));
+                            var stationId = Convert.ToDouble(reader.GetValue(0));
                             var latency = Convert.ToDouble(reader.GetValue(1));
-                            latencyArray[i, 0] = stationId;
-                            latencyArray[i, 1] = latency;
+                            latencyArray[i, 1] = stationId;
+                            latencyArray[i, 2] = latency;
                             i++;
                         }
                     }
