@@ -48,9 +48,9 @@ namespace seisapp
                     string path = Convert.ToString(r.Cells["path"].Value);
                     
 
-                    Binary_File binFile = new Binary_File(path + "/" + file);
-                    DateTime datetimeStop = binFile.datetime_stop;
-                    DateTime datetimeStart = binFile.datetime_start;
+                    BinarySeismicFile binFile = new BinarySeismicFile(path + "/" + file);
+                    DateTime datetimeStop = binFile.DatetimeStop;
+                    DateTime datetimeStart = binFile.DatetimeStart;
                     
                     Database.AddRowInSeismicRecords(number, file, path, datetimeStart, datetimeStop);
                 }                                                

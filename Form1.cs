@@ -221,13 +221,13 @@ namespace seisapp
                 ((System.ComponentModel.ISupportInitialize)(lineSeriesView1[i])).EndInit();
                 ((System.ComponentModel.ISupportInitialize)(series1[i])).EndInit();
 
-                Binary_File binarySignal = new Binary_File(arrayOfPathToBinaryFiles[i]);
-                binarySignal.__resample_frequency = Convert.ToInt32(spinEdit_frequency.Value);
-                binarySignal.__read_date_time_stop = stop;
-                binarySignal.__read_date_time_start = start;
+                BinarySeismicFile binarySignal = new BinarySeismicFile(arrayOfPathToBinaryFiles[i]);
+                binarySignal.__ResampleFrequency = Convert.ToInt32(spinEdit_frequency.Value);
+                binarySignal.__ReadDatetimeStop = stop;
+                binarySignal.__ReadDatetimeStart = start;
 
                 string component = comboBox_component.Text;
-                Int32[] signal = binarySignal.read_signal(component);
+                Int32[] signal = binarySignal.ReadSignal(component);
 
                 Int32 maximumOfSignal = signal.Max();
                 Int32 minimumOfSignal = signal.Min();               
