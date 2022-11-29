@@ -56,9 +56,7 @@
             this.spinEdit_furier_max_frequency = new DevExpress.XtraEditors.SpinEdit();
             this.label_min_frequency = new System.Windows.Forms.Label();
             this.label_max_frequency = new System.Windows.Forms.Label();
-            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
             this.button1 = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker_start = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker_stop = new System.Windows.Forms.DateTimePicker();
             this.pictureBox_stalta_filter = new System.Windows.Forms.PictureBox();
@@ -70,18 +68,22 @@
             this.spinEdit_stalta_filter_order = new DevExpress.XtraEditors.SpinEdit();
             this.label_stalta_filter_order = new System.Windows.Forms.Label();
             this.spinEdit_frequency = new DevExpress.XtraEditors.SpinEdit();
+            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
+            this.dataGridViewLatency = new System.Windows.Forms.DataGridView();
+            this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.latency = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_date)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_furier_filter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_min_frequency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_max_frequency.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_stalta_filter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_min_frequency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_max_frequency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_order.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_frequency.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLatency)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -360,39 +362,16 @@
             this.label_max_frequency.TabIndex = 15;
             this.label_max_frequency.Text = "max frequency";
             // 
-            // chartControl1
-            // 
-            this.chartControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.chartControl1.CrosshairOptions.ShowOutOfRangePoints = true;
-            this.chartControl1.Legend.Direction = DevExpress.XtraCharts.LegendDirection.BottomToTop;
-            this.chartControl1.Location = new System.Drawing.Point(0, 14);
-            this.chartControl1.Name = "chartControl1";
-            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            this.chartControl1.Size = new System.Drawing.Size(745, 336);
-            this.chartControl1.TabIndex = 16;
-            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.button1.Location = new System.Drawing.Point(475, 503);
+            this.button1.Location = new System.Drawing.Point(483, 613);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(139, 39);
             this.button1.TabIndex = 17;
             this.button1.Text = "LESGO";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.chartControl1);
-            this.groupBox1.Location = new System.Drawing.Point(72, 165);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(759, 351);
-            this.groupBox1.TabIndex = 18;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
             // 
             // dateTimePicker_start
             // 
@@ -518,12 +497,58 @@
             this.spinEdit_frequency.Size = new System.Drawing.Size(100, 20);
             this.spinEdit_frequency.TabIndex = 29;
             // 
+            // chartControl1
+            // 
+            this.chartControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chartControl1.CrosshairOptions.CrosshairLabelMode = DevExpress.XtraCharts.CrosshairLabelMode.ShowForNearestSeries;
+            this.chartControl1.CrosshairOptions.ShowOutOfRangePoints = true;
+            this.chartControl1.Legend.Direction = DevExpress.XtraCharts.LegendDirection.BottomToTop;
+            this.chartControl1.Location = new System.Drawing.Point(12, 170);
+            this.chartControl1.Name = "chartControl1";
+            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
+            this.chartControl1.Size = new System.Drawing.Size(821, 413);
+            this.chartControl1.TabIndex = 16;
+            this.chartControl1.Click += new System.EventHandler(this.chartControl1_Click);
+            // 
+            // dataGridViewLatency
+            // 
+            this.dataGridViewLatency.AllowUserToAddRows = false;
+            this.dataGridViewLatency.AllowUserToDeleteRows = false;
+            this.dataGridViewLatency.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.dataGridViewLatency.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewLatency.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.number,
+            this.latency});
+            this.dataGridViewLatency.Location = new System.Drawing.Point(844, 170);
+            this.dataGridViewLatency.Name = "dataGridViewLatency";
+            this.dataGridViewLatency.RowHeadersVisible = false;
+            this.dataGridViewLatency.Size = new System.Drawing.Size(240, 413);
+            this.dataGridViewLatency.TabIndex = 30;
+            // 
+            // number
+            // 
+            this.number.HeaderText = "number";
+            this.number.Name = "number";
+            this.number.ReadOnly = true;
+            this.number.Width = 118;
+            // 
+            // latency
+            // 
+            this.latency.HeaderText = "latency";
+            this.latency.Name = "latency";
+            this.latency.ReadOnly = true;
+            this.latency.Width = 119;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(198)))), ((int)(((byte)(208)))));
-            this.ClientSize = new System.Drawing.Size(1096, 592);
+            this.ClientSize = new System.Drawing.Size(1096, 664);
+            this.Controls.Add(this.dataGridViewLatency);
+            this.Controls.Add(this.chartControl1);
             this.Controls.Add(this.spinEdit_frequency);
             this.Controls.Add(this.label_stalta_filter_order);
             this.Controls.Add(this.spinEdit_stalta_filter_order);
@@ -535,7 +560,6 @@
             this.Controls.Add(this.pictureBox_stalta_filter);
             this.Controls.Add(this.dateTimePicker_stop);
             this.Controls.Add(this.dateTimePicker_start);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label_max_frequency);
             this.Controls.Add(this.label_min_frequency);
@@ -553,6 +577,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "seisapp";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -560,13 +585,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_furier_filter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_min_frequency.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_furier_max_frequency.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_stalta_filter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_min_frequency.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_max_frequency.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_order.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_frequency.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLatency)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -602,9 +627,7 @@
         private DevExpress.XtraEditors.SpinEdit spinEdit_furier_max_frequency;
         private System.Windows.Forms.Label label_min_frequency;
         private System.Windows.Forms.Label label_max_frequency;
-        private DevExpress.XtraCharts.ChartControl chartControl1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DateTimePicker dateTimePicker_start;
         private System.Windows.Forms.DateTimePicker dateTimePicker_stop;
         private System.Windows.Forms.PictureBox pictureBox_stalta_filter;
@@ -616,6 +639,10 @@
         private DevExpress.XtraEditors.SpinEdit spinEdit_stalta_filter_order;
         private System.Windows.Forms.Label label_stalta_filter_order;
         private DevExpress.XtraEditors.SpinEdit spinEdit_frequency;
+        private DevExpress.XtraCharts.ChartControl chartControl1;
+        private System.Windows.Forms.DataGridView dataGridViewLatency;
+        private System.Windows.Forms.DataGridViewTextBoxColumn number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn latency;
     }
 }
 

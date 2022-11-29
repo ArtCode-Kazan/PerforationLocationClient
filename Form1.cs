@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraCharts;
-using Microsoft.Data.Sqlite;
 
 namespace seisapp
 {
@@ -17,13 +11,15 @@ namespace seisapp
         public Form1()
         {
             InitializeComponent();
-            label_artcode.Visible = true;
+            label_artcode.Visible = true;            
             comboBox_component.Text = "Z";
             dateTimePicker_start.CustomFormat = "dd.MM.yyyy HH:mm:ss";
             dateTimePicker_stop.CustomFormat = "dd.MM.yyyy HH:mm:ss";
             spinEdit_stalta_filter_order.Properties.Mask.EditMask = "f0";   // only int
             spinEdit_frequency.Properties.Mask.EditMask = "f0";   // only int
-            spinEdit_frequency.Value = 200;
+            spinEdit_frequency.Value = 200;            
+            this.chartControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseDown);
+
 
         }
 
@@ -248,8 +244,8 @@ namespace seisapp
                     if (max < value) { max = value; }
                     if (min > value) { min = value; }
                 }
-                max = max;
-                min = min;
+
+                dataGridViewLatency.Rows.Add(i, "0");
             }
             this.chartControl1.SeriesSerializable = series1;
 
@@ -259,6 +255,24 @@ namespace seisapp
             xyDiagram.EnableAxisYZooming = true;
             xyDiagram.EnableAxisYScrolling = true;
             xyDiagram.Rotated = true;
+            xyDiagram.AxisX.Reverse = true;
         }
+
+        private void chartControl1_Click(object sender, EventArgs e)
+        {
+            
+
+            
+
+        }
+        private void chartControl1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            //double seriesValue = GetSeriesValue(series, diagramCoordinates.DateTimeArgument);            
+            Point position = new Point(e.Location.X, e.Location.Y);
+            //DiagramCoordinates diagramCoordinates = diagram.PointToDiagram(position);
+            ChartHitInfo hitInfo = chartControl1.CalcHitInfo(position);
+            //MessageBox.Show(Convert.ToString(ChartControl.ChartHitInfo));   
+            MessageBox.Show(Convert.ToString(hitInfo.Series));
+        }           
     }
 }
