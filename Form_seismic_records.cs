@@ -112,6 +112,29 @@ namespace seisapp
                 }                
             }
             dataGridViewSeismicRecords.Sort(dataGridViewSeismicRecords.Columns["number"], ListSortDirection.Ascending);
+            
+            foreach (DataGridViewRow r in dataGridViewSeismicRecords.Rows)
+            {                
+                stationNumbers = new string[array.GetLength(0)];
+
+                for (int i = 0; i < stationNumbers.Length; i++)
+                {
+                    stationNumbers[i] = Convert.ToString(array[i, 0]);
+                }
+                string number2 = Convert.ToString(r.Cells["number"].Value);
+                if (number2 != "")
+                {
+                    if (stationNumbers.Contains(number2))
+                    {
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Номера " + number2 + " нет в таблице");
+                        r.Cells["number"].Value = DBNull.Value;
+                    }
+                }
+            }
         }
 
         private void dataGridViewSeismicRecords_CellValueChanged(object sender, DataGridViewCellEventArgs e)

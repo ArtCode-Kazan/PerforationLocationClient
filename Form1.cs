@@ -20,7 +20,7 @@ namespace seisapp
             spinEdit_frequency.Value = 200;
             this.chartControlSignals.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseDown);
             chartControlSignals.SeriesTemplate.CrosshairLabelPattern = "{S}: {A:F0}";
-            Database.Path = "C://Users//user//Desktop/budda.db";
+            
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -205,21 +205,21 @@ namespace seisapp
                 arrayOfPathToBinaryFiles[i] = seismic_records_array[i, 2] + "/" + seismic_records_array[i, 3];
             }
 
-            DevExpress.XtraCharts.Series[] series1 = new DevExpress.XtraCharts.Series[signalAmount];
+            DevExpress.XtraCharts.Series[] complexOfGraph = new DevExpress.XtraCharts.Series[signalAmount];
             DevExpress.XtraCharts.LineSeriesView[] lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView[signalAmount];
 
             for (int i = 0; i < signalAmount; i++)
-            {
-                series1[i] = new DevExpress.XtraCharts.Series();
+            {                
+                complexOfGraph[i] = new DevExpress.XtraCharts.Series();
                 lineSeriesView1[i] = new DevExpress.XtraCharts.LineSeriesView();
 
-                series1[i].Name = "file=" + Convert.ToString(i + 1);
-                series1[i].View = lineSeriesView1[i];
+                complexOfGraph[i].Name = "file=" + Convert.ToString(i + 1);
+                complexOfGraph[i].View = lineSeriesView1[i];
 
-                ((System.ComponentModel.ISupportInitialize)(series1[i])).BeginInit();
+                ((System.ComponentModel.ISupportInitialize)(complexOfGraph[i])).BeginInit();
                 ((System.ComponentModel.ISupportInitialize)(lineSeriesView1[i])).BeginInit();
                 ((System.ComponentModel.ISupportInitialize)(lineSeriesView1[i])).EndInit();
-                ((System.ComponentModel.ISupportInitialize)(series1[i])).EndInit();
+                ((System.ComponentModel.ISupportInitialize)(complexOfGraph[i])).EndInit();
 
                 BinarySeismicFile binarySignal = new BinarySeismicFile(arrayOfPathToBinaryFiles[i]);
                 binarySignal.__ResampleFrequency = Convert.ToInt32(spinEdit_frequency.Value);
@@ -237,8 +237,9 @@ namespace seisapp
                 double min = 1999;
                 for (int z = 0; z < signal.Length; z++)
                 {
+                    double zToSeconds = Convert.ToDouble(z) / Convert.ToInt32(spinEdit_frequency.Value);
                     double value = signal[z] * coefNorm - minimumOfSignal * coefNorm + 2 * i;
-                    series1[i].Points.AddPoint(z, value);
+                    complexOfGraph[i].Points.AddPoint(zToSeconds, value);
                     if (max < value) { max = value; }
                     if (min > value) { min = value; }
                 }                
@@ -257,8 +258,7 @@ namespace seisapp
                 }
             }
 
-
-            this.chartControlSignals.SeriesSerializable = series1;
+            this.chartControlSignals.SeriesSerializable = complexOfGraph;
 
             XYDiagram xyDiagram = (XYDiagram)chartControlSignals.Diagram;
             xyDiagram.EnableAxisXZooming = true;
