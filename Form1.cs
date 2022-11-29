@@ -11,13 +11,13 @@ namespace seisapp
         public Form1()
         {
             InitializeComponent();
-            label_artcode.Visible = true;            
+            label_artcode.Visible = true;
             comboBox_component.Text = "Z";
             dateTimePicker_start.CustomFormat = "dd.MM.yyyy HH:mm:ss";
             dateTimePicker_stop.CustomFormat = "dd.MM.yyyy HH:mm:ss";
             spinEdit_stalta_filter_order.Properties.Mask.EditMask = "f0";   // only int
             spinEdit_frequency.Properties.Mask.EditMask = "f0";   // only int
-            spinEdit_frequency.Value = 200;            
+            spinEdit_frequency.Value = 200;
             this.chartControlSignals.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseDown);
             chartControlSignals.SeriesTemplate.CrosshairLabelPattern = "{S}: {A:F0}";
             Database.Path = "C://Users//user//Desktop/budda.db";
@@ -129,7 +129,7 @@ namespace seisapp
 
         private void peakTracesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            label_artcode.Visible = false;            
+            label_artcode.Visible = false;
 
             pictureBox_date.Visible = true;
             label_date.Visible = true;
@@ -230,8 +230,8 @@ namespace seisapp
                 Int32[] signal = binarySignal.ReadSignal(component);
 
                 Int32 maximumOfSignal = signal.Max();
-                Int32 minimumOfSignal = signal.Min();               
-                
+                Int32 minimumOfSignal = signal.Min();
+
 
 
                 double coefNorm = Convert.ToDouble(2) / (maximumOfSignal - minimumOfSignal);
@@ -246,7 +246,7 @@ namespace seisapp
                 }
 
                 dataGridViewLatency.Rows.Add(i, "0");
-                                
+
             }
             this.chartControlSignals.SeriesSerializable = series1;
 
@@ -272,19 +272,30 @@ namespace seisapp
 
         private void chartControl1_Click(object sender, EventArgs e)
         {
-            
 
-            
+
+
 
         }
         private void chartControl1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            //double seriesValue = GetSeriesValue(series, diagramCoordinates.DateTimeArgument);            
-            Point position = new Point(e.Location.X, e.Location.Y);
-            //DiagramCoordinates diagramCoordinates = diagram.PointToDiagram(position);
+        {            
+            Point position = new Point(e.Location.X, e.Location.Y);            
             ChartHitInfo hitInfo = chartControlSignals.CalcHitInfo(position);
-            //MessageBox.Show(Convert.ToString(ChartControl.ChartHitInfo));   
-            MessageBox.Show(Convert.ToString(hitInfo.Series));
-        }           
+            
+            if (hitInfo.SeriesPoint != null)
+            {
+                string[] seriesName = Convert.ToString(hitInfo.Series).Split(new char[] { '=' }, 2);
+                
+                Int32.TryParse(Convert.ToString(seriesName[1]), out int number);
+                Double.TryParse(hitInfo.SeriesPoint.Argument, out double value);
+                foreach (DataGridViewRow r in dataGridViewLatency.Rows)
+                {
+                    if (Convert.ToInt32(r.Cells["number"].Value) == number)
+                    {
+                        r.Cells["latency"].Value = value;
+                    }
+                }
+            }
+        }
     }
 }
