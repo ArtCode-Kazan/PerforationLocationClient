@@ -26,7 +26,7 @@ namespace seisapp
         public const string TableCalibrationExplosionCreatingCommand = "CREATE TABLE " + CalibrationExplosionTableName + "(datetime_blow VARCHAR(45) NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
         public const string TableSettingsCreatingCommand = "CREATE TABLE " + SettingsTableName + "(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";        
         public const string TableParametersCreatingCommand = "CREATE TABLE " + ParametersTableName + "(datetime_graph_start VARCHAR(45) NOT NULL, datetime_graph_stop VARCHAR(45) NOT NULL, component VARCHAR(1) NOT NULL, furier_min_freq DOUBLE NOT NULL, furier_max_freq DOUBLE NOT NULL, stalta_min_window DOUBLE NOT NULL, stalta_max_window DOUBLE NOT NULL, stalta_order INTEGER NOT NULL)";
-        public const string TableLatencyCreatingCommand = "CREATE TABLE " + LatencyTableName + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, station_id DOUBLE NOT NULL, latency DOUBLE NOT NULL, FOREIGN KEY (station_id) REFERENCES station_coordinates (id)";
+        public const string TableLatencyCreatingCommand = "CREATE TABLE " + LatencyTableName + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, station_id DOUBLE NOT NULL, latency DOUBLE NOT NULL, FOREIGN KEY (station_id) REFERENCES station_coordinates (id))";
 
         static public void CreateTable(string name)
         {
