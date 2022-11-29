@@ -213,7 +213,7 @@ namespace seisapp
                 series1[i] = new DevExpress.XtraCharts.Series();
                 lineSeriesView1[i] = new DevExpress.XtraCharts.LineSeriesView();
 
-                series1[i].Name = "file=" + Convert.ToString(i);
+                series1[i].Name = "file=" + Convert.ToString(i + 1);
                 series1[i].View = lineSeriesView1[i];
 
                 ((System.ComponentModel.ISupportInitialize)(series1[i])).BeginInit();
@@ -232,8 +232,6 @@ namespace seisapp
                 Int32 maximumOfSignal = signal.Max();
                 Int32 minimumOfSignal = signal.Min();
 
-
-
                 double coefNorm = Convert.ToDouble(2) / (maximumOfSignal - minimumOfSignal);
                 double max = 0;
                 double min = 1999;
@@ -243,11 +241,23 @@ namespace seisapp
                     series1[i].Points.AddPoint(z, value);
                     if (max < value) { max = value; }
                     if (min > value) { min = value; }
-                }
+                }                
+            }
 
-                dataGridViewLatency.Rows.Add(i, "0");
+            if (Database.GetAmountRowsSeismicRecords() == dataGridViewLatency.Rows.Count)
+            {
 
             }
+            else
+            {
+                dataGridViewLatency.Rows.Clear();
+                for (int i = 1; i <= Database.GetAmountRowsSeismicRecords(); i++)
+                {                    
+                    dataGridViewLatency.Rows.Add(i, 0);
+                }
+            }
+
+
             this.chartControlSignals.SeriesSerializable = series1;
 
             XYDiagram xyDiagram = (XYDiagram)chartControlSignals.Diagram;

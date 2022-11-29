@@ -510,7 +510,6 @@
             this.chartControlSignals.CrosshairOptions.ShowArgumentLabels = true;
             this.chartControlSignals.CrosshairOptions.ShowGroupHeaders = false;
             this.chartControlSignals.CrosshairOptions.ShowOutOfRangePoints = true;
-            this.chartControlSignals.Legend.Direction = DevExpress.XtraCharts.LegendDirection.BottomToTop;
             this.chartControlSignals.Location = new System.Drawing.Point(12, 170);
             this.chartControlSignals.Name = "chartControlSignals";
             this.chartControlSignals.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
