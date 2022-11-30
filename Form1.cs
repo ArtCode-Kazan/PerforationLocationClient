@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Drawing;
 using System.Linq;
+using System.Text.Json;
 using System.Windows.Forms;
 using DevExpress.XtraCharts;
 
@@ -18,6 +20,7 @@ namespace seisapp
             spinEdit_stalta_filter_order.Properties.Mask.EditMask = "f0";   // only int
             spinEdit_frequency.Properties.Mask.EditMask = "f0";   // only int
             spinEdit_frequency.Value = 200;
+            this.chartControlSignals.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseMove);
             this.chartControlSignals.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseDown);
             chartControlSignals.SeriesTemplate.CrosshairLabelPattern = "{S}: {A:F0}";
             
@@ -206,6 +209,7 @@ namespace seisapp
             }
 
             DevExpress.XtraCharts.Series[] complexOfGraph = new DevExpress.XtraCharts.Series[signalAmount];
+            
             DevExpress.XtraCharts.LineSeriesView[] lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView[signalAmount];
 
             for (int i = 0; i < signalAmount; i++)
@@ -244,6 +248,7 @@ namespace seisapp
                     if (min > value) { min = value; }
                 }                
             }
+            
 
             if (Database.GetAmountRowsSeismicRecords() == dataGridViewLatency.Rows.Count)
             {
@@ -261,12 +266,15 @@ namespace seisapp
             this.chartControlSignals.SeriesSerializable = complexOfGraph;
 
             XYDiagram xyDiagram = (XYDiagram)chartControlSignals.Diagram;
+            xyDiagram.ZoomingOptions.AxisXMaxZoomPercent = 100000;
+            xyDiagram.ZoomingOptions.AxisYMaxZoomPercent = 100000;
             xyDiagram.EnableAxisXZooming = true;
             xyDiagram.EnableAxisXScrolling = true;
             xyDiagram.EnableAxisYZooming = true;
             xyDiagram.EnableAxisYScrolling = true;
             xyDiagram.Rotated = true;
             xyDiagram.AxisX.Reverse = true;
+            chartControlSignals.CrosshairOptions.ShowArgumentLine = true;
             /*
             chartControlSignals.CrosshairOptions.ShowArgumentLine = true;
             chartControlSignals.CrosshairOptions.ShowArgumentLabels = true;
@@ -276,19 +284,16 @@ namespace seisapp
             chartControlSignals.CrosshairOptions.ShowGroupHeaders = true;
             chartControlSignals.CrosshairOptions.GroupHeaderPattern = "{A:F0}";
             chartControlSignals.SeriesTemplate.CrosshairLabelPattern = "{S}: {A:F0}";
-            ((XYDiagram)chartControlSignals.Diagram).AxisY.CrosshairAxisLabelOptions.Pattern = "{V:F0}";*/
+            ((XYDiagram)chartControlSignals.Diagram).AxisY.CrosshairAxisLabelOptions.Pattern = "{V:F0}";*/            
+
 
         }
 
         private void chartControl1_Click(object sender, EventArgs e)
         {
-
-
-
-
         }
         private void chartControl1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
-        {            
+        {
             Point position = new Point(e.Location.X, e.Location.Y);            
             ChartHitInfo hitInfo = chartControlSignals.CalcHitInfo(position);
             
@@ -306,6 +311,36 @@ namespace seisapp
                     }
                 }
             }
+            /*
+            ChartHitInfo hi = chartControlSignals.CalcHitInfo(e.X, e.Y);
+
+            // Obtain the series point under the test point.
+            SeriesPoint point = hi.SeriesPoint;
+            DiagramCoordinates coords = ((XYDiagram2D)chartControlSignals.Diagram).PointToDiagram(chartControlSignals.PointToClient(Cursor.Position));*/
+        }
+        private void chartControl1_MouseMove(object sender, MouseEventArgs e)
+        {
+            /*// Obtain hit information under the test point.
+            ChartHitInfo hi = chartControlSignals.CalcHitInfo(e.X, e.Y);
+
+            // Obtain the series point under the test point.
+            SeriesPoint point = hi.SeriesPoint;
+            DiagramCoordinates coords = ((XYDiagram2D)chartControlSignals.Diagram).PointToDiagram(chartControlSignals.PointToClient(Cursor.Position));
+            // Check whether the series point was clicked or not.
+            if (point != null)
+            {                                
+                string[] seriesName = Convert.ToString(hi.Series).Split(new char[] { '=' }, 2);
+
+                Int32.TryParse(Convert.ToString(seriesName[1]), out int number);
+                Double.TryParse(hi.SeriesPoint.Argument, out double value);
+                foreach (DataGridViewRow r in dataGridViewLatency.Rows)
+                {
+                    if (Convert.ToInt32(r.Cells["number"].Value) == number)
+                    {
+                        r.Cells["latency"].Value = value;
+                    }
+                }
+            }*/
         }
 
         private void buttonClearLatency_Click(object sender, EventArgs e)
@@ -315,29 +350,28 @@ namespace seisapp
 
         private void buttonSaveLatency_Click(object sender, EventArgs e)
         {
+            dataGridViewLatency.Rows.Clear();
             int stationId = 0;
             double latency = 0;
-
-            dataGridViewLatency.AllowUserToAddRows = false;
+            
             foreach (DataGridViewRow r in dataGridViewLatency.Rows)
             {
                 if (r.Cells["number"].Value != null)
                 {
-                    stationId = Convert.ToInt32(r.Cells["number"].Value);
+                    stationId = Convert.ToInt32(Convert.ToString(r.Cells["number"].Value).Replace(',', '.'));                    
                 }
                 else
                 { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
                 if (r.Cells["latency"].Value != null)
                 {
-                    string stroka = Convert.ToString(r.Cells["latency"].Value);
-                    latency = Convert.ToDouble(stroka);
+                    string stroka = Convert.ToString(r.Cells["latency"].Value).Replace(',', '.');
+                    Double.TryParse(stroka, out latency);
                 }
                 else
                 { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }                
 
                 Database.AddRowInLatency(stationId, latency);
-            }
-            dataGridViewLatency.AllowUserToAddRows = true;
+            }            
         }
 
         public void FillLatencyDataGrid()
@@ -350,6 +384,77 @@ namespace seisapp
                 double stationId = array[i, 0];
                 double name = array[i, 1];
                 dataGridViewLatency.Rows.Add(number, latency);
+            }
+        }
+
+        public void button2_Click(object sender, EventArgs e)
+        {
+            double[,] stationInfo = Database.GetStations();
+            double[,] velocityInfo = Database.GetVelocity();            
+
+            Hashtable[] stations = new Hashtable[stationInfo.GetLength(0)];
+            
+            for (int i = 0; i < stationInfo.GetLength(0); i++)
+            {                      
+                var coordinate = new Hashtable();
+                coordinate.Add("x", stationInfo[i, 1]);
+                coordinate.Add("y", stationInfo[i, 2]);
+                coordinate.Add("altitude", stationInfo[i, 3]);
+             
+                var station = new Hashtable();
+                station.Add("number", stationInfo[i, 0]);
+                station.Add("coordinate", coordinate);
+
+                stations[i] = station;
+            }
+
+            var observationSystem = new Hashtable();
+            observationSystem.Add("stations", stations);
+
+            Hashtable[] layers = new Hashtable[stationInfo.GetLength(0)];
+
+            for (int i = 0; i < velocityInfo.GetLength(0); i++)
+            {                                
+                var altitudeInterval = new Hashtable();
+                altitudeInterval.Add("min", velocityInfo[i, 1]);
+                altitudeInterval.Add("max", velocityInfo[i, 0]);
+
+                var layer = new Hashtable();
+                layer.Add("altitude_interval", altitudeInterval);
+                layer.Add("vp", velocityInfo[i, 2]);
+
+                layers[i] = layer;
+            }
+
+            var velocityModel = new Hashtable();
+            velocityModel.Add("layer", layers);
+
+            var seismicInformation = new Hashtable();
+            seismicInformation.Add("observationSystem", observationSystem);
+            seismicInformation.Add("velocityModel", velocityModel);
+
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string jsonString = JsonSerializer.Serialize(seismicInformation, options);
+
+
+
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://url");
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.Method = "POST";
+
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            {
+                string json = "{\"user\":\"test\"," +
+                              "\"password\":\"bla\"}";
+
+                streamWriter.Write(json);
+            }
+
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
             }
         }
     }

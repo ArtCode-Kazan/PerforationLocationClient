@@ -74,6 +74,7 @@
             this.latency = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonSaveLatency = new System.Windows.Forms.Button();
             this.buttonClearLatency = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_date)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_furier_filter)).BeginInit();
@@ -514,6 +515,10 @@
             this.chartControlSignals.CrosshairOptions.ShowOutOfRangePoints = true;
             this.chartControlSignals.Location = new System.Drawing.Point(12, 170);
             this.chartControlSignals.Name = "chartControlSignals";
+            this.chartControlSignals.PaletteName = "Палитра1";
+            this.chartControlSignals.PaletteRepository.Add("Палитра1", new DevExpress.XtraCharts.Palette("Палитра1", DevExpress.XtraCharts.PaletteScaleMode.Repeat, new DevExpress.XtraCharts.PaletteEntry[] {
+                new DevExpress.XtraCharts.PaletteEntry(System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(65)))), ((int)(((byte)(71))))), System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(65)))), ((int)(((byte)(71))))))}));
+            this.chartControlSignals.RuntimeHitTesting = true;
             this.chartControlSignals.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
             this.chartControlSignals.Size = new System.Drawing.Size(821, 413);
             this.chartControlSignals.TabIndex = 16;
@@ -570,12 +575,24 @@
             this.buttonClearLatency.UseVisualStyleBackColor = false;
             this.buttonClearLatency.Click += new System.EventHandler(this.buttonClearLatency_Click);
             // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Red;
+            this.button2.Location = new System.Drawing.Point(805, 629);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 34;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(198)))), ((int)(((byte)(208)))));
             this.ClientSize = new System.Drawing.Size(1096, 664);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.buttonClearLatency);
             this.Controls.Add(this.buttonSaveLatency);
             this.Controls.Add(this.dataGridViewLatency);
@@ -676,6 +693,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn latency;
         private System.Windows.Forms.Button buttonSaveLatency;
         private System.Windows.Forms.Button buttonClearLatency;
+        private System.Windows.Forms.Button button2;
     }
 }
 
