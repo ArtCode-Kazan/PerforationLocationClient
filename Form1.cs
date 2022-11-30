@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text.Json;
 using System.Windows.Forms;
 using DevExpress.XtraCharts;
@@ -436,19 +438,13 @@ namespace seisapp
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(seismicInformation, options);
 
-
-
-
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://url");
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "POST";
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
-                string json = "{\"user\":\"test\"," +
-                              "\"password\":\"bla\"}";
-
-                streamWriter.Write(json);
+                streamWriter.Write(jsonString);
             }
 
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
@@ -456,6 +452,7 @@ namespace seisapp
             {
                 var result = streamReader.ReadToEnd();
             }
+
         }
     }
 }
