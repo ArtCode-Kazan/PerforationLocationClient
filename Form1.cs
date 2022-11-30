@@ -438,7 +438,7 @@ namespace seisapp
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(seismicInformation, options);
 
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://url");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://192.168.1.7:8157");
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "POST";
 
@@ -450,7 +450,9 @@ namespace seisapp
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
-                var result = streamReader.ReadToEnd();
+                string desirealize = "";
+                var result = streamReader.ReadToEnd();                
+                desirealize = JsonSerializer.Deserialize<string>(desirealize);
             }
 
         }
