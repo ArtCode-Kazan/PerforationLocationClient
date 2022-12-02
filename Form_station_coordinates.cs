@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -98,21 +99,22 @@ namespace seisapp
                 { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
                 if (r.Cells["x"].Value != null)
                 {
-                    string stroka = Convert.ToString(r.Cells["x"].Value);
-                    stroka = stroka.Replace(',', '.');
-                    x = Convert.ToDouble(stroka);
+                    string stroka = Convert.ToString(r.Cells["x"].Value).Replace(',', '.');                                        
+                    Double.TryParse(stroka, NumberStyles.Any, CultureInfo.InvariantCulture, out x);
                 }
                 else
                 { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
                 if (r.Cells["y"].Value != null)
-                {
-                    y = Convert.ToDouble(Convert.ToString(r.Cells["y"].Value).Replace(',', '.'));
+                {                   
+                    string stroka = Convert.ToString(r.Cells["y"].Value).Replace(',', '.');
+                    Double.TryParse(stroka, NumberStyles.Any, CultureInfo.InvariantCulture, out y);
                 }
                 else
                 { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
                 if (r.Cells["altitude"].Value != null)
-                {
-                    altitude = Convert.ToDouble(Convert.ToString(r.Cells["altitude"].Value).Replace(',', '.'));
+                {                    
+                    string stroka = Convert.ToString(r.Cells["altitude"].Value).Replace(',', '.');
+                    Double.TryParse(stroka, NumberStyles.Any, CultureInfo.InvariantCulture, out altitude);
                 }
                 else
                 { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
@@ -120,10 +122,6 @@ namespace seisapp
                 Database.AddRowInStationCoordinates(number, x, y, altitude);
             }
             Close();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
         }
     }
 }

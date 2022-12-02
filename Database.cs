@@ -85,9 +85,9 @@ namespace seisapp
         )
         {
             string stringNumber = Convert.ToString(number);
-            string stringX = Convert.ToString(x);
-            string stringY = Convert.ToString(y);
-            string stringAltitude = Convert.ToString(altitude);
+            string stringX = Convert.ToString(x).Replace(',', '.');
+            string stringY = Convert.ToString(y).Replace(',', '.');
+            string stringAltitude = Convert.ToString(altitude).Replace(',', '.');
 
             using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
