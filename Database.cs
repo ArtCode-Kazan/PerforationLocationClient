@@ -19,6 +19,7 @@ namespace seisapp
         public const string SettingsTableName = "settings";        
         public const string ParametersTableName = "parameters";
         public const string LatencyTableName = "latency";
+        public const string StaticCorrectionsTableName = "static_corrections";
 
         public const string TableStationCoordinatesCreatingCommand = "CREATE TABLE " + StationCoordinatesTableName + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, number INTEGER NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, altitude DOUBLE NOT NULL)";
         public const string TableSeismicRecordsCreatingCommand = "CREATE TABLE " + SeismicRecordsTableName + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, station_id INTEGER NOT NULL, root VARCHAR(140) NOT NULL, file_name VARCHAR(45) NOT NULL, datetime_start VARCHAR(45) NOT NULL, datetime_stop VARCHAR(45) NOT NULL, FOREIGN KEY (station_id) REFERENCES station_coordinates (id), CONSTRAINT UNIQUE_FIELDS UNIQUE (file_name, root))";
@@ -27,6 +28,7 @@ namespace seisapp
         public const string TableSettingsCreatingCommand = "CREATE TABLE " + SettingsTableName + "(ip VARCHAR(30) NOT NULL, port INTEGER NOT NULL)";        
         public const string TableParametersCreatingCommand = "CREATE TABLE " + ParametersTableName + "(datetime_graph_start VARCHAR(45) NOT NULL, datetime_graph_stop VARCHAR(45) NOT NULL, component VARCHAR(1) NOT NULL, furier_min_freq DOUBLE NOT NULL, furier_max_freq DOUBLE NOT NULL, stalta_min_window DOUBLE NOT NULL, stalta_max_window DOUBLE NOT NULL, stalta_order INTEGER NOT NULL)";
         public const string TableLatencyCreatingCommand = "CREATE TABLE " + LatencyTableName + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, station_id INTEGER NOT NULL, latency DOUBLE NOT NULL, FOREIGN KEY (station_id) REFERENCES station_coordinates (id))";
+        public const string TableStaticCorrectionsCreatingCommand = "CREATE TABLE " + StaticCorrectionsTableName + "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, station_id INTEGER NOT NULL, latency_correction DOUBLE NOT NULL, FOREIGN KEY (station_id) REFERENCES station_coordinates (id))";
 
         static public void CreateTable(string name)
         {
@@ -59,6 +61,8 @@ namespace seisapp
                 command.CommandText = TableParametersCreatingCommand;
                 command.ExecuteNonQuery();
                 command.CommandText = TableLatencyCreatingCommand;
+                command.ExecuteNonQuery();
+                command.CommandText = TableStaticCorrectionsCreatingCommand;
                 command.ExecuteNonQuery();
             }
         }
@@ -129,6 +133,19 @@ namespace seisapp
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
                 command.CommandText = "INSERT INTO " + LatencyTableName + " (station_id, latency) VALUES (" + stringStationId + ", " + stringLatency + ")";
+                command.ExecuteNonQuery();
+            }
+        }
+        static public void AddRowInStaticCorrections(int stationId, double latencyCorrection)
+        {
+            string stringStationId = Convert.ToString(stationId);
+            string stringLatencyCorrection = Convert.ToString(latencyCorrection).Replace(',', '.');
+            using (var connection = new SqliteConnection("Data Source=" + Database.Path))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection;
+                command.CommandText = "INSERT INTO " + StaticCorrectionsTableName + " (station_id, latency_correction) VALUES (" + stringStationId + ", " + stringLatencyCorrection + ")";
                 command.ExecuteNonQuery();
             }
         }
@@ -281,6 +298,34 @@ namespace seisapp
                 }
             }
             return latencyArray;
+        }
+        static public double[,] GetStaticCorrection()
+        {
+            double[,] latencyCorrectionArray = new double[GetAmountRowsStaticCorrections(), 2];
+
+            using (var connection = new SqliteConnection("Data Source=" + Database.Path))
+            {
+                int i = 0;
+                connection.Open();
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM " + StaticCorrectionsTableName;
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows) // если есть данные
+                    {
+                        while (reader.Read())   // построчно считываем данные
+                        {
+                            var stationId = Convert.ToDouble(reader.GetValue(1));
+                            var latencyCorrection = Convert.ToDouble(reader.GetValue(2));
+                            latencyCorrectionArray[i, 0] = stationId;
+                            latencyCorrectionArray[i, 1] = latencyCorrection;
+                            i++;
+                        }
+                    }
+                }
+            }
+            return latencyCorrectionArray;
         }
         static public string[,] GetSeismicRecords()
         {
@@ -439,6 +484,17 @@ namespace seisapp
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
                 command.CommandText = "SELECT COUNT(*) FROM " + LatencyTableName;
+                return Convert.ToInt32(command.ExecuteScalar());
+            }
+        }
+        static public int GetAmountRowsStaticCorrections()
+        {
+            using (var connection = new SqliteConnection("Data Source=" + Database.Path))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection;
+                command.CommandText = "SELECT COUNT(*) FROM " + StaticCorrectionsTableName;
                 return Convert.ToInt32(command.ExecuteScalar());
             }
         }

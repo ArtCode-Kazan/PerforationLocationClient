@@ -35,7 +35,10 @@ namespace seisapp
         public void update_graph()
         {
             Series xy_collection = chartControl1.Series["xy_collection"];
-            xy_collection.Points.Clear();
+            if (xy_collection != null)
+            {
+                xy_collection.Points.Clear();
+            }
             dataGridView1.AllowUserToAddRows = false;
             foreach (DataGridViewRow r in dataGridView1.Rows)
             {

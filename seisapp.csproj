@@ -212,6 +212,12 @@
     <Compile Include="Form_speed_model.Designer.cs">
       <DependentUpon>Form_speed_model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_static_corrections.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_static_corrections.Designer.cs">
+      <DependentUpon>Form_static_corrections.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_station_coordinates.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -234,6 +240,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_speed_model.resx">
       <DependentUpon>Form_speed_model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_static_corrections.resx">
+      <DependentUpon>Form_static_corrections.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_station_coordinates.resx">
       <DependentUpon>Form_station_coordinates.cs</DependentUpon>

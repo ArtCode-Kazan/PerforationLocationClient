@@ -435,8 +435,8 @@ namespace seisapp
             for (int i = 0; i < velocityInfo.GetLength(0); i++)
             {                                
                 var altitudeInterval = new Hashtable();
-                altitudeInterval.Add("min", velocityInfo[i, 1]);
-                altitudeInterval.Add("max", velocityInfo[i, 0]);
+                altitudeInterval.Add("min_val", velocityInfo[i, 1]);
+                altitudeInterval.Add("max_val", velocityInfo[i, 0]);
 
                 var layer = new Hashtable();
                 layer.Add("altitude_interval", altitudeInterval);
@@ -446,19 +446,26 @@ namespace seisapp
             }
 
             var velocityModel = new Hashtable();
-            velocityModel.Add("layer", layers);
+            velocityModel.Add("layers", layers);
 
             var seismicInformation = new Hashtable();
-            seismicInformation.Add("observationSystem", observationSystem);
-            seismicInformation.Add("velocityModel", velocityModel);
+            seismicInformation.Add("observation_system", observationSystem);
+            seismicInformation.Add("velocity_model", velocityModel);
 
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(seismicInformation, options);
+            
+            using (StreamWriter writer = new StreamWriter("E:/blocknot.txt", false))
+            {
+                writer.WriteLineAsync(jsonString);
+            }
 
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://192.168.1.7:8157");
+            string test = "{  \"observation_system\": {                \"stations\": [                  {                    \"number\": 1,        \"coordinate\": {                        \"x\": 1,          \"y\": 1,          \"altitude\": 1        }                }    ]  },  \"velocity_model\": {                \"layers\": [                  {                    \"altitude_interval\": {                        \"min_val\": 1,          \"max_val\": 2                    },        \"vp\": 3                  }    ]  }        }";
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://192.168.1.7:8157/static-corrections");
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "POST";
-
+            
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
                 streamWriter.Write(jsonString);
@@ -471,7 +478,19 @@ namespace seisapp
                 var result = streamReader.ReadToEnd();                
                 desirealize = JsonSerializer.Deserialize<string>(desirealize);
             }
+        }
 
+        private void staticCorrectionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Database.Path == "")
+            {
+                MessageBox.Show("Choose file");
+            }
+            else
+            {
+                Form static_corrections_form = new Form_static_corrections();
+                static_corrections_form.ShowDialog();
+            }
         }
     }
 }
