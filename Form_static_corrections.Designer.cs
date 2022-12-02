@@ -40,7 +40,7 @@
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(197, 12);
+            this.labelControl1.Location = new System.Drawing.Point(209, 21);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(83, 13);
             this.labelControl1.TabIndex = 0;
@@ -97,12 +97,13 @@
             // 
             // buttonGetCorrections
             // 
-            this.buttonGetCorrections.Location = new System.Drawing.Point(37, 12);
+            this.buttonGetCorrections.Location = new System.Drawing.Point(33, 16);
             this.buttonGetCorrections.Name = "buttonGetCorrections";
             this.buttonGetCorrections.Size = new System.Drawing.Size(75, 23);
             this.buttonGetCorrections.TabIndex = 16;
             this.buttonGetCorrections.Text = "get corrections";
             this.buttonGetCorrections.UseVisualStyleBackColor = true;
+            this.buttonGetCorrections.Click += new System.EventHandler(this.buttonGetCorrections_Click);
             // 
             // Form_static_corrections
             // 
