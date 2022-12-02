@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -134,61 +135,70 @@ namespace seisapp
 
         private void peakTracesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            label_artcode.Visible = false;
-
-            pictureBox_date.Visible = true;
-            label_date.Visible = true;
-            label_date_start.Visible = true;
-            label_date_stop.Visible = true;
-            label_component.Visible = true;
-            comboBox_component.Visible = true;
-
-            pictureBox_furier_filter.Visible = true;
-            label_furier_filter.Visible = true;
-            label_min_frequency.Visible = true;
-            label_max_frequency.Visible = true;
-            spinEdit_furier_min_frequency.Visible = true;
-            spinEdit_furier_max_frequency.Visible = true;
-
-            string[,] seismic_records_array = new string[Database.GetAmountRowsSeismicRecords(), 6];
-            seismic_records_array = Database.GetSeismicRecords();
-
-            DateTime[,] seismic_datetime_start_stop = new DateTime[seismic_records_array.GetLength(0), 2];
-
-            for (int i = 0; i < seismic_records_array.GetLength(0); i++)
+            if (Database.Path == "")
             {
-                seismic_datetime_start_stop[i, 0] = DateTime.Parse(seismic_records_array[i, 4]);
-                seismic_datetime_start_stop[i, 1] = DateTime.Parse(seismic_records_array[i, 5]);
+                MessageBox.Show("Choose file");
             }
-
-            DateTime maximum_seismic_datetime_start = seismic_datetime_start_stop[0, 0];
-            DateTime minimum_seismic_datetime_stop = seismic_datetime_start_stop[0, 1];
-
-            for (int i = 0; i < seismic_datetime_start_stop.GetLength(0); i++)
+            else
             {
-                int start_compare = DateTime.Compare(seismic_datetime_start_stop[i, 0], maximum_seismic_datetime_start);
-                int stop_compare = DateTime.Compare(seismic_datetime_start_stop[i, 1], minimum_seismic_datetime_stop);
 
-                if (start_compare >= 0)
+
+                label_artcode.Visible = false;
+
+                pictureBox_date.Visible = true;
+                label_date.Visible = true;
+                label_date_start.Visible = true;
+                label_date_stop.Visible = true;
+                label_component.Visible = true;
+                comboBox_component.Visible = true;
+
+                pictureBox_furier_filter.Visible = true;
+                label_furier_filter.Visible = true;
+                label_min_frequency.Visible = true;
+                label_max_frequency.Visible = true;
+                spinEdit_furier_min_frequency.Visible = true;
+                spinEdit_furier_max_frequency.Visible = true;
+
+                string[,] seismic_records_array = new string[Database.GetAmountRowsSeismicRecords(), 6];
+                seismic_records_array = Database.GetSeismicRecords();
+
+                DateTime[,] seismic_datetime_start_stop = new DateTime[seismic_records_array.GetLength(0), 2];
+
+                for (int i = 0; i < seismic_records_array.GetLength(0); i++)
                 {
-                    maximum_seismic_datetime_start = seismic_datetime_start_stop[i, 0];
+                    seismic_datetime_start_stop[i, 0] = DateTime.Parse(seismic_records_array[i, 4]);
+                    seismic_datetime_start_stop[i, 1] = DateTime.Parse(seismic_records_array[i, 5]);
                 }
 
-                if (stop_compare <= 0)
+                DateTime maximum_seismic_datetime_start = seismic_datetime_start_stop[0, 0];
+                DateTime minimum_seismic_datetime_stop = seismic_datetime_start_stop[0, 1];
+
+                for (int i = 0; i < seismic_datetime_start_stop.GetLength(0); i++)
                 {
-                    minimum_seismic_datetime_stop = seismic_datetime_start_stop[i, 1];
+                    int start_compare = DateTime.Compare(seismic_datetime_start_stop[i, 0], maximum_seismic_datetime_start);
+                    int stop_compare = DateTime.Compare(seismic_datetime_start_stop[i, 1], minimum_seismic_datetime_stop);
+
+                    if (start_compare >= 0)
+                    {
+                        maximum_seismic_datetime_start = seismic_datetime_start_stop[i, 0];
+                    }
+
+                    if (stop_compare <= 0)
+                    {
+                        minimum_seismic_datetime_stop = seismic_datetime_start_stop[i, 1];
+                    }
                 }
-            }
 
-            if (DateTime.Compare(maximum_seismic_datetime_start, minimum_seismic_datetime_stop) >= 0)
-            {
-                MessageBox.Show("Время старта одного из датчиков меньше или равно времени конца другого");
-                maximum_seismic_datetime_start = DateTime.Now;
-                minimum_seismic_datetime_stop = DateTime.Now;
-            }
+                if (DateTime.Compare(maximum_seismic_datetime_start, minimum_seismic_datetime_stop) >= 0)
+                {
+                    MessageBox.Show("Время старта одного из датчиков меньше или равно времени конца другого");
+                    maximum_seismic_datetime_start = DateTime.Now;
+                    minimum_seismic_datetime_stop = DateTime.Now;
+                }
 
-            dateTimePicker_start.Value = maximum_seismic_datetime_start;
-            dateTimePicker_stop.Value = minimum_seismic_datetime_stop;
+                dateTimePicker_start.Value = maximum_seismic_datetime_start;
+                dateTimePicker_stop.Value = minimum_seismic_datetime_stop;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -347,15 +357,21 @@ namespace seisapp
 
         private void buttonClearLatency_Click(object sender, EventArgs e)
         {
-            dataGridViewLatency.Rows.Clear();
+            int stationId = 0;
+            double latency = 0;
+            foreach (DataGridViewRow r in dataGridViewLatency.Rows)
+            {                
+                r.Cells["latency"].Value = latency;
+            }
         }
 
         private void buttonSaveLatency_Click(object sender, EventArgs e)
-        {
-            dataGridViewLatency.Rows.Clear();
+        {            
             int stationId = 0;
             double latency = 0;
-            
+
+            Database.ClearTable(Database.LatencyTableName);
+
             foreach (DataGridViewRow r in dataGridViewLatency.Rows)
             {
                 if (r.Cells["number"].Value != null)
@@ -367,16 +383,17 @@ namespace seisapp
                 if (r.Cells["latency"].Value != null)
                 {
                     string stroka = Convert.ToString(r.Cells["latency"].Value).Replace(',', '.');
-                    Double.TryParse(stroka, out latency);
+                    Double.TryParse(stroka, NumberStyles.Any, CultureInfo.InvariantCulture, out latency);
                 }
                 else
                 { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }                
 
                 Database.AddRowInLatency(stationId, latency);
             }            
+            UpdateLatencyDataGrid();
         }
 
-        public void FillLatencyDataGrid()
+        public void UpdateLatencyDataGrid()
         {
             dataGridViewLatency.Rows.Clear();
             double[,] array = new double[Database.GetAmountRowsLatency(), 2];
@@ -384,8 +401,8 @@ namespace seisapp
             for (int i = 0; i < array.GetLength(0); i++)
             {
                 double stationId = array[i, 0];
-                double name = array[i, 1];
-                dataGridViewLatency.Rows.Add(number, latency);
+                double latency = array[i, 1];
+                dataGridViewLatency.Rows.Add(stationId, latency);
             }
         }
 

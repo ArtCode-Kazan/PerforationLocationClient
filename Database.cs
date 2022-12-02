@@ -122,7 +122,7 @@ namespace seisapp
         static public void AddRowInLatency(int stationId, double latency)
         {
             string stringStationId = Convert.ToString(stationId);
-            string stringLatency = Convert.ToString(latency);
+            string stringLatency = Convert.ToString(latency).Replace(',', '.');
             using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
@@ -271,10 +271,10 @@ namespace seisapp
                     {
                         while (reader.Read())   // построчно считываем данные
                         {
-                            var stationId = Convert.ToDouble(reader.GetValue(0));
-                            var latency = Convert.ToDouble(reader.GetValue(1));
-                            latencyArray[i, 1] = stationId;
-                            latencyArray[i, 2] = latency;
+                            var stationId = Convert.ToDouble(reader.GetValue(1));
+                            var latency = Convert.ToDouble(reader.GetValue(2));
+                            latencyArray[i, 0] = stationId;
+                            latencyArray[i, 1] = latency;
                             i++;
                         }
                     }
