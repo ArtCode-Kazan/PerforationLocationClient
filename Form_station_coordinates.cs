@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -19,25 +20,16 @@ namespace seisapp
             InitializeComponent();
             this.ControlBox = false;
             dataGridView1.AllowUserToAddRows = true;
-            string sqlExpression = "SELECT * FROM Users";
-            using (var connection_out = new SqliteConnection("Data Source=" + Database.path))
+
+            double[,] array = new double[Database.GetAmountRowsStationCoordinates(), 4];
+            array = Database.GetStations();
+            for (int i = 0; i < array.GetLength(0); i++)
             {
-                connection_out.Open();
-                SqliteCommand command = new SqliteCommand(sqlExpression, connection_out);
-                using (SqliteDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.HasRows) // если есть данные
-                    {
-                        while (reader.Read())   // построчно считываем данные
-                        {
-                            var number = reader.GetValue(0);
-                            var x = reader.GetValue(1);
-                            var y = reader.GetValue(2);
-                            var altitude = reader.GetValue(3);
-                            dataGridView1.Rows.Add(number, x, y, altitude);
-                        }
-                    }
-                }
+                int number = Convert.ToInt32(array[i, 0]);
+                double x = array[i, 1];
+                double y = array[i, 2];
+                double altitude = array[i, 3];
+                dataGridView1.Rows.Add(number, x, y, altitude);
             }
         }
 
@@ -76,9 +68,9 @@ namespace seisapp
                 if (Int32.TryParse(items[0], out int result) == true)
                 {
                     int number = int.Parse(items[0]);
-                    float x = float.Parse(items[1]);
-                    float y = float.Parse(items[2]);
-                    float altitude = float.Parse(items[3]);
+                    double x = double.Parse(items[1]);
+                    double y = double.Parse(items[2]);
+                    double altitude = double.Parse(items[3]);
                     dataGridView1.Rows.Add(number, x, y, altitude);
                 }
                 else
@@ -89,61 +81,45 @@ namespace seisapp
 
         private void button_ok_Click(object sender, EventArgs e)
         {
-            using (var connection = new SqliteConnection("Data Source=" + Database.path))
+            Database.ClearTable(Database.StationCoordinatesTableName);
+
+            int number = 0;
+            double x = 0;
+            double y = 0;
+            double altitude = 0;            
+
+            dataGridView1.AllowUserToAddRows = false;
+            foreach (DataGridViewRow r in dataGridView1.Rows)
             {
-                connection.Open();
-
-                SqliteCommand command_del = new SqliteCommand("DELETE  FROM Users", connection);
-                command_del.ExecuteNonQuery();
-
-                SqliteCommand command = new SqliteCommand();
-                command.Connection = connection;
-                string number = "0";
-                string x = "0";
-                string y = "0";
-                string altitude = "0";
-
-                dataGridView1.AllowUserToAddRows = false;
-                foreach (DataGridViewRow r in dataGridView1.Rows)
+                if (r.Cells["number"].Value != null)
                 {
-
-                    if (r.Cells["number"].Value != null)
-                    {
-                        number = r.Cells["number"].Value.ToString();
-                    }
-                    else
-                    {
-                        MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");
-                    }
-                    if (r.Cells["x"].Value != null)
-                    {
-                        x = r.Cells["x"].Value.ToString();
-                    }
-                    else
-                    {
-                        MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");
-                    }
-                    if (r.Cells["y"].Value != null)
-                    {
-                        y = r.Cells["y"].Value.ToString();
-                    }
-                    else
-                    {
-                        MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");
-                    }
-                    if (r.Cells["altitude"].Value != null)
-                    {
-                        altitude = r.Cells["altitude"].Value.ToString();
-                    }
-                    else
-                    {
-                        MessageBox.Show("ПУСТАЯ ЯЧЕЙКА");
-                    }
-
-                    command.CommandText = "INSERT INTO Users (_number, x, y, altitude) VALUES (" + number + ", " + x + "," + y + "," + altitude + ")";
-                    command.ExecuteNonQuery();
+                    number = Convert.ToInt32(r.Cells["number"].Value);
                 }
+                else
+                { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
+                if (r.Cells["x"].Value != null)
+                {
+                    string stroka = Convert.ToString(r.Cells["x"].Value).Replace(',', '.');                                        
+                    Double.TryParse(stroka, NumberStyles.Any, CultureInfo.InvariantCulture, out x);
+                }
+                else
+                { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
+                if (r.Cells["y"].Value != null)
+                {                   
+                    string stroka = Convert.ToString(r.Cells["y"].Value).Replace(',', '.');
+                    Double.TryParse(stroka, NumberStyles.Any, CultureInfo.InvariantCulture, out y);
+                }
+                else
+                { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
+                if (r.Cells["altitude"].Value != null)
+                {                    
+                    string stroka = Convert.ToString(r.Cells["altitude"].Value).Replace(',', '.');
+                    Double.TryParse(stroka, NumberStyles.Any, CultureInfo.InvariantCulture, out altitude);
+                }
+                else
+                { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
 
+                Database.AddRowInStationCoordinates(number, x, y, altitude);
             }
             Close();
         }
