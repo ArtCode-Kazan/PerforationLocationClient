@@ -43,6 +43,7 @@
             this.speedModelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.correctionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.staticCorrectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label_artcode = new System.Windows.Forms.Label();
             this.pictureBox_date = new System.Windows.Forms.PictureBox();
             this.label_date_start = new System.Windows.Forms.Label();
@@ -75,7 +76,6 @@
             this.buttonSaveLatency = new System.Windows.Forms.Button();
             this.buttonClearLatency = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.staticCorrectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_date)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_furier_filter)).BeginInit();
@@ -203,7 +203,7 @@
             // 
             this.speedModelToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(135)))), ((int)(((byte)(148)))));
             this.speedModelToolStripMenuItem.Name = "speedModelToolStripMenuItem";
-            this.speedModelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.speedModelToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.speedModelToolStripMenuItem.Text = "Speed model";
             this.speedModelToolStripMenuItem.Click += new System.EventHandler(this.speedModelToolStripMenuItem_Click);
             // 
@@ -211,7 +211,7 @@
             // 
             this.correctionsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(135)))), ((int)(((byte)(148)))));
             this.correctionsToolStripMenuItem.Name = "correctionsToolStripMenuItem";
-            this.correctionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.correctionsToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.correctionsToolStripMenuItem.Text = "Corrections";
             this.correctionsToolStripMenuItem.Click += new System.EventHandler(this.correctionsToolStripMenuItem_Click);
             // 
@@ -219,9 +219,16 @@
             // 
             this.connectionToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(135)))), ((int)(((byte)(148)))));
             this.connectionToolStripMenuItem.Name = "connectionToolStripMenuItem";
-            this.connectionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.connectionToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.connectionToolStripMenuItem.Text = "Connection";
             this.connectionToolStripMenuItem.Click += new System.EventHandler(this.connectionToolStripMenuItem_Click);
+            // 
+            // staticCorrectionsToolStripMenuItem
+            // 
+            this.staticCorrectionsToolStripMenuItem.Name = "staticCorrectionsToolStripMenuItem";
+            this.staticCorrectionsToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.staticCorrectionsToolStripMenuItem.Text = "Static corrections";
+            this.staticCorrectionsToolStripMenuItem.Click += new System.EventHandler(this.staticCorrectionsToolStripMenuItem_Click);
             // 
             // label_artcode
             // 
@@ -585,14 +592,8 @@
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 34;
             this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = false;            
-            // 
-            // staticCorrectionsToolStripMenuItem
-            // 
-            this.staticCorrectionsToolStripMenuItem.Name = "staticCorrectionsToolStripMenuItem";
-            this.staticCorrectionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.staticCorrectionsToolStripMenuItem.Text = "Static corrections";
-            this.staticCorrectionsToolStripMenuItem.Click += new System.EventHandler(this.staticCorrectionsToolStripMenuItem_Click);
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Form1
             // 

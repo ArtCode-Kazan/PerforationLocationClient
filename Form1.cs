@@ -245,6 +245,8 @@ namespace seisapp
                 string component = comboBox_component.Text;
                 Int32[] signal = binarySignal.ReadSignal(component);
 
+                furierFilter(i, Convert.ToInt32(spinEdit_frequency.Value), signal);
+
                 Int32 maximumOfSignal = signal.Max();
                 Int32 minimumOfSignal = signal.Min();
 
@@ -416,6 +418,89 @@ namespace seisapp
                 Form static_corrections_form = new Form_static_corrections();
                 static_corrections_form.ShowDialog();
             }
+        }
+
+        private void furierFilter(int station_number, int frequency, Int32[] signal_array)
+        {            
+            string component = Database.GetParameters(3);
+            double furierMinFrequency = Database.GetParameters(4);
+            double furierMaxFrequency = Database.GetParameters(5);
+            double staltaMinWindow = Database.GetParameters(6);
+            double staltaMaxWindow = Database.GetParameters(7);
+            int staltaOrder = Database.GetParameters(8);
+
+            Hashtable[] traces = new Hashtable[200];
+            Hashtable trace = new Hashtable();
+            trace.Add("station_number", station_number);
+            trace.Add("component", component);
+            trace.Add("frequency", 200);
+            trace.Add("signal", signal_array);
+            for (int i = 0; i < 200; i++)
+            {
+                traces[i] = trace;
+            }
+            Hashtable signal_traces = new Hashtable();            
+
+            trace = new Hashtable();
+            trace.Add("station_number", 1);
+            trace.Add("component", component);
+            trace.Add("frequency", 0);
+            trace.Add("signal_array", signal_array);
+            //traces[1] = trace;            
+            signal_traces.Add("traces", traces);
+            
+
+            Hashtable frequency_limit = new Hashtable();
+            frequency_limit.Add("max_val", furierMaxFrequency);
+            frequency_limit.Add("min_val", furierMinFrequency);            
+            Hashtable bandpass_filter_params = new Hashtable();
+            bandpass_filter_params.Add("frequency_limit", frequency_limit);
+
+            Hashtable slta_filter_params = new Hashtable();            
+            slta_filter_params.Add("order", staltaOrder);
+            slta_filter_params.Add("long_window", staltaMaxWindow);
+            slta_filter_params.Add("short_window", staltaMinWindow);
+
+            Hashtable filtration = new Hashtable();
+            filtration.Add("slta_filter_params", slta_filter_params);
+            filtration.Add("bandpass_filter_params", bandpass_filter_params);
+            filtration.Add("signal_traces", signal_traces);
+            
+
+                        
+
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string jsonString = JsonSerializer.Serialize(filtration, options);
+
+            string test = "{  \"signal_traces\": {                \"traces\": [                  {                    \"station_number\": 0,        \"component\": \"string\",      \"frequency\": 0,        \"signal\": [          0                    ]      }    ]  },  \"bandpass_filter_params\": {                \"frequency_limit\": {                    \"min_val\": 0,      \"max_val\": 0                }            },  \"slta_filter_params\": {                \"long_window\": 0,    \"short_window\": 0,    \"order\": 0  }        }";
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://192.168.1.7:8157/filtration");
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.Method = "POST";
+
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            {
+                streamWriter.Write(jsonString);
+            }
+
+            Hashtable desirealize = new Hashtable();
+
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+                desirealize = JsonSerializer.Deserialize<Hashtable>(result);
+            }
+
+
+            string dataItem = JsonSerializer.Serialize(desirealize["traces"], options);
+            Hashtable correctionsItem = JsonSerializer.Deserialize<Hashtable>(dataItem);            
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

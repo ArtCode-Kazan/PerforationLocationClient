@@ -390,11 +390,11 @@ namespace seisapp
                             datetimeGraphStart = Convert.ToString(reader.GetValue(0));
                             datetimeGraphStop = Convert.ToString(reader.GetValue(1));
                             component = Convert.ToString(reader.GetValue(2));
-                            furierMinFrequency = Convert.ToDouble(reader.GetValue(3));
-                            furierMaxFrequency = Convert.ToDouble(reader.GetValue(4));
-                            staltaMinWindow = Convert.ToDouble(reader.GetValue(5));
-                            staltaMaxWindow = Convert.ToDouble(reader.GetValue(6));
-                            staltaOrder = Convert.ToInt32(reader.GetValue(7));
+                            Double.TryParse(Convert.ToString(reader.GetValue(3)), out furierMinFrequency);
+                            Double.TryParse(Convert.ToString(reader.GetValue(4)), out furierMaxFrequency);
+                            Double.TryParse(Convert.ToString(reader.GetValue(5)), out staltaMinWindow);
+                            Double.TryParse(Convert.ToString(reader.GetValue(6)), out staltaMaxWindow);
+                            Int32.TryParse(Convert.ToString(reader.GetValue(7)), out staltaOrder);                            
                         }
                     }
                 }
