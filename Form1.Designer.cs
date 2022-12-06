@@ -427,9 +427,9 @@
             this.label_stalta_filter_min_frequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_stalta_filter_min_frequency.Location = new System.Drawing.Point(670, 58);
             this.label_stalta_filter_min_frequency.Name = "label_stalta_filter_min_frequency";
-            this.label_stalta_filter_min_frequency.Size = new System.Drawing.Size(84, 15);
+            this.label_stalta_filter_min_frequency.Size = new System.Drawing.Size(79, 15);
             this.label_stalta_filter_min_frequency.TabIndex = 24;
-            this.label_stalta_filter_min_frequency.Text = "min frequency";
+            this.label_stalta_filter_min_frequency.Text = "short window";
             // 
             // spinEdit_stalta_filter_min_frequency
             // 
@@ -452,9 +452,9 @@
             this.label_stalta_filter_max_frequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_stalta_filter_max_frequency.Location = new System.Drawing.Point(670, 82);
             this.label_stalta_filter_max_frequency.Name = "label_stalta_filter_max_frequency";
-            this.label_stalta_filter_max_frequency.Size = new System.Drawing.Size(87, 15);
+            this.label_stalta_filter_max_frequency.Size = new System.Drawing.Size(76, 15);
             this.label_stalta_filter_max_frequency.TabIndex = 25;
-            this.label_stalta_filter_max_frequency.Text = "max frequency";
+            this.label_stalta_filter_max_frequency.Text = "long window";
             // 
             // spinEdit_stalta_filter_max_frequency
             // 

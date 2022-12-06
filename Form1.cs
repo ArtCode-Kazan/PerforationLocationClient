@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.Json;
+using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using DevExpress.XtraCharts;
 
@@ -22,6 +23,8 @@ namespace seisapp
             dateTimePicker_start.CustomFormat = "dd.MM.yyyy HH:mm:ss";
             dateTimePicker_stop.CustomFormat = "dd.MM.yyyy HH:mm:ss";
             spinEdit_stalta_filter_order.Properties.Mask.EditMask = "f0";   // only int
+            spinEdit_stalta_filter_min_frequency.Properties.Mask.EditMask = "f0";   // only int
+            spinEdit_stalta_filter_max_frequency.Properties.Mask.EditMask = "f0";   // only int
             spinEdit_frequency.Properties.Mask.EditMask = "f0";   // only int
             spinEdit_frequency.Value = 100;
             this.chartControlSignals.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseMove);
@@ -204,6 +207,17 @@ namespace seisapp
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Database.RefreshParameters(
+                Convert.ToString(dateTimePicker_start.Value),
+                Convert.ToString(dateTimePicker_stop.Value), 
+                comboBox_component.Text,
+                Convert.ToDouble(spinEdit_furier_min_frequency.Value),
+                Convert.ToDouble(spinEdit_furier_max_frequency.Value),
+                Convert.ToDouble(spinEdit_stalta_filter_min_frequency.Value),
+                Convert.ToDouble(spinEdit_stalta_filter_max_frequency.Value),
+                Convert.ToInt32(spinEdit_stalta_filter_order.Value)
+                );
+
             double furier_min_frequency = Convert.ToDouble(spinEdit_furier_min_frequency.Text);
             double furier_max_frequency = Convert.ToDouble(spinEdit_furier_max_frequency.Text);
 
@@ -271,10 +285,12 @@ namespace seisapp
             }
             else
             {
+                string[,] seisRecords = new string[Database.GetAmountRowsSeismicRecords(), 6];
+                seisRecords = Database.GetSeismicRecords();
                 dataGridViewLatency.Rows.Clear();
                 for (int i = 1; i <= Database.GetAmountRowsSeismicRecords(); i++)
                 {
-                    dataGridViewLatency.Rows.Add(i, 0);
+                    dataGridViewLatency.Rows.Add(seisRecords[i - 1, 1], 0);
                 }
             }
 
@@ -328,10 +344,11 @@ namespace seisapp
             }
             /*
             ChartHitInfo hi = chartControlSignals.CalcHitInfo(e.X, e.Y);
-
+            
             // Obtain the series point under the test point.
             SeriesPoint point = hi.SeriesPoint;
-            DiagramCoordinates coords = ((XYDiagram2D)chartControlSignals.Diagram).PointToDiagram(chartControlSignals.PointToClient(Cursor.Position));*/
+            DiagramCoordinates coords = ((XYDiagram2D)chartControlSignals.Diagram).PointToDiagram(chartControlSignals.PointToClient(Cursor.Position));
+            */
         }
         private void chartControl1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -430,13 +447,13 @@ namespace seisapp
             double staltaMaxWindow = Database.GetParameters(7);
             int staltaOrder = Database.GetParameters(8);
 
-            Hashtable traces = new Hashtable();
+            Hashtable[] traces = new Hashtable[1];
             Hashtable trace = new Hashtable();
             trace.Add("station_number", station_number);
             trace.Add("component", component);
             trace.Add("frequency", 200);
             trace.Add("signal", signal_array);
-            traces = trace;            
+            traces[0] = trace;            
 
             Hashtable signal_traces = new Hashtable();
             signal_traces.Add("traces", traces);
@@ -478,20 +495,18 @@ namespace seisapp
                 desirealize = JsonSerializer.Deserialize<Hashtable>(result);
             }
 
+            var myHT1 = new Hashtable();
+            myHT1.Add("FIRST", "Hello");
+            myHT1.Add("SECOND", "World");
+            myHT1.Add("THIRD", "!");
+            string myHT1fg = JsonSerializer.Serialize(myHT1, options);
 
             string dataItem = JsonSerializer.Serialize(desirealize["traces"], options);
-            Hashtable correctionsItem = JsonSerializer.Deserialize<Hashtable>(dataItem);
-
-
-            double[] filteredSignalArrays = new double[signal_array.Length];
-
-            IDictionaryEnumerator denum = correctionsItem.GetEnumerator();
-            DictionaryEntry dentry;
-            while (denum.MoveNext())
-            {
-                dentry = (DictionaryEntry)denum.Current;
-                filteredSignalArrays = (double[])dentry.Value;
-            }
+            string dataItemForSerialize = dataItem.Substring(1,dataItem.Length - 2);
+            Hashtable correctionsItem = JsonSerializer.Deserialize<Hashtable>(dataItemForSerialize);
+            
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            double[] filteredSignalArrays = js.Deserialize<double[]>(JsonSerializer.Serialize(correctionsItem["signal"], options));            
 
             return filteredSignalArrays;
         }
