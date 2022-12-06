@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -420,7 +421,7 @@ namespace seisapp
             }
         }
 
-        private void furierFilter(int station_number, int frequency, Int32[] signal_array)
+        private List<double[]> furierFilter(int station_number, int frequency, List<Int32[]> signal_arrays)
         {            
             string component = Database.GetParameters(3);
             double furierMinFrequency = Database.GetParameters(4);
@@ -429,24 +430,21 @@ namespace seisapp
             double staltaMaxWindow = Database.GetParameters(7);
             int staltaOrder = Database.GetParameters(8);
 
-            Hashtable[] traces = new Hashtable[200];
-            Hashtable trace = new Hashtable();
-            trace.Add("station_number", station_number);
-            trace.Add("component", component);
-            trace.Add("frequency", 200);
-            trace.Add("signal", signal_array);
-            for (int i = 0; i < 200; i++)
-            {
-                traces[i] = trace;
-            }
-            Hashtable signal_traces = new Hashtable();            
+            Hashtable[] traces = new Hashtable[signal_arrays.Count];
 
-            trace = new Hashtable();
-            trace.Add("station_number", 1);
-            trace.Add("component", component);
-            trace.Add("frequency", 0);
-            trace.Add("signal_array", signal_array);
-            //traces[1] = trace;            
+            for (int i = 0; i < signal_arrays.Count; i++)
+            {
+                Hashtable trace = new Hashtable();
+                trace.Add("station_number", station_number);
+                trace.Add("component", component);
+                trace.Add("frequency", 200);
+                trace.Add("signal", signal_arrays[i]);
+                for (int j = 0; j < 200; j++)
+                {
+                    traces[j] = trace;
+                }
+            }
+            Hashtable signal_traces = new Hashtable();                        
             signal_traces.Add("traces", traces);
             
 
@@ -465,14 +463,9 @@ namespace seisapp
             filtration.Add("slta_filter_params", slta_filter_params);
             filtration.Add("bandpass_filter_params", bandpass_filter_params);
             filtration.Add("signal_traces", signal_traces);
-            
-
-                        
-
+                                    
             var options = new JsonSerializerOptions { WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize(filtration, options);
-
-            string test = "{  \"signal_traces\": {                \"traces\": [                  {                    \"station_number\": 0,        \"component\": \"string\",      \"frequency\": 0,        \"signal\": [          0                    ]      }    ]  },  \"bandpass_filter_params\": {                \"frequency_limit\": {                    \"min_val\": 0,      \"max_val\": 0                }            },  \"slta_filter_params\": {                \"long_window\": 0,    \"short_window\": 0,    \"order\": 0  }        }";
+            string jsonString = JsonSerializer.Serialize(filtration, options);            
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://192.168.1.7:8157/filtration");
             httpWebRequest.ContentType = "application/json";
@@ -494,8 +487,20 @@ namespace seisapp
 
 
             string dataItem = JsonSerializer.Serialize(desirealize["traces"], options);
-            Hashtable correctionsItem = JsonSerializer.Deserialize<Hashtable>(dataItem);            
+            Hashtable correctionsItem = JsonSerializer.Deserialize<Hashtable>(dataItem);
 
+
+            List<double[]> filteredSignalArrays = new List<double[]>();
+
+            IDictionaryEnumerator denum = correctionsItem.GetEnumerator();
+            DictionaryEntry dentry;
+            while (denum.MoveNext())
+            {
+                dentry = (DictionaryEntry)denum.Current;
+                filteredSignalArrays.Add((double[])dentry.Value);                
+            }            
+
+            return filteredSignalArrays;
         }
 
         private void button2_Click(object sender, EventArgs e)
