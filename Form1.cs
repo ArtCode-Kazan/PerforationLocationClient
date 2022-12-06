@@ -23,11 +23,11 @@ namespace seisapp
             dateTimePicker_stop.CustomFormat = "dd.MM.yyyy HH:mm:ss";
             spinEdit_stalta_filter_order.Properties.Mask.EditMask = "f0";   // only int
             spinEdit_frequency.Properties.Mask.EditMask = "f0";   // only int
-            spinEdit_frequency.Value = 200;
+            spinEdit_frequency.Value = 100;
             this.chartControlSignals.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseMove);
             this.chartControlSignals.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseDown);
             chartControlSignals.SeriesTemplate.CrosshairLabelPattern = "{S}: {A:F0}";
-            
+
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -222,11 +222,11 @@ namespace seisapp
             }
 
             DevExpress.XtraCharts.Series[] complexOfGraph = new DevExpress.XtraCharts.Series[signalAmount];
-            
+
             DevExpress.XtraCharts.LineSeriesView[] lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView[signalAmount];
 
             for (int i = 0; i < signalAmount; i++)
-            {                
+            {
                 complexOfGraph[i] = new DevExpress.XtraCharts.Series();
                 lineSeriesView1[i] = new DevExpress.XtraCharts.LineSeriesView();
 
@@ -246,24 +246,24 @@ namespace seisapp
                 string component = comboBox_component.Text;
                 Int32[] signal = binarySignal.ReadSignal(component);
 
-                furierFilter(i, Convert.ToInt32(spinEdit_frequency.Value), signal);
+                double[] filtered_signal = furierFilter(i, Convert.ToInt32(spinEdit_frequency.Value), signal);
 
-                Int32 maximumOfSignal = signal.Max();
-                Int32 minimumOfSignal = signal.Min();
+                double maximumOfSignal = filtered_signal.Max();
+                double minimumOfSignal = filtered_signal.Min();
 
                 double coefNorm = Convert.ToDouble(2) / (maximumOfSignal - minimumOfSignal);
                 double max = 0;
                 double min = 1999;
-                for (int z = 0; z < signal.Length; z++)
+                for (int z = 0; z < filtered_signal.Length; z++)
                 {
                     double zToSeconds = Convert.ToDouble(z) / Convert.ToInt32(spinEdit_frequency.Value);
-                    double value = signal[z] * coefNorm - minimumOfSignal * coefNorm + 2 * i;
+                    double value = filtered_signal[z] * coefNorm - minimumOfSignal * coefNorm + 2 * i;
                     complexOfGraph[i].Points.AddPoint(zToSeconds, value);
                     if (max < value) { max = value; }
                     if (min > value) { min = value; }
-                }                
+                }
             }
-            
+
 
             if (Database.GetAmountRowsSeismicRecords() == dataGridViewLatency.Rows.Count)
             {
@@ -273,7 +273,7 @@ namespace seisapp
             {
                 dataGridViewLatency.Rows.Clear();
                 for (int i = 1; i <= Database.GetAmountRowsSeismicRecords(); i++)
-                {                    
+                {
                     dataGridViewLatency.Rows.Add(i, 0);
                 }
             }
@@ -299,7 +299,7 @@ namespace seisapp
             chartControlSignals.CrosshairOptions.ShowGroupHeaders = true;
             chartControlSignals.CrosshairOptions.GroupHeaderPattern = "{A:F0}";
             chartControlSignals.SeriesTemplate.CrosshairLabelPattern = "{S}: {A:F0}";
-            ((XYDiagram)chartControlSignals.Diagram).AxisY.CrosshairAxisLabelOptions.Pattern = "{V:F0}";*/            
+            ((XYDiagram)chartControlSignals.Diagram).AxisY.CrosshairAxisLabelOptions.Pattern = "{V:F0}";*/
 
 
         }
@@ -309,13 +309,13 @@ namespace seisapp
         }
         private void chartControl1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            Point position = new Point(e.Location.X, e.Location.Y);            
+            Point position = new Point(e.Location.X, e.Location.Y);
             ChartHitInfo hitInfo = chartControlSignals.CalcHitInfo(position);
-            
+
             if (hitInfo.SeriesPoint != null)
             {
                 string[] seriesName = Convert.ToString(hitInfo.Series).Split(new char[] { '=' }, 2);
-                
+
                 Int32.TryParse(Convert.ToString(seriesName[1]), out int number);
                 Double.TryParse(hitInfo.SeriesPoint.Argument, out double value);
                 foreach (DataGridViewRow r in dataGridViewLatency.Rows)
@@ -359,16 +359,16 @@ namespace seisapp
         }
 
         private void buttonClearLatency_Click(object sender, EventArgs e)
-        {            
+        {
             double latency = 0;
             foreach (DataGridViewRow r in dataGridViewLatency.Rows)
-            {                
+            {
                 r.Cells["latency"].Value = latency;
             }
         }
 
         private void buttonSaveLatency_Click(object sender, EventArgs e)
-        {            
+        {
             int stationId = 0;
             double latency = 0;
 
@@ -378,7 +378,7 @@ namespace seisapp
             {
                 if (r.Cells["number"].Value != null)
                 {
-                    stationId = Convert.ToInt32(Convert.ToString(r.Cells["number"].Value).Replace(',', '.'));                    
+                    stationId = Convert.ToInt32(Convert.ToString(r.Cells["number"].Value).Replace(',', '.'));
                 }
                 else
                 { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
@@ -388,10 +388,10 @@ namespace seisapp
                     Double.TryParse(stroka, NumberStyles.Any, CultureInfo.InvariantCulture, out latency);
                 }
                 else
-                { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }                
+                { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
 
                 Database.AddRowInLatency(stationId, latency);
-            }            
+            }
             UpdateLatencyDataGrid();
         }
 
@@ -406,7 +406,7 @@ namespace seisapp
                 double latency = array[i, 1];
                 dataGridViewLatency.Rows.Add(stationId, latency);
             }
-        }     
+        }
 
         private void staticCorrectionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -421,6 +421,81 @@ namespace seisapp
             }
         }
 
+        private double[] furierFilter(int station_number, int frequency, Int32[] signal_array)
+        {
+            string component = Database.GetParameters(3);
+            double furierMinFrequency = Database.GetParameters(4);
+            double furierMaxFrequency = Database.GetParameters(5);
+            double staltaMinWindow = Database.GetParameters(6);
+            double staltaMaxWindow = Database.GetParameters(7);
+            int staltaOrder = Database.GetParameters(8);
+
+            Hashtable traces = new Hashtable();
+            Hashtable trace = new Hashtable();
+            trace.Add("station_number", station_number);
+            trace.Add("component", component);
+            trace.Add("frequency", 200);
+            trace.Add("signal", signal_array);
+            traces = trace;            
+
+            Hashtable signal_traces = new Hashtable();
+            signal_traces.Add("traces", traces);
+
+            Hashtable frequency_limit = new Hashtable();
+            frequency_limit.Add("max_val", furierMaxFrequency);
+            frequency_limit.Add("min_val", furierMinFrequency);
+            Hashtable bandpass_filter_params = new Hashtable();
+            bandpass_filter_params.Add("frequency_limit", frequency_limit);
+
+            Hashtable slta_filter_params = new Hashtable();
+            slta_filter_params.Add("order", staltaOrder);
+            slta_filter_params.Add("long_window", staltaMaxWindow);
+            slta_filter_params.Add("short_window", staltaMinWindow);
+
+            Hashtable filtration = new Hashtable();
+            filtration.Add("slta_filter_params", slta_filter_params);
+            filtration.Add("bandpass_filter_params", bandpass_filter_params);
+            filtration.Add("signal_traces", signal_traces);
+
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string jsonString = JsonSerializer.Serialize(filtration, options);
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://192.168.1.7:8157/filtration");
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.Method = "POST";
+
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            {
+                streamWriter.Write(jsonString);
+            }
+
+            Hashtable desirealize = new Hashtable();
+
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+                desirealize = JsonSerializer.Deserialize<Hashtable>(result);
+            }
+
+
+            string dataItem = JsonSerializer.Serialize(desirealize["traces"], options);
+            Hashtable correctionsItem = JsonSerializer.Deserialize<Hashtable>(dataItem);
+
+
+            double[] filteredSignalArrays = new double[signal_array.Length];
+
+            IDictionaryEnumerator denum = correctionsItem.GetEnumerator();
+            DictionaryEntry dentry;
+            while (denum.MoveNext())
+            {
+                dentry = (DictionaryEntry)denum.Current;
+                filteredSignalArrays = (double[])dentry.Value;
+            }
+
+            return filteredSignalArrays;
+        }
+        /*
         private List<double[]> furierFilter(int station_number, int frequency, List<Int32[]> signal_arrays)
         {            
             string component = Database.GetParameters(3);
@@ -502,10 +577,10 @@ namespace seisapp
 
             return filteredSignalArrays;
         }
-
+        */
         private void button2_Click(object sender, EventArgs e)
         {
-            
+
         }
     }
 }
