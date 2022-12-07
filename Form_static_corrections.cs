@@ -67,7 +67,7 @@ namespace seisapp
 
         private void buttonGetCorrections_Click(object sender, EventArgs e)
         {
-            double[,] stationInfo = Database.GetStations();
+            double[,] stationInfo = Database.GetStationCoordinates();
             double[,] velocityInfo = Database.GetVelocity();
 
             Hashtable[] stations = new Hashtable[stationInfo.GetLength(0)];
@@ -143,14 +143,25 @@ namespace seisapp
             Hashtable info = JsonSerializer.Deserialize<Hashtable>(infoItem);
 
 
+            string[,] calibrationExplosion = new string[Database.GetAmountRowsCalibrationExplosion(), 4];
+            calibrationExplosion = Database.GetCalibrationExplosion();
+            double xBlowCoordinate = Convert.ToDouble(calibrationExplosion[0, 1]);
+            double yBlowCoordinate = Convert.ToDouble(calibrationExplosion[0, 2]);
+            double zBlowCoordinate = Convert.ToDouble(calibrationExplosion[0, 3]);
 
+            double[,] stationCoordinates = new double[Database.GetAmountRowsStationCoordinates(), 4];
+            stationCoordinates = Database.GetStationCoordinates();            
 
-            Database.Get
+            double[,] distanceBetweenBlowNStations = new double[stationCoordinates.GetLength(0), 3];
+            for (int i = 0; i < stationCoordinates.GetLength(0); i++)
+            {
+                double number = Convert.ToDouble(stationCoordinates[i, 0]);
+                double currentXCoordinate = Convert.ToDouble(stationCoordinates[i, 1]);
+                double currentYCoordinate = Convert.ToDouble(stationCoordinates[i, 2]);
+                double currentZCoordinate = Convert.ToDouble(stationCoordinates[i, 3]);
 
-
-
-
-
+                double distance = Math.Pow((Math.Pow((currentXCoordinate - xBlowCoordinate), 2) + Math.Pow((currentYCoordinate - yBlowCoordinate), 2) + Math.Pow((currentZCoordinate - zBlowCoordinate), 2)), 0,5);
+            }
 
             DevExpress.XtraCharts.Series[] complexOfGraph = new DevExpress.XtraCharts.Series[signalAmount];
             DevExpress.XtraCharts.LineSeriesView[] lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView[signalAmount];

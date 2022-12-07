@@ -22,7 +22,7 @@ namespace seisapp
             dataGridView1.AllowUserToAddRows = true;
 
             double[,] array = new double[Database.GetAmountRowsStationCoordinates(), 4];
-            array = Database.GetStations();
+            array = Database.GetStationCoordinates();
             for (int i = 0; i < array.GetLength(0); i++)
             {
                 int number = Convert.ToInt32(array[i, 0]);

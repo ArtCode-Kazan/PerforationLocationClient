@@ -82,7 +82,7 @@ namespace seisapp
             string[] allFiles =  ooFiles.Concat(xxFiles).ToArray();
             allFiles = allFiles.Concat(binFiles).ToArray();
 
-            double[,] array = Database.GetStations();
+            double[,] array = Database.GetStationCoordinates();
 
             string[] stationNumbers = new string[array.GetLength(0)];
 
@@ -143,7 +143,7 @@ namespace seisapp
             foreach (DataGridViewRow r in dataGridViewSeismicRecords.Rows)
             {
 
-                double[,] array = Database.GetStations();
+                double[,] array = Database.GetStationCoordinates();
                 string[] stationNumbers = new string[array.GetLength(0)];
 
                 for (int i = 0; i < stationNumbers.Length; i++)

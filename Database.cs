@@ -239,7 +239,7 @@ namespace seisapp
             }
             return array;
         }
-        static public double[,] GetStations()
+        static public double[,] GetStationCoordinates()
         {
             double[,] array = new double[GetAmountRowsStationCoordinates(), 4];
 
@@ -256,10 +256,11 @@ namespace seisapp
                     {
                         while (reader.Read())   // построчно считываем данные
                         {
-                            var number = Convert.ToDouble(reader.GetValue(0));
-                            var x = Convert.ToDouble(reader.GetValue(1));
-                            var y = Convert.ToDouble(reader.GetValue(2));
-                            var altitude = Convert.ToDouble(reader.GetValue(3));
+                            double number = Convert.ToDouble(Convert.ToString(reader.GetValue(0)).Replace('.', ','));
+                            double x = Convert.ToDouble(Convert.ToString(reader.GetValue(1)).Replace('.', ','));
+                            double y = Convert.ToDouble(Convert.ToString(reader.GetValue(2)).Replace('.', ','));
+                            double altitude = Convert.ToDouble(Convert.ToString(reader.GetValue(3)).Replace('.', ','));
+
                             array[i, 0] = number;
                             array[i, 1] = x;
                             array[i, 2] = y;
