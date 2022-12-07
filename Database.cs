@@ -327,6 +327,39 @@ namespace seisapp
             }
             return latencyCorrectionArray;
         }
+        static public string[,] GetCalibrationExplosion()
+        {
+            string[,] CalibrationExplosionArray = new string[GetAmountRowsCalibrationExplosion(), 4];
+
+            using (var connection = new SqliteConnection("Data Source=" + Database.Path))
+            {
+                int i = 0;
+                connection.Open();
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM " + CalibrationExplosionTableName;
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows) // если есть данные
+                    {
+                        while (reader.Read())   // построчно считываем данные
+                        {
+                            string datetimeBlow = Convert.ToString(reader.GetValue(0));
+                            string x = Convert.ToString(reader.GetValue(1));
+                            string y = Convert.ToString(reader.GetValue(2));
+                            string altitude = Convert.ToString(reader.GetValue(3));
+
+                            CalibrationExplosionArray[i, 0] = datetimeBlow;
+                            CalibrationExplosionArray[i, 1] = x;
+                            CalibrationExplosionArray[i, 2] = y;
+                            CalibrationExplosionArray[i, 3] = altitude;
+                            i++;
+                        }
+                    }
+                }
+            }
+            return CalibrationExplosionArray;
+        }
         static public string[,] GetSeismicRecords()
         {
             string[,] array = new string[GetAmountRowsSeismicRecords(), 6];
@@ -495,6 +528,17 @@ namespace seisapp
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
                 command.CommandText = "SELECT COUNT(*) FROM " + StaticCorrectionsTableName;
+                return Convert.ToInt32(command.ExecuteScalar());
+            }
+        }
+        static public int GetAmountRowsCalibrationExplosion()
+        {
+            using (var connection = new SqliteConnection("Data Source=" + Database.Path))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection;
+                command.CommandText = "SELECT COUNT(*) FROM " + CalibrationExplosionTableName;
                 return Convert.ToInt32(command.ExecuteScalar());
             }
         }

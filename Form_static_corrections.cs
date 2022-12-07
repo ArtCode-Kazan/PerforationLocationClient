@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.XtraCharts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -109,11 +110,11 @@ namespace seisapp
             var seismicInformation = new Hashtable();
             seismicInformation.Add("observation_system", observationSystem);
             seismicInformation.Add("velocity_model", velocityModel);
-            
-            Hashtable desirealize  = new Hashtable();
-            
+
+            Hashtable desirealize = new Hashtable();
+
             var options = new JsonSerializerOptions { WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize(seismicInformation, options);                        
+            string jsonString = JsonSerializer.Serialize(seismicInformation, options);
 
             string test = "{  \"observation_system\": {                \"stations\": [                  {                    \"number\": 1,        \"coordinate\": {                        \"x\": 1,          \"y\": 1,          \"altitude\": 1        }                }    ]  },  \"velocity_model\": {                \"layers\": [                  {                    \"altitude_interval\": {                        \"min_val\": 1,          \"max_val\": 2                    },        \"vp\": 3                  }    ]  }        }";
 
@@ -128,18 +129,55 @@ namespace seisapp
 
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {                
-                 var result = streamReader.ReadToEnd();
-                 desirealize = JsonSerializer.Deserialize<Hashtable>(result);
+            {
+                var result = streamReader.ReadToEnd();
+                desirealize = JsonSerializer.Deserialize<Hashtable>(result);
             }
 
 
-            string dataItem = JsonSerializer.Serialize(desirealize["data"], options);            
+            string dataItem = JsonSerializer.Serialize(desirealize["data"], options);
             Hashtable correctionsItem = JsonSerializer.Deserialize<Hashtable>(dataItem);
 
             string infoItem = JsonSerializer.Serialize(correctionsItem["corrections"], options);
             infoItem = "  {                \"station_number\": 1,    \"value\": 0.0  }";
             Hashtable info = JsonSerializer.Deserialize<Hashtable>(infoItem);
+
+
+
+
+            Database.Get
+
+
+
+
+
+
+            DevExpress.XtraCharts.Series[] complexOfGraph = new DevExpress.XtraCharts.Series[signalAmount];
+            DevExpress.XtraCharts.LineSeriesView[] lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView[signalAmount];
+            for (int i = 0; i < signalAmount; i++)
+            {
+                complexOfGraph[i] = new DevExpress.XtraCharts.Series();
+                lineSeriesView1[i] = new DevExpress.XtraCharts.LineSeriesView();
+                complexOfGraph[i].Name = "file=" + Convert.ToString(i + 1);
+                complexOfGraph[i].View = lineSeriesView1[i];
+                ((System.ComponentModel.ISupportInitialize)(complexOfGraph[i])).BeginInit();
+                ((System.ComponentModel.ISupportInitialize)(lineSeriesView1[i])).BeginInit();
+                ((System.ComponentModel.ISupportInitialize)(lineSeriesView1[i])).EndInit();
+                ((System.ComponentModel.ISupportInitialize)(complexOfGraph[i])).EndInit();
+                complexOfGraph[i].Points.AddPoint(zToSeconds, value);
+            }
+
+            this.chartControlGodograph.SeriesSerializable = complexOfGraph;
+            XYDiagram xyDiagram = (XYDiagram)chartControlGodograph.Diagram;
+            xyDiagram.ZoomingOptions.AxisXMaxZoomPercent = 100000;
+            xyDiagram.ZoomingOptions.AxisYMaxZoomPercent = 100000;
+            xyDiagram.EnableAxisXZooming = true;
+            xyDiagram.EnableAxisXScrolling = true;
+            xyDiagram.EnableAxisYZooming = true;
+            xyDiagram.EnableAxisYScrolling = true;
+            xyDiagram.Rotated = true;
+            xyDiagram.AxisX.Reverse = true;
+            chartControlGodograph.CrosshairOptions.ShowArgumentLine = true;
 
             /*IDictionaryEnumerator denum = info.GetEnumerator();
             DictionaryEntry dentry;

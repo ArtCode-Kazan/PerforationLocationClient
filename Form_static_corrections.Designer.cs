@@ -35,7 +35,9 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonGetCorrections = new System.Windows.Forms.Button();
+            this.chartControlGodograph = new DevExpress.XtraCharts.ChartControl();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCorrections)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControlGodograph)).BeginInit();
             this.SuspendLayout();
             // 
             // labelControl1
@@ -105,11 +107,20 @@
             this.buttonGetCorrections.UseVisualStyleBackColor = true;
             this.buttonGetCorrections.Click += new System.EventHandler(this.buttonGetCorrections_Click);
             // 
+            // chartControlGodograph
+            // 
+            this.chartControlGodograph.Location = new System.Drawing.Point(465, 71);
+            this.chartControlGodograph.Name = "chartControlGodograph";
+            this.chartControlGodograph.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
+            this.chartControlGodograph.Size = new System.Drawing.Size(380, 393);
+            this.chartControlGodograph.TabIndex = 17;
+            // 
             // Form_static_corrections
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(524, 562);
+            this.ClientSize = new System.Drawing.Size(932, 562);
+            this.Controls.Add(this.chartControlGodograph);
             this.Controls.Add(this.buttonGetCorrections);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
@@ -119,6 +130,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_static_corrections";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCorrections)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControlGodograph)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,5 +145,6 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Button buttonGetCorrections;
+        private DevExpress.XtraCharts.ChartControl chartControlGodograph;
     }
 }
