@@ -603,5 +603,10 @@ namespace seisapp
         {
 
         }
+
+        private void spinEdit_frequency_EditValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

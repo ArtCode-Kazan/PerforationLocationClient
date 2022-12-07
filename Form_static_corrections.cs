@@ -186,13 +186,16 @@ namespace seisapp
             Series rawCollection = chartControlGodograph.Series["Raw"];
             for (int i = 0; i < stationAmount; i++)
             {
-                rawCollection.Points.AddPoint(distanceBetweenBlowNStations[i, 2], distanceBetweenBlowNStations[i, 1]);
+                rawCollection.Points.AddPoint(distanceBetweenBlowNStations[i, 1], distanceBetweenBlowNStations[i, 2]);
             }
             
             Series correctedCollection = chartControlGodograph.Series["Corrected"];
+            int o = 0;
             foreach (Correction x in output.data.corrections)
             {
-                correctedCollection.Points.AddPoint(x.value, x.station_number);
+                correctedCollection.Points.AddPoint(distanceBetweenBlowNStations[o, 1], x.value);
+                
+                o++;
             }
 
 
@@ -203,8 +206,7 @@ namespace seisapp
             xyDiagram.EnableAxisXScrolling = true;
             xyDiagram.EnableAxisYZooming = true;
             xyDiagram.EnableAxisYScrolling = true;
-            xyDiagram.Rotated = false;
-            xyDiagram.AxisX.Reverse = true;
+            xyDiagram.Rotated = false;            
             chartControlGodograph.CrosshairOptions.ShowArgumentLine = true;            
         }
     }

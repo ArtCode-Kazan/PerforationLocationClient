@@ -203,7 +203,7 @@
             // 
             this.speedModelToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(135)))), ((int)(((byte)(148)))));
             this.speedModelToolStripMenuItem.Name = "speedModelToolStripMenuItem";
-            this.speedModelToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.speedModelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.speedModelToolStripMenuItem.Text = "Speed model";
             this.speedModelToolStripMenuItem.Click += new System.EventHandler(this.speedModelToolStripMenuItem_Click);
             // 
@@ -211,7 +211,7 @@
             // 
             this.correctionsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(135)))), ((int)(((byte)(148)))));
             this.correctionsToolStripMenuItem.Name = "correctionsToolStripMenuItem";
-            this.correctionsToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.correctionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.correctionsToolStripMenuItem.Text = "Corrections";
             this.correctionsToolStripMenuItem.Click += new System.EventHandler(this.correctionsToolStripMenuItem_Click);
             // 
@@ -219,14 +219,14 @@
             // 
             this.connectionToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(135)))), ((int)(((byte)(148)))));
             this.connectionToolStripMenuItem.Name = "connectionToolStripMenuItem";
-            this.connectionToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.connectionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.connectionToolStripMenuItem.Text = "Connection";
             this.connectionToolStripMenuItem.Click += new System.EventHandler(this.connectionToolStripMenuItem_Click);
             // 
             // staticCorrectionsToolStripMenuItem
             // 
             this.staticCorrectionsToolStripMenuItem.Name = "staticCorrectionsToolStripMenuItem";
-            this.staticCorrectionsToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.staticCorrectionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.staticCorrectionsToolStripMenuItem.Text = "Static corrections";
             this.staticCorrectionsToolStripMenuItem.Click += new System.EventHandler(this.staticCorrectionsToolStripMenuItem_Click);
             // 
@@ -508,6 +508,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.spinEdit_frequency.Size = new System.Drawing.Size(100, 20);
             this.spinEdit_frequency.TabIndex = 29;
+            this.spinEdit_frequency.EditValueChanged += new System.EventHandler(this.spinEdit_frequency_EditValueChanged);
             // 
             // chartControlSignals
             // 
