@@ -12,6 +12,7 @@ using System.Net;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 using System.Windows.Forms;
 
 namespace seisapp
@@ -65,8 +66,27 @@ namespace seisapp
             }
         }
 
+        public class ServerOutputData
+        {
+            public bool status { get; set; }
+            public string message { get; set; }
+            public Data data { get; set; }
+        }
+
+        public class Data
+        {
+            public Correction[] corrections { get; set; }
+        }
+
+        public class Correction
+        {
+            public int station_number { get; set; }
+            public float value { get; set; }
+        }
+
+
         private void buttonGetCorrections_Click(object sender, EventArgs e)
-        {                        
+        {
             // Get station coordinate
             double[,] stationCoordinates = new double[Database.GetAmountRowsStationCoordinates(), 4];
             stationCoordinates = Database.GetStationCoordinates();
@@ -82,7 +102,7 @@ namespace seisapp
             latencyArray = Database.GetLatency();
             // Get velocity
             double[,] velocityArray = new double[Database.GetAmountRowsVelocity(), 3];
-            velocityArray = Database.GetVelocity();            
+            velocityArray = Database.GetVelocity();
 
             Hashtable[] stations = new Hashtable[stationCoordinates.GetLength(0)];
 
@@ -125,11 +145,10 @@ namespace seisapp
             seismicInformation.Add("observation_system", observationSystem);
             seismicInformation.Add("velocity_model", velocityModel);
 
-            Hashtable desirealize = new Hashtable();
 
-            var options = new JsonSerializerOptions { WriteIndented = true };
+            var options = new JsonSerializerOptions { WriteIndented = true, MaxDepth = 10 };
             string jsonString = JsonSerializer.Serialize(seismicInformation, options);
-            
+
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://192.168.1.7:8157/static-corrections");
             httpWebRequest.ContentType = "application/json";
@@ -140,22 +159,14 @@ namespace seisapp
                 streamWriter.Write(jsonString);
             }
 
+            ServerOutputData output;
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                 var result = streamReader.ReadToEnd();
-                desirealize = JsonSerializer.Deserialize<Hashtable>(result);
+                output = JsonSerializer.Deserialize<ServerOutputData>(result);
             }
 
-
-            string dataItem = JsonSerializer.Serialize(desirealize["data"], options);
-            Hashtable correctionsItem = JsonSerializer.Deserialize<Hashtable>(dataItem);
-
-            string infoItem = JsonSerializer.Serialize(correctionsItem["corrections"], options);
-            infoItem = "  {                \"station_number\": 1,    \"value\": 0.0  }";
-            Hashtable info = JsonSerializer.Deserialize<Hashtable>(infoItem);
-
-          
             double[,] distanceBetweenBlowNStations = new double[stationAmount, 3];
             // Fill distances array
             for (int i = 0; i < stationAmount; i++)
@@ -172,15 +183,19 @@ namespace seisapp
                 distanceBetweenBlowNStations[i, 2] = latencyArray[i, 1];
             }
 
-
-
-            Series xy_collection = chartControlGodograph.Series["Сырой"];
+            Series rawCollection = chartControlGodograph.Series["Raw"];
             for (int i = 0; i < stationAmount; i++)
             {
-                xy_collection.Points.AddPoint(distanceBetweenBlowNStations[i, 2], distanceBetweenBlowNStations[i, 1]);
+                rawCollection.Points.AddPoint(distanceBetweenBlowNStations[i, 2], distanceBetweenBlowNStations[i, 1]);
+            }
+            
+            Series correctedCollection = chartControlGodograph.Series["Corrected"];
+            foreach (Correction x in output.data.corrections)
+            {
+                correctedCollection.Points.AddPoint(x.value, x.station_number);
             }
 
-            
+
             XYDiagram xyDiagram = (XYDiagram)chartControlGodograph.Diagram;
             xyDiagram.ZoomingOptions.AxisXMaxZoomPercent = 100000;
             xyDiagram.ZoomingOptions.AxisYMaxZoomPercent = 100000;
@@ -190,15 +205,7 @@ namespace seisapp
             xyDiagram.EnableAxisYScrolling = true;
             xyDiagram.Rotated = false;
             xyDiagram.AxisX.Reverse = true;
-            chartControlGodograph.CrosshairOptions.ShowArgumentLine = true;
-
-            /*IDictionaryEnumerator denum = info.GetEnumerator();
-            DictionaryEntry dentry;
-            while (denum.MoveNext())
-            {
-                dentry = (DictionaryEntry)denum.Current;
-                MessageBox.Show(Convert.ToString(dentry.Key), Convert.ToString(dentry.Value));
-            }*/
+            chartControlGodograph.CrosshairOptions.ShowArgumentLine = true;            
         }
     }
 }

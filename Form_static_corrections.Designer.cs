@@ -124,9 +124,9 @@
             this.chartControlGodograph.Diagram = xyDiagram1;
             this.chartControlGodograph.Location = new System.Drawing.Point(465, 71);
             this.chartControlGodograph.Name = "chartControlGodograph";
-            series1.Name = "Сырой";
+            series1.Name = "Raw";
             series1.View = lineSeriesView1;
-            series2.Name = "Коррекция";
+            series2.Name = "Corrected";
             series2.View = lineSeriesView2;
             this.chartControlGodograph.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
         series1,

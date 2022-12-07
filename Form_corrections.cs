@@ -16,6 +16,12 @@ namespace seisapp
         {
             InitializeComponent();
             dateTimePickerBlowDateTime.CustomFormat = "dd.MM.yyyy hh:mm:ss";
+            // Get calibration explosion coordinates
+            string[,] calibrationExplosion = new string[Database.GetAmountRowsCalibrationExplosion(), 4];
+            calibrationExplosion = Database.GetCalibrationExplosion();
+            //spinEditCalibrationX.Value = Convert.ToDouble(calibrationExplosion[0, 1]);
+            double yBlowCoordinate = Convert.ToDouble(calibrationExplosion[0, 2]);
+            double zBlowCoordinate = Convert.ToDouble(calibrationExplosion[0, 3]);
         }       
         private void buttonOk_Click(object sender, EventArgs e)
         {

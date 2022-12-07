@@ -505,13 +505,7 @@ namespace seisapp
             {
                 var result = streamReader.ReadToEnd();
                 desirealize = JsonSerializer.Deserialize<Hashtable>(result);
-            }
-
-            var myHT1 = new Hashtable();
-            myHT1.Add("FIRST", "Hello");
-            myHT1.Add("SECOND", "World");
-            myHT1.Add("THIRD", "!");
-            string myHT1fg = JsonSerializer.Serialize(myHT1, options);
+            }           
 
             string dataItem = JsonSerializer.Serialize(desirealize["traces"], options);
             string dataItemForSerialize = dataItem.Substring(1,dataItem.Length - 2);
