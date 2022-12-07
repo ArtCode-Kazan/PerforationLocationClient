@@ -66,21 +66,35 @@ namespace seisapp
         }
 
         private void buttonGetCorrections_Click(object sender, EventArgs e)
-        {
-            double[,] stationInfo = Database.GetStationCoordinates();
-            double[,] velocityInfo = Database.GetVelocity();
+        {                        
+            // Get station coordinate
+            double[,] stationCoordinates = new double[Database.GetAmountRowsStationCoordinates(), 4];
+            stationCoordinates = Database.GetStationCoordinates();
+            int stationAmount = stationCoordinates.GetLength(0);
+            // Get calibration explosion coordinates
+            string[,] calibrationExplosion = new string[Database.GetAmountRowsCalibrationExplosion(), 4];
+            calibrationExplosion = Database.GetCalibrationExplosion();
+            double xBlowCoordinate = Convert.ToDouble(calibrationExplosion[0, 1]);
+            double yBlowCoordinate = Convert.ToDouble(calibrationExplosion[0, 2]);
+            double zBlowCoordinate = Convert.ToDouble(calibrationExplosion[0, 3]);
+            // Get latencys
+            double[,] latencyArray = new double[Database.GetAmountRowsLatency(), 2];
+            latencyArray = Database.GetLatency();
+            // Get velocity
+            double[,] velocityArray = new double[Database.GetAmountRowsVelocity(), 3];
+            velocityArray = Database.GetVelocity();            
 
-            Hashtable[] stations = new Hashtable[stationInfo.GetLength(0)];
+            Hashtable[] stations = new Hashtable[stationCoordinates.GetLength(0)];
 
-            for (int i = 0; i < stationInfo.GetLength(0); i++)
+            for (int i = 0; i < stationCoordinates.GetLength(0); i++)
             {
                 var coordinate = new Hashtable();
-                coordinate.Add("x", stationInfo[i, 1]);
-                coordinate.Add("y", stationInfo[i, 2]);
-                coordinate.Add("altitude", stationInfo[i, 3]);
+                coordinate.Add("x", stationCoordinates[i, 1]);
+                coordinate.Add("y", stationCoordinates[i, 2]);
+                coordinate.Add("altitude", stationCoordinates[i, 3]);
 
                 var station = new Hashtable();
-                station.Add("number", stationInfo[i, 0]);
+                station.Add("number", stationCoordinates[i, 0]);
                 station.Add("coordinate", coordinate);
 
                 stations[i] = station;
@@ -89,17 +103,17 @@ namespace seisapp
             var observationSystem = new Hashtable();
             observationSystem.Add("stations", stations);
 
-            Hashtable[] layers = new Hashtable[stationInfo.GetLength(0)];
+            Hashtable[] layers = new Hashtable[velocityArray.GetLength(0)];
 
-            for (int i = 0; i < velocityInfo.GetLength(0); i++)
+            for (int i = 0; i < velocityArray.GetLength(0); i++)
             {
                 var altitudeInterval = new Hashtable();
-                altitudeInterval.Add("min_val", velocityInfo[i, 1]);
-                altitudeInterval.Add("max_val", velocityInfo[i, 0]);
+                altitudeInterval.Add("min_val", velocityArray[i, 1]);
+                altitudeInterval.Add("max_val", velocityArray[i, 0]);
 
                 var layer = new Hashtable();
                 layer.Add("altitude_interval", altitudeInterval);
-                layer.Add("vp", velocityInfo[i, 2]);
+                layer.Add("vp", velocityArray[i, 2]);
 
                 layers[i] = layer;
             }
@@ -115,8 +129,7 @@ namespace seisapp
 
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(seismicInformation, options);
-
-            string test = "{  \"observation_system\": {                \"stations\": [                  {                    \"number\": 1,        \"coordinate\": {                        \"x\": 1,          \"y\": 1,          \"altitude\": 1        }                }    ]  },  \"velocity_model\": {                \"layers\": [                  {                    \"altitude_interval\": {                        \"min_val\": 1,          \"max_val\": 2                    },        \"vp\": 3                  }    ]  }        }";
+            
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://192.168.1.7:8157/static-corrections");
             httpWebRequest.ContentType = "application/json";
@@ -142,22 +155,7 @@ namespace seisapp
             infoItem = "  {                \"station_number\": 1,    \"value\": 0.0  }";
             Hashtable info = JsonSerializer.Deserialize<Hashtable>(infoItem);
 
-
-
-            // Get calibration explosion coordinates
-            string[,] calibrationExplosion = new string[Database.GetAmountRowsCalibrationExplosion(), 4];
-            calibrationExplosion = Database.GetCalibrationExplosion();
-            double xBlowCoordinate = Convert.ToDouble(calibrationExplosion[0, 1]);
-            double yBlowCoordinate = Convert.ToDouble(calibrationExplosion[0, 2]);
-            double zBlowCoordinate = Convert.ToDouble(calibrationExplosion[0, 3]);
-            // Get station coordinate
-            double[,] stationCoordinates = new double[Database.GetAmountRowsStationCoordinates(), 4];
-            stationCoordinates = Database.GetStationCoordinates();
-            int stationAmount = stationCoordinates.GetLength(0);
-            // Get latencys
-            double[,] latencyArray = new double[Database.GetAmountRowsLatency(), 2];
-            latencyArray = Database.GetLatency();
-
+          
             double[,] distanceBetweenBlowNStations = new double[stationAmount, 3];
             // Fill distances array
             for (int i = 0; i < stationAmount; i++)
