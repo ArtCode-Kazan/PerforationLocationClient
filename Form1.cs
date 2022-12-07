@@ -204,7 +204,7 @@ namespace seisapp
                 dateTimePicker_stop.Value = minimum_seismic_datetime_stop;
 
 
-                if (Database.GetAmountRowsLatency() != 0)
+                if (Database.GetAmountRowsLatency() != 0 & dataGridViewLatency.RowCount == 0)
                 {
                     // Get latencys
                     double[,] latencyArray = new double[Database.GetAmountRowsLatency(), 2];
@@ -214,6 +214,10 @@ namespace seisapp
                         dataGridViewLatency.Rows.Add(latencyArray[i, 0], latencyArray[i, 1]);
                     }
                 }
+                else
+                { 
+                    
+                }
             }
         }
 
@@ -221,7 +225,7 @@ namespace seisapp
         {
             Database.RefreshParameters(
                 Convert.ToString(dateTimePicker_start.Value),
-                Convert.ToString(dateTimePicker_stop.Value), 
+                Convert.ToString(dateTimePicker_stop.Value),
                 comboBox_component.Text,
                 Convert.ToDouble(spinEdit_furier_min_frequency.Value),
                 Convert.ToDouble(spinEdit_furier_max_frequency.Value),
@@ -465,7 +469,7 @@ namespace seisapp
             trace.Add("component", component);
             trace.Add("frequency", 200);
             trace.Add("signal", signal_array);
-            traces[0] = trace;            
+            traces[0] = trace;
 
             Hashtable signal_traces = new Hashtable();
             signal_traces.Add("traces", traces);
@@ -505,14 +509,14 @@ namespace seisapp
             {
                 var result = streamReader.ReadToEnd();
                 desirealize = JsonSerializer.Deserialize<Hashtable>(result);
-            }           
+            }
 
             string dataItem = JsonSerializer.Serialize(desirealize["traces"], options);
-            string dataItemForSerialize = dataItem.Substring(1,dataItem.Length - 2);
+            string dataItemForSerialize = dataItem.Substring(1, dataItem.Length - 2);
             Hashtable correctionsItem = JsonSerializer.Deserialize<Hashtable>(dataItemForSerialize);
-            
+
             JavaScriptSerializer js = new JavaScriptSerializer();
-            double[] filteredSignalArrays = js.Deserialize<double[]>(JsonSerializer.Serialize(correctionsItem["signal"], options));            
+            double[] filteredSignalArrays = js.Deserialize<double[]>(JsonSerializer.Serialize(correctionsItem["signal"], options));
 
             return filteredSignalArrays;
         }

@@ -22,6 +22,7 @@ namespace seisapp
         public Form_static_corrections()
         {
             InitializeComponent();
+            dataGridViewCorrections.Rows.Clear();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -32,7 +33,7 @@ namespace seisapp
         private void buttonOk_Click(object sender, EventArgs e)
         {
             int number = 0;
-            double vp = 0;
+            double latency = 0;
             foreach (DataGridViewRow r in dataGridViewCorrections.Rows)
             {
                 if (r.Cells["number"].Value != null)
@@ -44,12 +45,12 @@ namespace seisapp
                 if (r.Cells["latency"].Value != null)
                 {
                     string stroka = Convert.ToString(r.Cells["latency"].Value).Replace(',', '.');
-                    Double.TryParse(stroka, NumberStyles.Any, CultureInfo.InvariantCulture, out vp);
+                    Double.TryParse(stroka, NumberStyles.Any, CultureInfo.InvariantCulture, out latency);
                 }
                 else
                 { MessageBox.Show("ПУСТАЯ ЯЧЕЙКА"); }
 
-                Database.AddRowInStaticCorrections(number, vp);
+                Database.AddRowInStaticCorrections(number, latency);
             }
             UpdateCorrectionsDataGrid();
         }
@@ -190,14 +191,12 @@ namespace seisapp
             }
             
             Series correctedCollection = chartControlGodograph.Series["Corrected"];
-            int o = 0;
             foreach (Correction x in output.data.corrections)
             {
-                correctedCollection.Points.AddPoint(distanceBetweenBlowNStations[o, 1], x.value);
-                
-                o++;
+                correctedCollection.Points.AddPoint(x.station_number, x.value);
+                dataGridViewCorrections.Rows.Add(x.station_number, x.value);
             }
-
+            
 
             XYDiagram xyDiagram = (XYDiagram)chartControlGodograph.Diagram;
             xyDiagram.ZoomingOptions.AxisXMaxZoomPercent = 100000;
@@ -206,7 +205,8 @@ namespace seisapp
             xyDiagram.EnableAxisXScrolling = true;
             xyDiagram.EnableAxisYZooming = true;
             xyDiagram.EnableAxisYScrolling = true;
-            xyDiagram.Rotated = false;            
+            xyDiagram.Rotated = false;
+            
             chartControlGodograph.CrosshairOptions.ShowArgumentLine = true;            
         }
     }

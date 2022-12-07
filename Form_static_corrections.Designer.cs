@@ -28,26 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
-            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView();
-            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView2 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.XYDiagram xyDiagram2 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.Series series3 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView3 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.Series series4 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView4 = new DevExpress.XtraCharts.LineSeriesView();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.dataGridViewCorrections = new System.Windows.Forms.DataGridView();
-            this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonGetCorrections = new System.Windows.Forms.Button();
             this.chartControlGodograph = new DevExpress.XtraCharts.ChartControl();
+            this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.latency = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCorrections)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControlGodograph)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView4)).BeginInit();
             this.SuspendLayout();
             // 
             // labelControl1
@@ -65,27 +65,13 @@
             this.dataGridViewCorrections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCorrections.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.number,
-            this.vp});
+            this.latency});
             this.dataGridViewCorrections.Location = new System.Drawing.Point(96, 71);
             this.dataGridViewCorrections.Name = "dataGridViewCorrections";
             this.dataGridViewCorrections.ReadOnly = true;
             this.dataGridViewCorrections.RowHeadersVisible = false;
             this.dataGridViewCorrections.Size = new System.Drawing.Size(303, 393);
             this.dataGridViewCorrections.TabIndex = 1;
-            // 
-            // number
-            // 
-            this.number.HeaderText = "number";
-            this.number.Name = "number";
-            this.number.ReadOnly = true;
-            this.number.Width = 150;
-            // 
-            // vp
-            // 
-            this.vp.HeaderText = "vp";
-            this.vp.Name = "vp";
-            this.vp.ReadOnly = true;
-            this.vp.Width = 150;
             // 
             // buttonCancel
             // 
@@ -119,20 +105,34 @@
             // 
             // chartControlGodograph
             // 
-            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
-            this.chartControlGodograph.Diagram = xyDiagram1;
+            xyDiagram2.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram2.AxisY.VisibleInPanesSerializable = "-1";
+            this.chartControlGodograph.Diagram = xyDiagram2;
             this.chartControlGodograph.Location = new System.Drawing.Point(465, 71);
             this.chartControlGodograph.Name = "chartControlGodograph";
-            series1.Name = "Raw";
-            series1.View = lineSeriesView1;
-            series2.Name = "Corrected";
-            series2.View = lineSeriesView2;
+            series3.Name = "Raw";
+            series3.View = lineSeriesView3;
+            series4.Name = "Corrected";
+            series4.View = lineSeriesView4;
             this.chartControlGodograph.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        series1,
-        series2};
+        series3,
+        series4};
             this.chartControlGodograph.Size = new System.Drawing.Size(380, 393);
             this.chartControlGodograph.TabIndex = 17;
+            // 
+            // number
+            // 
+            this.number.HeaderText = "number";
+            this.number.Name = "number";
+            this.number.ReadOnly = true;
+            this.number.Width = 150;
+            // 
+            // latency
+            // 
+            this.latency.HeaderText = "latency";
+            this.latency.Name = "latency";
+            this.latency.ReadOnly = true;
+            this.latency.Width = 150;
             // 
             // Form_static_corrections
             // 
@@ -149,11 +149,11 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_static_corrections";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCorrections)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControlGodograph)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -164,11 +164,11 @@
 
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private System.Windows.Forms.DataGridView dataGridViewCorrections;
-        private System.Windows.Forms.DataGridViewTextBoxColumn number;
-        private System.Windows.Forms.DataGridViewTextBoxColumn vp;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Button buttonGetCorrections;
         private DevExpress.XtraCharts.ChartControl chartControlGodograph;
+        private System.Windows.Forms.DataGridViewTextBoxColumn number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn latency;
     }
 }
