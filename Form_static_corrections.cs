@@ -142,18 +142,23 @@ namespace seisapp
             infoItem = "  {                \"station_number\": 1,    \"value\": 0.0  }";
             Hashtable info = JsonSerializer.Deserialize<Hashtable>(infoItem);
 
-
+            // Get calibration explosion coordinates
             string[,] calibrationExplosion = new string[Database.GetAmountRowsCalibrationExplosion(), 4];
             calibrationExplosion = Database.GetCalibrationExplosion();
             double xBlowCoordinate = Convert.ToDouble(calibrationExplosion[0, 1]);
             double yBlowCoordinate = Convert.ToDouble(calibrationExplosion[0, 2]);
             double zBlowCoordinate = Convert.ToDouble(calibrationExplosion[0, 3]);
-
+            // Get station coordinate
             double[,] stationCoordinates = new double[Database.GetAmountRowsStationCoordinates(), 4];
-            stationCoordinates = Database.GetStationCoordinates();            
+            stationCoordinates = Database.GetStationCoordinates();
+            int stationAmount = stationCoordinates.GetLength(0);
+            // Get latencys
+            double[,] latencyArray = new double[Database.GetAmountRowsLatency(), 2];
+            latencyArray = Database.GetLatency();
 
-            double[,] distanceBetweenBlowNStations = new double[stationCoordinates.GetLength(0), 3];
-            for (int i = 0; i < stationCoordinates.GetLength(0); i++)
+            double[,] distanceBetweenBlowNStations = new double[stationAmount, 3];
+            // Fill distances array
+            for (int i = 0; i < stationAmount; i++)
             {
                 double number = Convert.ToDouble(stationCoordinates[i, 0]);
                 double currentXCoordinate = Convert.ToDouble(stationCoordinates[i, 1]);
@@ -161,11 +166,17 @@ namespace seisapp
                 double currentZCoordinate = Convert.ToDouble(stationCoordinates[i, 3]);
 
                 double distance = Math.Pow((Math.Pow((currentXCoordinate - xBlowCoordinate), 2) + Math.Pow((currentYCoordinate - yBlowCoordinate), 2) + Math.Pow((currentZCoordinate - zBlowCoordinate), 2)), 0.5);
+
+                distanceBetweenBlowNStations[i, 0] = number;
+                distanceBetweenBlowNStations[i, 1] = distance;
+                distanceBetweenBlowNStations[i, 2] = latencyArray[i, 1];
             }
 
-            DevExpress.XtraCharts.Series[] complexOfGraph = new DevExpress.XtraCharts.Series[signalAmount];
-            DevExpress.XtraCharts.LineSeriesView[] lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView[signalAmount];
-            for (int i = 0; i < signalAmount; i++)
+
+
+            DevExpress.XtraCharts.Series[] complexOfGraph = new DevExpress.XtraCharts.Series[stationAmount];
+            DevExpress.XtraCharts.LineSeriesView[] lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView[stationAmount];
+            for (int i = 0; i < stationAmount; i++)
             {
                 complexOfGraph[i] = new DevExpress.XtraCharts.Series();
                 lineSeriesView1[i] = new DevExpress.XtraCharts.LineSeriesView();
@@ -175,7 +186,7 @@ namespace seisapp
                 ((System.ComponentModel.ISupportInitialize)(lineSeriesView1[i])).BeginInit();
                 ((System.ComponentModel.ISupportInitialize)(lineSeriesView1[i])).EndInit();
                 ((System.ComponentModel.ISupportInitialize)(complexOfGraph[i])).EndInit();
-                complexOfGraph[i].Points.AddPoint(zToSeconds, value);
+                complexOfGraph[i].Points.AddPoint(distanceBetweenBlowNStations[i, 1], distanceBetweenBlowNStations[i, 2]);
             }
 
             this.chartControlGodograph.SeriesSerializable = complexOfGraph;

@@ -151,10 +151,10 @@ namespace seisapp
         }
         static public void AddRowInCalibrationExplosion(DateTime datetimeBlow, double x, double y, double altitude)
         {            
-            string stringDatetimeBlow = datetimeBlow.ToString();
-            string stringX = Convert.ToString(x);
-            string stringY = Convert.ToString(y);
-            string stringAltitude = Convert.ToString(altitude);
+            string stringDatetimeBlow = datetimeBlow.ToString().Replace(',', '.');
+            string stringX = Convert.ToString(x).Replace(',', '.');
+            string stringY = Convert.ToString(y).Replace(',', '.');
+            string stringAltitude = Convert.ToString(altitude).Replace(',', '.');
             using (var connection = new SqliteConnection("Data Source=" + Database.Path))
             {
                 connection.Open();
