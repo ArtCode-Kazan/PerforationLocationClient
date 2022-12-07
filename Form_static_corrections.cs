@@ -124,7 +124,7 @@ namespace seisapp
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
-                streamWriter.Write(test);
+                streamWriter.Write(jsonString);
             }
 
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
@@ -141,6 +141,8 @@ namespace seisapp
             string infoItem = JsonSerializer.Serialize(correctionsItem["corrections"], options);
             infoItem = "  {                \"station_number\": 1,    \"value\": 0.0  }";
             Hashtable info = JsonSerializer.Deserialize<Hashtable>(infoItem);
+
+
 
             // Get calibration explosion coordinates
             string[,] calibrationExplosion = new string[Database.GetAmountRowsCalibrationExplosion(), 4];
@@ -174,22 +176,13 @@ namespace seisapp
 
 
 
-            DevExpress.XtraCharts.Series[] complexOfGraph = new DevExpress.XtraCharts.Series[stationAmount];
-            DevExpress.XtraCharts.LineSeriesView[] lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView[stationAmount];
+            Series xy_collection = chartControlGodograph.Series["Сырой"];
             for (int i = 0; i < stationAmount; i++)
             {
-                complexOfGraph[i] = new DevExpress.XtraCharts.Series();
-                lineSeriesView1[i] = new DevExpress.XtraCharts.LineSeriesView();
-                complexOfGraph[i].Name = "file=" + Convert.ToString(i + 1);
-                complexOfGraph[i].View = lineSeriesView1[i];
-                ((System.ComponentModel.ISupportInitialize)(complexOfGraph[i])).BeginInit();
-                ((System.ComponentModel.ISupportInitialize)(lineSeriesView1[i])).BeginInit();
-                ((System.ComponentModel.ISupportInitialize)(lineSeriesView1[i])).EndInit();
-                ((System.ComponentModel.ISupportInitialize)(complexOfGraph[i])).EndInit();
-                complexOfGraph[i].Points.AddPoint(distanceBetweenBlowNStations[i, 1], distanceBetweenBlowNStations[i, 2]);
+                xy_collection.Points.AddPoint(distanceBetweenBlowNStations[i, 2], distanceBetweenBlowNStations[i, 1]);
             }
 
-            this.chartControlGodograph.SeriesSerializable = complexOfGraph;
+            
             XYDiagram xyDiagram = (XYDiagram)chartControlGodograph.Diagram;
             xyDiagram.ZoomingOptions.AxisXMaxZoomPercent = 100000;
             xyDiagram.ZoomingOptions.AxisYMaxZoomPercent = 100000;
@@ -197,7 +190,7 @@ namespace seisapp
             xyDiagram.EnableAxisXScrolling = true;
             xyDiagram.EnableAxisYZooming = true;
             xyDiagram.EnableAxisYScrolling = true;
-            xyDiagram.Rotated = true;
+            xyDiagram.Rotated = false;
             xyDiagram.AxisX.Reverse = true;
             chartControlGodograph.CrosshairOptions.ShowArgumentLine = true;
 

@@ -202,6 +202,18 @@ namespace seisapp
 
                 dateTimePicker_start.Value = maximum_seismic_datetime_start;
                 dateTimePicker_stop.Value = minimum_seismic_datetime_stop;
+
+
+                if (Database.GetAmountRowsLatency() != 0)
+                {
+                    // Get latencys
+                    double[,] latencyArray = new double[Database.GetAmountRowsLatency(), 2];
+                    latencyArray = Database.GetLatency();
+                    for (int i = 0; i < latencyArray.GetLength(0); i++)
+                    {
+                        dataGridViewLatency.Rows.Add(latencyArray[i, 0], latencyArray[i, 1]);
+                    }
+                }
             }
         }
 
@@ -218,21 +230,21 @@ namespace seisapp
                 Convert.ToInt32(spinEdit_stalta_filter_order.Value)
                 );
 
-            double furier_min_frequency = Convert.ToDouble(spinEdit_furier_min_frequency.Text);
-            double furier_max_frequency = Convert.ToDouble(spinEdit_furier_max_frequency.Text);
+            double furierMinFrequency = Convert.ToDouble(spinEdit_furier_min_frequency.Text);
+            double furierMaxFrequency = Convert.ToDouble(spinEdit_furier_max_frequency.Text);
 
             DateTime start = dateTimePicker_start.Value;
             DateTime stop = dateTimePicker_stop.Value;
 
             string[] arrayOfPathToBinaryFiles = new string[Database.GetAmountRowsSeismicRecords()];
-            string[,] seismic_records_array = new string[Database.GetAmountRowsSeismicRecords(), 6];
-            seismic_records_array = Database.GetSeismicRecords();
+            string[,] seismicRecordsArray = new string[Database.GetAmountRowsSeismicRecords(), 6];
+            seismicRecordsArray = Database.GetSeismicRecords();
 
             int signalAmount = Database.GetAmountRowsSeismicRecords();
 
             for (int i = 0; i < arrayOfPathToBinaryFiles.Length; i++)
             {
-                arrayOfPathToBinaryFiles[i] = seismic_records_array[i, 2] + "/" + seismic_records_array[i, 3];
+                arrayOfPathToBinaryFiles[i] = seismicRecordsArray[i, 2] + "/" + seismicRecordsArray[i, 3];
             }
 
             DevExpress.XtraCharts.Series[] complexOfGraph = new DevExpress.XtraCharts.Series[signalAmount];
@@ -244,7 +256,7 @@ namespace seisapp
                 complexOfGraph[i] = new DevExpress.XtraCharts.Series();
                 lineSeriesView1[i] = new DevExpress.XtraCharts.LineSeriesView();
 
-                complexOfGraph[i].Name = "file=" + Convert.ToString(i + 1);
+                complexOfGraph[i].Name = "file=" + Convert.ToString(seismicRecordsArray[i, 1]);
                 complexOfGraph[i].View = lineSeriesView1[i];
 
                 ((System.ComponentModel.ISupportInitialize)(complexOfGraph[i])).BeginInit();

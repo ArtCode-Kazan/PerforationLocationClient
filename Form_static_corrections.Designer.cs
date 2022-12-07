@@ -28,6 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView2 = new DevExpress.XtraCharts.LineSeriesView();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.dataGridViewCorrections = new System.Windows.Forms.DataGridView();
             this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,6 +43,11 @@
             this.chartControlGodograph = new DevExpress.XtraCharts.ChartControl();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCorrections)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControlGodograph)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).BeginInit();
             this.SuspendLayout();
             // 
             // labelControl1
@@ -109,9 +119,18 @@
             // 
             // chartControlGodograph
             // 
+            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
+            this.chartControlGodograph.Diagram = xyDiagram1;
             this.chartControlGodograph.Location = new System.Drawing.Point(465, 71);
             this.chartControlGodograph.Name = "chartControlGodograph";
-            this.chartControlGodograph.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
+            series1.Name = "Сырой";
+            series1.View = lineSeriesView1;
+            series2.Name = "Коррекция";
+            series2.View = lineSeriesView2;
+            this.chartControlGodograph.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
+        series1,
+        series2};
             this.chartControlGodograph.Size = new System.Drawing.Size(380, 393);
             this.chartControlGodograph.TabIndex = 17;
             // 
@@ -130,6 +149,11 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_static_corrections";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCorrections)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControlGodograph)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
