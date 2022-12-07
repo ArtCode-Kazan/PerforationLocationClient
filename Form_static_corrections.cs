@@ -160,7 +160,7 @@ namespace seisapp
                 double currentYCoordinate = Convert.ToDouble(stationCoordinates[i, 2]);
                 double currentZCoordinate = Convert.ToDouble(stationCoordinates[i, 3]);
 
-                double distance = Math.Pow((Math.Pow((currentXCoordinate - xBlowCoordinate), 2) + Math.Pow((currentYCoordinate - yBlowCoordinate), 2) + Math.Pow((currentZCoordinate - zBlowCoordinate), 2)), 0,5);
+                double distance = Math.Pow((Math.Pow((currentXCoordinate - xBlowCoordinate), 2) + Math.Pow((currentYCoordinate - yBlowCoordinate), 2) + Math.Pow((currentZCoordinate - zBlowCoordinate), 2)), 0.5);
             }
 
             DevExpress.XtraCharts.Series[] complexOfGraph = new DevExpress.XtraCharts.Series[signalAmount];

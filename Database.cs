@@ -256,11 +256,10 @@ namespace seisapp
                     {
                         while (reader.Read())   // построчно считываем данные
                         {
-                            double number = Convert.ToDouble(Convert.ToString(reader.GetValue(0)).Replace('.', ','));
-                            double x = Convert.ToDouble(Convert.ToString(reader.GetValue(1)).Replace('.', ','));
-                            double y = Convert.ToDouble(Convert.ToString(reader.GetValue(2)).Replace('.', ','));
-                            double altitude = Convert.ToDouble(Convert.ToString(reader.GetValue(3)).Replace('.', ','));
-
+                            double number = Convert.ToDouble(reader.GetValue(0));
+                            double x = Convert.ToDouble(reader.GetValue(1));
+                            double y = Convert.ToDouble(reader.GetValue(2));
+                            double altitude = Convert.ToDouble(reader.GetValue(3));
                             array[i, 0] = number;
                             array[i, 1] = x;
                             array[i, 2] = y;
