@@ -10,6 +10,7 @@ using System.Text.Json;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using DevExpress.XtraCharts;
+using BinReader;    
 
 namespace seisapp
 {
