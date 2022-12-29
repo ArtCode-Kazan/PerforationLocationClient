@@ -10,7 +10,7 @@ using System.Text.Json;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using DevExpress.XtraCharts;
-using BinReader;    
+using BinReader;
 
 namespace seisapp
 {
@@ -216,8 +216,8 @@ namespace seisapp
                     }
                 }
                 else
-                { 
-                    
+                {
+
                 }
             }
         }
@@ -277,7 +277,15 @@ namespace seisapp
                 string component = comboBox_component.Text;
                 Int32[] signal = binarySignal.ReadSignal(component);
 
-                double[] filtered_signal = furierFilter(i, Convert.ToInt32(spinEdit_frequency.Value), signal);
+                double[] filtered_signal = new double[signal.Length];
+                
+                filtered_signal = furierFilter(i, Convert.ToInt32(spinEdit_frequency.Value), signal);
+
+
+
+
+
+
 
                 double maximumOfSignal = filtered_signal.Max();
                 double minimumOfSignal = filtered_signal.Min();
@@ -498,26 +506,53 @@ namespace seisapp
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "POST";
 
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            double[] filteredSignalArrays = new double[signal_array.Length];
+            for (int i = 0; i < signal_array.Length; i++)
             {
-                streamWriter.Write(jsonString);
+                filteredSignalArrays[i] = signal_array[i];
             }
 
-            Hashtable desirealize = new Hashtable();
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            HttpWebResponse httpResponse = null;
+            try
             {
-                var result = streamReader.ReadToEnd();
-                desirealize = JsonSerializer.Deserialize<Hashtable>(result);
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+                    streamWriter.Write(jsonString);
+                }
+
+                Hashtable desirealize = new Hashtable();                
+
+                httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    desirealize = JsonSerializer.Deserialize<Hashtable>(result);
+                }
+
+                string dataItem = JsonSerializer.Serialize(desirealize["traces"], options);
+                string dataItemForSerialize = dataItem.Substring(1, dataItem.Length - 2);
+                Hashtable correctionsItem = JsonSerializer.Deserialize<Hashtable>(dataItemForSerialize);
+
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                filteredSignalArrays = js.Deserialize<double[]>(JsonSerializer.Serialize(correctionsItem["signal"], options));
+            }
+            catch (WebException e)
+            {
+                if (e.Status == WebExceptionStatus.ProtocolError)
+                {
+                    httpResponse = (HttpWebResponse)e.Response;
+                    MessageBox.Show("Errorcode: " + Convert.ToString(httpResponse.StatusCode));
+                }
+                else
+                {
+                    MessageBox.Show("Error: " + Convert.ToString(e.Message));
+                }
             }
 
-            string dataItem = JsonSerializer.Serialize(desirealize["traces"], options);
-            string dataItemForSerialize = dataItem.Substring(1, dataItem.Length - 2);
-            Hashtable correctionsItem = JsonSerializer.Deserialize<Hashtable>(dataItemForSerialize);
-
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            double[] filteredSignalArrays = js.Deserialize<double[]>(JsonSerializer.Serialize(correctionsItem["signal"], options));
+            if (httpResponse != null)
+            {
+                httpResponse.Close();
+            }
 
             return filteredSignalArrays;
         }

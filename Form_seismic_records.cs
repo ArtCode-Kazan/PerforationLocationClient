@@ -94,22 +94,21 @@ namespace seisapp
             for (int i = 0; i < allFiles.Length; i++)
             {
                 FileInfo file = new FileInfo(allFiles[i]);
-                string currentNumber = file.Name.Substring(0, file.Name.IndexOf('_'));
-                if (Int32.TryParse(currentNumber, out number))
+                if (file.Name.Contains('_') == true)
                 {
-                    if (stationNumbers.Contains(currentNumber))
+
+                    string currentNumber = file.Name.Substring(0, file.Name.IndexOf('_'));
+                    if (Int32.TryParse(currentNumber, out number))
                     {
-                        number = Int32.Parse(currentNumber);
+                        if (stationNumbers.Contains(currentNumber))
+                        {
+                            number = Int32.Parse(currentNumber);
+                        }                                                
                     }
-                    else
-                    {                        
-                    }
-                    dataGridViewSeismicRecords.Rows.Add(number, file.Name, file.DirectoryName);
                 }
-                else 
-                {
-                    dataGridViewSeismicRecords.Rows.Add("", file.Name, file.DirectoryName);
-                }                
+                
+                dataGridViewSeismicRecords.Rows.Add(number, file.Name, file.DirectoryName);
+                              
             }
             dataGridViewSeismicRecords.Sort(dataGridViewSeismicRecords.Columns["number"], ListSortDirection.Ascending);
             
