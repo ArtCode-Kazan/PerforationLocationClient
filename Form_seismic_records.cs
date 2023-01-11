@@ -31,7 +31,7 @@ namespace seisapp
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            Close();
+            Close();            
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -39,15 +39,16 @@ namespace seisapp
             Database.ClearTable(Database.SeismicRecordsTableName);
             int number = 0;
             dataGridViewSeismicRecords.AllowUserToAddRows = false;
+
             foreach (DataGridViewRow r in dataGridViewSeismicRecords.Rows)
             {
+
                 if (Int32.TryParse(Convert.ToString(r.Cells["number"].Value), out number))
                 {
                     number = Convert.ToInt32(r.Cells["number"].Value);
                     string file = Convert.ToString(r.Cells["file"].Value);
                     string path = Convert.ToString(r.Cells["path"].Value);
                     
-
                     BinarySeismicFile binFile = new BinarySeismicFile(path + "/" + file);
                     DateTime datetimeStop = binFile.DatetimeStop;
                     DateTime datetimeStart = binFile.DatetimeStart;
@@ -55,6 +56,7 @@ namespace seisapp
                     Database.AddRowInSeismicRecords(number, file, path, datetimeStart, datetimeStop);
                 }                                                
             }
+
             dataGridViewSeismicRecords.AllowUserToAddRows = true;
             Close();
         }
@@ -94,6 +96,7 @@ namespace seisapp
             for (int i = 0; i < allFiles.Length; i++)
             {
                 FileInfo file = new FileInfo(allFiles[i]);
+
                 if (file.Name.Contains('_') == true)
                 {
 
@@ -110,6 +113,7 @@ namespace seisapp
                 dataGridViewSeismicRecords.Rows.Add(number, file.Name, file.DirectoryName);
                               
             }
+
             dataGridViewSeismicRecords.Sort(dataGridViewSeismicRecords.Columns["number"], ListSortDirection.Ascending);
             
             foreach (DataGridViewRow r in dataGridViewSeismicRecords.Rows)
@@ -120,13 +124,17 @@ namespace seisapp
                 {
                     stationNumbers[i] = Convert.ToString(array[i, 0]);
                 }
+
                 string number2 = Convert.ToString(r.Cells["number"].Value);
+
                 if (number2 != "")
                 {
+
                     if (stationNumbers.Contains(number2))
                     {
 
                     }
+
                     else
                     {
                         MessageBox.Show("Номера " + number2 + " нет в таблице");

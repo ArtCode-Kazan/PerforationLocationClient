@@ -46,29 +46,29 @@
             this.staticCorrectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label_artcode = new System.Windows.Forms.Label();
             this.pictureBox_date = new System.Windows.Forms.PictureBox();
-            this.label_date_start = new System.Windows.Forms.Label();
-            this.label_date_stop = new System.Windows.Forms.Label();
-            this.label_component = new System.Windows.Forms.Label();
-            this.comboBox_component = new System.Windows.Forms.ComboBox();
-            this.label_date = new System.Windows.Forms.Label();
+            this.labelDataStartInDateMenu = new System.Windows.Forms.Label();
+            this.labelDataStopInDateMenu = new System.Windows.Forms.Label();
+            this.labelComponentInDateMenu = new System.Windows.Forms.Label();
+            this.comboBoxChooseComponent = new System.Windows.Forms.ComboBox();
+            this.labelDateInDateMenu = new System.Windows.Forms.Label();
             this.pictureBox_furier_filter = new System.Windows.Forms.PictureBox();
-            this.label_furier_filter = new System.Windows.Forms.Label();
+            this.labellabelFurierFilterInFurierFilter = new System.Windows.Forms.Label();
             this.spinEdit_furier_min_frequency = new DevExpress.XtraEditors.SpinEdit();
             this.spinEdit_furier_max_frequency = new DevExpress.XtraEditors.SpinEdit();
-            this.label_min_frequency = new System.Windows.Forms.Label();
-            this.label_max_frequency = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.dateTimePicker_start = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker_stop = new System.Windows.Forms.DateTimePicker();
+            this.labelFurierMinFrequencyInFurierFilter = new System.Windows.Forms.Label();
+            this.labelFurierMaxFrequencyInFurierFilter = new System.Windows.Forms.Label();
+            this.buttonDrawTraces = new System.Windows.Forms.Button();
+            this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerStop = new System.Windows.Forms.DateTimePicker();
             this.pictureBox_stalta_filter = new System.Windows.Forms.PictureBox();
-            this.label_stalta_filter = new System.Windows.Forms.Label();
-            this.label_stalta_filter_min_frequency = new System.Windows.Forms.Label();
+            this.labelStaLtaFilterInStaltaFilterMenu = new System.Windows.Forms.Label();
+            this.labelStaltaFilterMinFrequencyInStaLtaFilterMenu = new System.Windows.Forms.Label();
             this.spinEdit_stalta_filter_min_frequency = new DevExpress.XtraEditors.SpinEdit();
-            this.label_stalta_filter_max_frequency = new System.Windows.Forms.Label();
+            this.labelStaltaFilterMaxFrequencyInStaLtaFilterMenu = new System.Windows.Forms.Label();
             this.spinEdit_stalta_filter_max_frequency = new DevExpress.XtraEditors.SpinEdit();
             this.spinEdit_stalta_filter_order = new DevExpress.XtraEditors.SpinEdit();
-            this.label_stalta_filter_order = new System.Windows.Forms.Label();
-            this.spinEdit_frequency = new DevExpress.XtraEditors.SpinEdit();
+            this.labelStaltaFilterOrderInStaLtaFilterMenu = new System.Windows.Forms.Label();
+            this.spinEditSetFrequency = new DevExpress.XtraEditors.SpinEdit();
             this.chartControlSignals = new DevExpress.XtraCharts.ChartControl();
             this.dataGridViewLatency = new System.Windows.Forms.DataGridView();
             this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -85,7 +85,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_min_frequency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_max_frequency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_order.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_frequency.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEditSetFrequency.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControlSignals)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLatency)).BeginInit();
             this.SuspendLayout();
@@ -203,7 +203,7 @@
             // 
             this.speedModelToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(135)))), ((int)(((byte)(148)))));
             this.speedModelToolStripMenuItem.Name = "speedModelToolStripMenuItem";
-            this.speedModelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.speedModelToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.speedModelToolStripMenuItem.Text = "Speed model";
             this.speedModelToolStripMenuItem.Click += new System.EventHandler(this.speedModelToolStripMenuItem_Click);
             // 
@@ -211,7 +211,7 @@
             // 
             this.correctionsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(135)))), ((int)(((byte)(148)))));
             this.correctionsToolStripMenuItem.Name = "correctionsToolStripMenuItem";
-            this.correctionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.correctionsToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.correctionsToolStripMenuItem.Text = "Corrections";
             this.correctionsToolStripMenuItem.Click += new System.EventHandler(this.correctionsToolStripMenuItem_Click);
             // 
@@ -219,14 +219,14 @@
             // 
             this.connectionToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(135)))), ((int)(((byte)(148)))));
             this.connectionToolStripMenuItem.Name = "connectionToolStripMenuItem";
-            this.connectionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.connectionToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.connectionToolStripMenuItem.Text = "Connection";
             this.connectionToolStripMenuItem.Click += new System.EventHandler(this.connectionToolStripMenuItem_Click);
             // 
             // staticCorrectionsToolStripMenuItem
             // 
             this.staticCorrectionsToolStripMenuItem.Name = "staticCorrectionsToolStripMenuItem";
-            this.staticCorrectionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.staticCorrectionsToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.staticCorrectionsToolStripMenuItem.Text = "Static corrections";
             this.staticCorrectionsToolStripMenuItem.Click += new System.EventHandler(this.staticCorrectionsToolStripMenuItem_Click);
             // 
@@ -250,60 +250,60 @@
             this.pictureBox_date.TabIndex = 2;
             this.pictureBox_date.TabStop = false;
             // 
-            // label_date_start
+            // labelDataStartInDateMenu
             // 
-            this.label_date_start.AutoSize = true;
-            this.label_date_start.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.label_date_start.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_date_start.Location = new System.Drawing.Point(23, 85);
-            this.label_date_start.Name = "label_date_start";
-            this.label_date_start.Size = new System.Drawing.Size(32, 15);
-            this.label_date_start.TabIndex = 3;
-            this.label_date_start.Text = "Start";
+            this.labelDataStartInDateMenu.AutoSize = true;
+            this.labelDataStartInDateMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.labelDataStartInDateMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelDataStartInDateMenu.Location = new System.Drawing.Point(23, 85);
+            this.labelDataStartInDateMenu.Name = "labelDataStartInDateMenu";
+            this.labelDataStartInDateMenu.Size = new System.Drawing.Size(32, 15);
+            this.labelDataStartInDateMenu.TabIndex = 3;
+            this.labelDataStartInDateMenu.Text = "Start";
             // 
-            // label_date_stop
+            // labelDataStopInDateMenu
             // 
-            this.label_date_stop.AutoSize = true;
-            this.label_date_stop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.label_date_stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_date_stop.Location = new System.Drawing.Point(200, 85);
-            this.label_date_stop.Name = "label_date_stop";
-            this.label_date_stop.Size = new System.Drawing.Size(32, 15);
-            this.label_date_stop.TabIndex = 4;
-            this.label_date_stop.Text = "Stop";
+            this.labelDataStopInDateMenu.AutoSize = true;
+            this.labelDataStopInDateMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.labelDataStopInDateMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelDataStopInDateMenu.Location = new System.Drawing.Point(200, 85);
+            this.labelDataStopInDateMenu.Name = "labelDataStopInDateMenu";
+            this.labelDataStopInDateMenu.Size = new System.Drawing.Size(32, 15);
+            this.labelDataStopInDateMenu.TabIndex = 4;
+            this.labelDataStopInDateMenu.Text = "Stop";
             // 
-            // label_component
+            // labelComponentInDateMenu
             // 
-            this.label_component.AutoSize = true;
-            this.label_component.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.label_component.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_component.Location = new System.Drawing.Point(391, 85);
-            this.label_component.Name = "label_component";
-            this.label_component.Size = new System.Drawing.Size(71, 15);
-            this.label_component.TabIndex = 7;
-            this.label_component.Text = "Component";
+            this.labelComponentInDateMenu.AutoSize = true;
+            this.labelComponentInDateMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.labelComponentInDateMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelComponentInDateMenu.Location = new System.Drawing.Point(391, 85);
+            this.labelComponentInDateMenu.Name = "labelComponentInDateMenu";
+            this.labelComponentInDateMenu.Size = new System.Drawing.Size(71, 15);
+            this.labelComponentInDateMenu.TabIndex = 7;
+            this.labelComponentInDateMenu.Text = "Component";
             // 
-            // comboBox_component
+            // comboBoxChooseComponent
             // 
-            this.comboBox_component.FormattingEnabled = true;
-            this.comboBox_component.Items.AddRange(new object[] {
+            this.comboBoxChooseComponent.FormattingEnabled = true;
+            this.comboBoxChooseComponent.Items.AddRange(new object[] {
             "Z",
             "Y",
             "X"});
-            this.comboBox_component.Location = new System.Drawing.Point(463, 83);
-            this.comboBox_component.Name = "comboBox_component";
-            this.comboBox_component.Size = new System.Drawing.Size(42, 21);
-            this.comboBox_component.TabIndex = 8;
+            this.comboBoxChooseComponent.Location = new System.Drawing.Point(463, 83);
+            this.comboBoxChooseComponent.Name = "comboBoxChooseComponent";
+            this.comboBoxChooseComponent.Size = new System.Drawing.Size(42, 21);
+            this.comboBoxChooseComponent.TabIndex = 8;
             // 
-            // label_date
+            // labelDateInDateMenu
             // 
-            this.label_date.AutoSize = true;
-            this.label_date.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.label_date.Location = new System.Drawing.Point(232, 43);
-            this.label_date.Name = "label_date";
-            this.label_date.Size = new System.Drawing.Size(30, 13);
-            this.label_date.TabIndex = 9;
-            this.label_date.Text = "Date";
+            this.labelDateInDateMenu.AutoSize = true;
+            this.labelDateInDateMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.labelDateInDateMenu.Location = new System.Drawing.Point(232, 43);
+            this.labelDateInDateMenu.Name = "labelDateInDateMenu";
+            this.labelDateInDateMenu.Size = new System.Drawing.Size(30, 13);
+            this.labelDateInDateMenu.TabIndex = 9;
+            this.labelDateInDateMenu.Text = "Date";
             // 
             // pictureBox_furier_filter
             // 
@@ -314,15 +314,15 @@
             this.pictureBox_furier_filter.TabIndex = 10;
             this.pictureBox_furier_filter.TabStop = false;
             // 
-            // label_furier_filter
+            // labellabelFurierFilterInFurierFilter
             // 
-            this.label_furier_filter.AutoSize = true;
-            this.label_furier_filter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.label_furier_filter.Location = new System.Drawing.Point(934, 39);
-            this.label_furier_filter.Name = "label_furier_filter";
-            this.label_furier_filter.Size = new System.Drawing.Size(104, 13);
-            this.label_furier_filter.TabIndex = 11;
-            this.label_furier_filter.Text = "Furier bandpass filter";
+            this.labellabelFurierFilterInFurierFilter.AutoSize = true;
+            this.labellabelFurierFilterInFurierFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.labellabelFurierFilterInFurierFilter.Location = new System.Drawing.Point(934, 39);
+            this.labellabelFurierFilterInFurierFilter.Name = "labellabelFurierFilterInFurierFilter";
+            this.labellabelFurierFilterInFurierFilter.Size = new System.Drawing.Size(104, 13);
+            this.labellabelFurierFilterInFurierFilter.TabIndex = 11;
+            this.labellabelFurierFilterInFurierFilter.Text = "Furier bandpass filter";
             // 
             // spinEdit_furier_min_frequency
             // 
@@ -352,54 +352,54 @@
             this.spinEdit_furier_max_frequency.Size = new System.Drawing.Size(100, 20);
             this.spinEdit_furier_max_frequency.TabIndex = 13;
             // 
-            // label_min_frequency
+            // labelFurierMinFrequencyInFurierFilter
             // 
-            this.label_min_frequency.AutoSize = true;
-            this.label_min_frequency.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.label_min_frequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_min_frequency.Location = new System.Drawing.Point(890, 64);
-            this.label_min_frequency.Name = "label_min_frequency";
-            this.label_min_frequency.Size = new System.Drawing.Size(84, 15);
-            this.label_min_frequency.TabIndex = 14;
-            this.label_min_frequency.Text = "min frequency";
+            this.labelFurierMinFrequencyInFurierFilter.AutoSize = true;
+            this.labelFurierMinFrequencyInFurierFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.labelFurierMinFrequencyInFurierFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelFurierMinFrequencyInFurierFilter.Location = new System.Drawing.Point(890, 64);
+            this.labelFurierMinFrequencyInFurierFilter.Name = "labelFurierMinFrequencyInFurierFilter";
+            this.labelFurierMinFrequencyInFurierFilter.Size = new System.Drawing.Size(84, 15);
+            this.labelFurierMinFrequencyInFurierFilter.TabIndex = 14;
+            this.labelFurierMinFrequencyInFurierFilter.Text = "min frequency";
             // 
-            // label_max_frequency
+            // labelFurierMaxFrequencyInFurierFilter
             // 
-            this.label_max_frequency.AutoSize = true;
-            this.label_max_frequency.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.label_max_frequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_max_frequency.Location = new System.Drawing.Point(890, 98);
-            this.label_max_frequency.Name = "label_max_frequency";
-            this.label_max_frequency.Size = new System.Drawing.Size(87, 15);
-            this.label_max_frequency.TabIndex = 15;
-            this.label_max_frequency.Text = "max frequency";
+            this.labelFurierMaxFrequencyInFurierFilter.AutoSize = true;
+            this.labelFurierMaxFrequencyInFurierFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.labelFurierMaxFrequencyInFurierFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelFurierMaxFrequencyInFurierFilter.Location = new System.Drawing.Point(890, 98);
+            this.labelFurierMaxFrequencyInFurierFilter.Name = "labelFurierMaxFrequencyInFurierFilter";
+            this.labelFurierMaxFrequencyInFurierFilter.Size = new System.Drawing.Size(87, 15);
+            this.labelFurierMaxFrequencyInFurierFilter.TabIndex = 15;
+            this.labelFurierMaxFrequencyInFurierFilter.Text = "max frequency";
             // 
-            // button1
+            // buttonDrawTraces
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.button1.Location = new System.Drawing.Point(483, 613);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(139, 39);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "LESGO";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonDrawTraces.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.buttonDrawTraces.Location = new System.Drawing.Point(483, 613);
+            this.buttonDrawTraces.Name = "buttonDrawTraces";
+            this.buttonDrawTraces.Size = new System.Drawing.Size(139, 39);
+            this.buttonDrawTraces.TabIndex = 17;
+            this.buttonDrawTraces.Text = "LESGO";
+            this.buttonDrawTraces.UseVisualStyleBackColor = false;
+            this.buttonDrawTraces.Click += new System.EventHandler(this.button1_Click);
             // 
-            // dateTimePicker_start
+            // dateTimePickerStart
             // 
-            this.dateTimePicker_start.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_start.Location = new System.Drawing.Point(58, 84);
-            this.dateTimePicker_start.Name = "dateTimePicker_start";
-            this.dateTimePicker_start.Size = new System.Drawing.Size(136, 20);
-            this.dateTimePicker_start.TabIndex = 19;
+            this.dateTimePickerStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePickerStart.Location = new System.Drawing.Point(58, 84);
+            this.dateTimePickerStart.Name = "dateTimePickerStart";
+            this.dateTimePickerStart.Size = new System.Drawing.Size(136, 20);
+            this.dateTimePickerStart.TabIndex = 19;
             // 
-            // dateTimePicker_stop
+            // dateTimePickerStop
             // 
-            this.dateTimePicker_stop.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_stop.Location = new System.Drawing.Point(235, 84);
-            this.dateTimePicker_stop.Name = "dateTimePicker_stop";
-            this.dateTimePicker_stop.Size = new System.Drawing.Size(141, 20);
-            this.dateTimePicker_stop.TabIndex = 20;
+            this.dateTimePickerStop.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePickerStop.Location = new System.Drawing.Point(235, 84);
+            this.dateTimePickerStop.Name = "dateTimePickerStop";
+            this.dateTimePickerStop.Size = new System.Drawing.Size(141, 20);
+            this.dateTimePickerStop.TabIndex = 20;
             // 
             // pictureBox_stalta_filter
             // 
@@ -410,26 +410,26 @@
             this.pictureBox_stalta_filter.TabIndex = 21;
             this.pictureBox_stalta_filter.TabStop = false;
             // 
-            // label_stalta_filter
+            // labelStaLtaFilterInStaltaFilterMenu
             // 
-            this.label_stalta_filter.AutoSize = true;
-            this.label_stalta_filter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.label_stalta_filter.Location = new System.Drawing.Point(720, 39);
-            this.label_stalta_filter.Name = "label_stalta_filter";
-            this.label_stalta_filter.Size = new System.Drawing.Size(73, 13);
-            this.label_stalta_filter.TabIndex = 22;
-            this.label_stalta_filter.Text = "STA LTA filter";
+            this.labelStaLtaFilterInStaltaFilterMenu.AutoSize = true;
+            this.labelStaLtaFilterInStaltaFilterMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.labelStaLtaFilterInStaltaFilterMenu.Location = new System.Drawing.Point(720, 39);
+            this.labelStaLtaFilterInStaltaFilterMenu.Name = "labelStaLtaFilterInStaltaFilterMenu";
+            this.labelStaLtaFilterInStaltaFilterMenu.Size = new System.Drawing.Size(73, 13);
+            this.labelStaLtaFilterInStaltaFilterMenu.TabIndex = 22;
+            this.labelStaLtaFilterInStaltaFilterMenu.Text = "STA LTA filter";
             // 
-            // label_stalta_filter_min_frequency
+            // labelStaltaFilterMinFrequencyInStaLtaFilterMenu
             // 
-            this.label_stalta_filter_min_frequency.AutoSize = true;
-            this.label_stalta_filter_min_frequency.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.label_stalta_filter_min_frequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_stalta_filter_min_frequency.Location = new System.Drawing.Point(670, 58);
-            this.label_stalta_filter_min_frequency.Name = "label_stalta_filter_min_frequency";
-            this.label_stalta_filter_min_frequency.Size = new System.Drawing.Size(79, 15);
-            this.label_stalta_filter_min_frequency.TabIndex = 24;
-            this.label_stalta_filter_min_frequency.Text = "short window";
+            this.labelStaltaFilterMinFrequencyInStaLtaFilterMenu.AutoSize = true;
+            this.labelStaltaFilterMinFrequencyInStaLtaFilterMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.labelStaltaFilterMinFrequencyInStaLtaFilterMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelStaltaFilterMinFrequencyInStaLtaFilterMenu.Location = new System.Drawing.Point(670, 58);
+            this.labelStaltaFilterMinFrequencyInStaLtaFilterMenu.Name = "labelStaltaFilterMinFrequencyInStaLtaFilterMenu";
+            this.labelStaltaFilterMinFrequencyInStaLtaFilterMenu.Size = new System.Drawing.Size(79, 15);
+            this.labelStaltaFilterMinFrequencyInStaLtaFilterMenu.TabIndex = 24;
+            this.labelStaltaFilterMinFrequencyInStaLtaFilterMenu.Text = "short window";
             // 
             // spinEdit_stalta_filter_min_frequency
             // 
@@ -445,16 +445,16 @@
             this.spinEdit_stalta_filter_min_frequency.Size = new System.Drawing.Size(100, 20);
             this.spinEdit_stalta_filter_min_frequency.TabIndex = 23;
             // 
-            // label_stalta_filter_max_frequency
+            // labelStaltaFilterMaxFrequencyInStaLtaFilterMenu
             // 
-            this.label_stalta_filter_max_frequency.AutoSize = true;
-            this.label_stalta_filter_max_frequency.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.label_stalta_filter_max_frequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_stalta_filter_max_frequency.Location = new System.Drawing.Point(670, 82);
-            this.label_stalta_filter_max_frequency.Name = "label_stalta_filter_max_frequency";
-            this.label_stalta_filter_max_frequency.Size = new System.Drawing.Size(76, 15);
-            this.label_stalta_filter_max_frequency.TabIndex = 25;
-            this.label_stalta_filter_max_frequency.Text = "long window";
+            this.labelStaltaFilterMaxFrequencyInStaLtaFilterMenu.AutoSize = true;
+            this.labelStaltaFilterMaxFrequencyInStaLtaFilterMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.labelStaltaFilterMaxFrequencyInStaLtaFilterMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelStaltaFilterMaxFrequencyInStaLtaFilterMenu.Location = new System.Drawing.Point(670, 82);
+            this.labelStaltaFilterMaxFrequencyInStaLtaFilterMenu.Name = "labelStaltaFilterMaxFrequencyInStaLtaFilterMenu";
+            this.labelStaltaFilterMaxFrequencyInStaLtaFilterMenu.Size = new System.Drawing.Size(76, 15);
+            this.labelStaltaFilterMaxFrequencyInStaLtaFilterMenu.TabIndex = 25;
+            this.labelStaltaFilterMaxFrequencyInStaLtaFilterMenu.Text = "long window";
             // 
             // spinEdit_stalta_filter_max_frequency
             // 
@@ -484,31 +484,31 @@
             this.spinEdit_stalta_filter_order.Size = new System.Drawing.Size(100, 20);
             this.spinEdit_stalta_filter_order.TabIndex = 27;
             // 
-            // label_stalta_filter_order
+            // labelStaltaFilterOrderInStaLtaFilterMenu
             // 
-            this.label_stalta_filter_order.AutoSize = true;
-            this.label_stalta_filter_order.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
-            this.label_stalta_filter_order.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_stalta_filter_order.Location = new System.Drawing.Point(670, 107);
-            this.label_stalta_filter_order.Name = "label_stalta_filter_order";
-            this.label_stalta_filter_order.Size = new System.Drawing.Size(36, 15);
-            this.label_stalta_filter_order.TabIndex = 28;
-            this.label_stalta_filter_order.Text = "order";
+            this.labelStaltaFilterOrderInStaLtaFilterMenu.AutoSize = true;
+            this.labelStaltaFilterOrderInStaLtaFilterMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(181)))), ((int)(((byte)(199)))));
+            this.labelStaltaFilterOrderInStaLtaFilterMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelStaltaFilterOrderInStaLtaFilterMenu.Location = new System.Drawing.Point(670, 107);
+            this.labelStaltaFilterOrderInStaLtaFilterMenu.Name = "labelStaltaFilterOrderInStaLtaFilterMenu";
+            this.labelStaltaFilterOrderInStaLtaFilterMenu.Size = new System.Drawing.Size(36, 15);
+            this.labelStaltaFilterOrderInStaLtaFilterMenu.TabIndex = 28;
+            this.labelStaltaFilterOrderInStaLtaFilterMenu.Text = "order";
             // 
-            // spinEdit_frequency
+            // spinEditSetFrequency
             // 
-            this.spinEdit_frequency.EditValue = new decimal(new int[] {
+            this.spinEditSetFrequency.EditValue = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.spinEdit_frequency.Location = new System.Drawing.Point(533, 87);
-            this.spinEdit_frequency.Name = "spinEdit_frequency";
-            this.spinEdit_frequency.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.spinEditSetFrequency.Location = new System.Drawing.Point(533, 87);
+            this.spinEditSetFrequency.Name = "spinEditSetFrequency";
+            this.spinEditSetFrequency.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.spinEdit_frequency.Size = new System.Drawing.Size(100, 20);
-            this.spinEdit_frequency.TabIndex = 29;
-            this.spinEdit_frequency.EditValueChanged += new System.EventHandler(this.spinEdit_frequency_EditValueChanged);
+            this.spinEditSetFrequency.Size = new System.Drawing.Size(100, 20);
+            this.spinEditSetFrequency.TabIndex = 29;
+            this.spinEditSetFrequency.EditValueChanged += new System.EventHandler(this.spinEdit_frequency_EditValueChanged);
             // 
             // chartControlSignals
             // 
@@ -607,29 +607,29 @@
             this.Controls.Add(this.buttonSaveLatency);
             this.Controls.Add(this.dataGridViewLatency);
             this.Controls.Add(this.chartControlSignals);
-            this.Controls.Add(this.spinEdit_frequency);
-            this.Controls.Add(this.label_stalta_filter_order);
+            this.Controls.Add(this.spinEditSetFrequency);
+            this.Controls.Add(this.labelStaltaFilterOrderInStaLtaFilterMenu);
             this.Controls.Add(this.spinEdit_stalta_filter_order);
             this.Controls.Add(this.spinEdit_stalta_filter_max_frequency);
-            this.Controls.Add(this.label_stalta_filter_max_frequency);
-            this.Controls.Add(this.label_stalta_filter_min_frequency);
+            this.Controls.Add(this.labelStaltaFilterMaxFrequencyInStaLtaFilterMenu);
+            this.Controls.Add(this.labelStaltaFilterMinFrequencyInStaLtaFilterMenu);
             this.Controls.Add(this.spinEdit_stalta_filter_min_frequency);
-            this.Controls.Add(this.label_stalta_filter);
+            this.Controls.Add(this.labelStaLtaFilterInStaltaFilterMenu);
             this.Controls.Add(this.pictureBox_stalta_filter);
-            this.Controls.Add(this.dateTimePicker_stop);
-            this.Controls.Add(this.dateTimePicker_start);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label_max_frequency);
-            this.Controls.Add(this.label_min_frequency);
+            this.Controls.Add(this.dateTimePickerStop);
+            this.Controls.Add(this.dateTimePickerStart);
+            this.Controls.Add(this.buttonDrawTraces);
+            this.Controls.Add(this.labelFurierMaxFrequencyInFurierFilter);
+            this.Controls.Add(this.labelFurierMinFrequencyInFurierFilter);
             this.Controls.Add(this.spinEdit_furier_max_frequency);
             this.Controls.Add(this.spinEdit_furier_min_frequency);
-            this.Controls.Add(this.label_furier_filter);
+            this.Controls.Add(this.labellabelFurierFilterInFurierFilter);
             this.Controls.Add(this.pictureBox_furier_filter);
-            this.Controls.Add(this.label_date);
-            this.Controls.Add(this.comboBox_component);
-            this.Controls.Add(this.label_component);
-            this.Controls.Add(this.label_date_stop);
-            this.Controls.Add(this.label_date_start);
+            this.Controls.Add(this.labelDateInDateMenu);
+            this.Controls.Add(this.comboBoxChooseComponent);
+            this.Controls.Add(this.labelComponentInDateMenu);
+            this.Controls.Add(this.labelDataStopInDateMenu);
+            this.Controls.Add(this.labelDataStartInDateMenu);
             this.Controls.Add(this.pictureBox_date);
             this.Controls.Add(this.label_artcode);
             this.Controls.Add(this.menuStrip1);
@@ -647,7 +647,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_min_frequency.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_max_frequency.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit_stalta_filter_order.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit_frequency.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEditSetFrequency.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControlSignals)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLatency)).EndInit();
             this.ResumeLayout(false);
@@ -674,29 +674,29 @@
         private System.Windows.Forms.ToolStripMenuItem connectionToolStripMenuItem;
         private System.Windows.Forms.Label label_artcode;
         private System.Windows.Forms.PictureBox pictureBox_date;
-        private System.Windows.Forms.Label label_date_start;
-        private System.Windows.Forms.Label label_date_stop;
-        private System.Windows.Forms.Label label_component;
-        private System.Windows.Forms.ComboBox comboBox_component;
-        private System.Windows.Forms.Label label_date;
+        private System.Windows.Forms.Label labelDataStartInDateMenu;
+        private System.Windows.Forms.Label labelDataStopInDateMenu;
+        private System.Windows.Forms.Label labelComponentInDateMenu;
+        private System.Windows.Forms.ComboBox comboBoxChooseComponent;
+        private System.Windows.Forms.Label labelDateInDateMenu;
         private System.Windows.Forms.PictureBox pictureBox_furier_filter;
-        private System.Windows.Forms.Label label_furier_filter;
+        private System.Windows.Forms.Label labellabelFurierFilterInFurierFilter;
         private DevExpress.XtraEditors.SpinEdit spinEdit_furier_min_frequency;
         private DevExpress.XtraEditors.SpinEdit spinEdit_furier_max_frequency;
-        private System.Windows.Forms.Label label_min_frequency;
-        private System.Windows.Forms.Label label_max_frequency;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker_start;
-        private System.Windows.Forms.DateTimePicker dateTimePicker_stop;
+        private System.Windows.Forms.Label labelFurierMinFrequencyInFurierFilter;
+        private System.Windows.Forms.Label labelFurierMaxFrequencyInFurierFilter;
+        private System.Windows.Forms.Button buttonDrawTraces;
+        private System.Windows.Forms.DateTimePicker dateTimePickerStart;
+        private System.Windows.Forms.DateTimePicker dateTimePickerStop;
         private System.Windows.Forms.PictureBox pictureBox_stalta_filter;
-        private System.Windows.Forms.Label label_stalta_filter;
-        private System.Windows.Forms.Label label_stalta_filter_min_frequency;
+        private System.Windows.Forms.Label labelStaLtaFilterInStaltaFilterMenu;
+        private System.Windows.Forms.Label labelStaltaFilterMinFrequencyInStaLtaFilterMenu;
         private DevExpress.XtraEditors.SpinEdit spinEdit_stalta_filter_min_frequency;
-        private System.Windows.Forms.Label label_stalta_filter_max_frequency;
+        private System.Windows.Forms.Label labelStaltaFilterMaxFrequencyInStaLtaFilterMenu;
         private DevExpress.XtraEditors.SpinEdit spinEdit_stalta_filter_max_frequency;
         private DevExpress.XtraEditors.SpinEdit spinEdit_stalta_filter_order;
-        private System.Windows.Forms.Label label_stalta_filter_order;
-        private DevExpress.XtraEditors.SpinEdit spinEdit_frequency;
+        private System.Windows.Forms.Label labelStaltaFilterOrderInStaLtaFilterMenu;
+        private DevExpress.XtraEditors.SpinEdit spinEditSetFrequency;
         private DevExpress.XtraCharts.ChartControl chartControlSignals;
         private System.Windows.Forms.DataGridView dataGridViewLatency;
         private System.Windows.Forms.DataGridViewTextBoxColumn number;

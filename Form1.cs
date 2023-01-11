@@ -20,14 +20,14 @@ namespace seisapp
         {
             InitializeComponent();
             label_artcode.Visible = true;
-            comboBox_component.Text = "Z";
-            dateTimePicker_start.CustomFormat = "dd.MM.yyyy HH:mm:ss";
-            dateTimePicker_stop.CustomFormat = "dd.MM.yyyy HH:mm:ss";
+            comboBoxChooseComponent.Text = "Z";
+            dateTimePickerStart.CustomFormat = "dd.MM.yyyy HH:mm:ss";
+            dateTimePickerStop.CustomFormat = "dd.MM.yyyy HH:mm:ss";
             spinEdit_stalta_filter_order.Properties.Mask.EditMask = "f0";   // only int
             spinEdit_stalta_filter_min_frequency.Properties.Mask.EditMask = "f0";   // only int
             spinEdit_stalta_filter_max_frequency.Properties.Mask.EditMask = "f0";   // only int
-            spinEdit_frequency.Properties.Mask.EditMask = "f0";   // only int
-            spinEdit_frequency.Value = 100;
+            spinEditSetFrequency.Properties.Mask.EditMask = "f0";   // only int
+            spinEditSetFrequency.Value = 100;
             this.chartControlSignals.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseMove);
             this.chartControlSignals.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseDown);
             chartControlSignals.SeriesTemplate.CrosshairLabelPattern = "{S}: {A:F0}";
@@ -151,16 +151,16 @@ namespace seisapp
                 label_artcode.Visible = false;
 
                 pictureBox_date.Visible = true;
-                label_date.Visible = true;
-                label_date_start.Visible = true;
-                label_date_stop.Visible = true;
-                label_component.Visible = true;
-                comboBox_component.Visible = true;
+                labelDateInDateMenu.Visible = true;
+                labelDataStartInDateMenu.Visible = true;
+                labelDataStopInDateMenu.Visible = true;
+                labelComponentInDateMenu.Visible = true;
+                comboBoxChooseComponent.Visible = true;
 
                 pictureBox_furier_filter.Visible = true;
-                label_furier_filter.Visible = true;
-                label_min_frequency.Visible = true;
-                label_max_frequency.Visible = true;
+                labellabelFurierFilterInFurierFilter.Visible = true;
+                labelFurierMinFrequencyInFurierFilter.Visible = true;
+                labelFurierMaxFrequencyInFurierFilter.Visible = true;
                 spinEdit_furier_min_frequency.Visible = true;
                 spinEdit_furier_max_frequency.Visible = true;
 
@@ -201,8 +201,8 @@ namespace seisapp
                     minimum_seismic_datetime_stop = DateTime.Now;
                 }
 
-                dateTimePicker_start.Value = maximum_seismic_datetime_start;
-                dateTimePicker_stop.Value = minimum_seismic_datetime_stop;
+                dateTimePickerStart.Value = maximum_seismic_datetime_start;
+                dateTimePickerStop.Value = minimum_seismic_datetime_stop;
 
 
                 if (Database.GetAmountRowsLatency() != 0 & dataGridViewLatency.RowCount == 0)
@@ -225,9 +225,9 @@ namespace seisapp
         private void button1_Click(object sender, EventArgs e)
         {
             Database.RefreshParameters(
-                Convert.ToString(dateTimePicker_start.Value),
-                Convert.ToString(dateTimePicker_stop.Value),
-                comboBox_component.Text,
+                Convert.ToString(dateTimePickerStart.Value),
+                Convert.ToString(dateTimePickerStop.Value),
+                comboBoxChooseComponent.Text,
                 Convert.ToDouble(spinEdit_furier_min_frequency.Value),
                 Convert.ToDouble(spinEdit_furier_max_frequency.Value),
                 Convert.ToDouble(spinEdit_stalta_filter_min_frequency.Value),
@@ -238,8 +238,8 @@ namespace seisapp
             double furierMinFrequency = Convert.ToDouble(spinEdit_furier_min_frequency.Text);
             double furierMaxFrequency = Convert.ToDouble(spinEdit_furier_max_frequency.Text);
 
-            DateTime start = dateTimePicker_start.Value;
-            DateTime stop = dateTimePicker_stop.Value;
+            DateTime start = dateTimePickerStart.Value;
+            DateTime stop = dateTimePickerStop.Value;
 
             string[] arrayOfPathToBinaryFiles = new string[Database.GetAmountRowsSeismicRecords()];
             string[,] seismicRecordsArray = new string[Database.GetAmountRowsSeismicRecords(), 6];
@@ -270,16 +270,16 @@ namespace seisapp
                 ((System.ComponentModel.ISupportInitialize)(complexOfGraph[i])).EndInit();
 
                 BinarySeismicFile binarySignal = new BinarySeismicFile(arrayOfPathToBinaryFiles[i]);
-                binarySignal.__ResampleFrequency = Convert.ToInt32(spinEdit_frequency.Value);
-                binarySignal.__ReadDatetimeStop = stop;
-                binarySignal.__ReadDatetimeStart = start;
+                binarySignal._ResampleFrequency = Convert.ToInt32(spinEditSetFrequency.Value);
+                binarySignal._ReadDatetimeStop = stop;
+                binarySignal._ReadDatetimeStart = start;                
 
-                string component = comboBox_component.Text;
+                string component = comboBoxChooseComponent.Text;
                 Int32[] signal = binarySignal.ReadSignal(component);
 
                 double[] filtered_signal = new double[signal.Length];
                 
-                filtered_signal = furierFilter(i, Convert.ToInt32(spinEdit_frequency.Value), signal);
+                filtered_signal = furierFilter(i, Convert.ToInt32(spinEditSetFrequency.Value), signal);
 
 
 
@@ -295,7 +295,7 @@ namespace seisapp
                 double min = 1999;
                 for (int z = 0; z < filtered_signal.Length; z++)
                 {
-                    double zToSeconds = Convert.ToDouble(z) / Convert.ToInt32(spinEdit_frequency.Value);
+                    double zToSeconds = Convert.ToDouble(z) / Convert.ToInt32(spinEditSetFrequency.Value);
                     double value = filtered_signal[z] * coefNorm - minimumOfSignal * coefNorm + 2 * i;
                     complexOfGraph[i].Points.AddPoint(zToSeconds, value);
                     if (max < value) { max = value; }
